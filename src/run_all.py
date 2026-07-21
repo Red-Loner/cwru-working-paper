@@ -28,14 +28,14 @@ def main():
     os.makedirs(os.path.join(RESULTS_DIR, "logs"), exist_ok=True)
 
     pipeline = [
-        ("src/train.py", "Full Factorial Training (2M x 2S x 10A x 3 seeds = 120 runs)"),
-        ("src/mechanism_validation/adjacent_autocorr.py", "M1: Adjacent-Window Autocorrelation"),
-        ("src/mechanism_validation/fault_band_energy.py", "M5: Fault-Frequency Energy Audit"),
-        ("src/mechanism_validation/feature_diversity.py", "M2: Feature Diversity Analysis"),
-        ("src/mechanism_validation/envelope_spectrum.py", "Envelope Spectrum Examples"),
-        ("src/contamination_test.py", "Robustness Contamination Test"),
-        ("src/analyze_results.py", "Gap-Recovery Analysis + Hypothesis Testing"),
-        ("src/plot_figures.py", "Generate All Paper Figures"),
+        ("train.py", "Full Factorial Training (2M x 2S x 10A x 3 seeds = 120 runs)"),
+        ("mechanism_validation/adjacent_autocorr.py", "M1: Adjacent-Window Autocorrelation"),
+        ("mechanism_validation/fault_band_energy.py", "M5: Fault-Frequency Energy Audit"),
+        ("mechanism_validation/feature_diversity.py", "M2: Feature Diversity Analysis"),
+        ("mechanism_validation/envelope_spectrum.py", "Envelope Spectrum Examples"),
+        ("contamination_test.py", "Robustness Contamination Test"),
+        ("analyze_results.py", "Gap-Recovery Analysis + Hypothesis Testing"),
+        ("plot_figures.py", "Generate All Paper Figures"),
     ]
 
     failed = []

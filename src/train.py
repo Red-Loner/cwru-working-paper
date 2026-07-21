@@ -1,5 +1,6 @@
 import os
 import json
+import tempfile
 import torch
 import torch.nn as nn
 import torch.optim as optim
@@ -24,7 +25,7 @@ def to_stft(x_batch, n_fft=128):
     hop_length = n_fft // 2
     freqs = n_fft // 2 + 1
     frames = (l - n_fft) // hop_length + 1
-    x_t = torch.tensor(x_batch, dtype=torch.float32)
+    x_t = torch.from_numpy(x_batch).float()
     window = torch.hann_window(n_fft)
     spec = torch.stft(
         x_t, n_fft=n_fft, hop_length=hop_length, win_length=n_fft,
@@ -128,14 +129,16 @@ def run_experiment(model_type, split_type, aug_type, seed):
     optimizer = optim.Adam(model.parameters(), lr=config.LEARNING_RATE)
 
     best_va_acc = 0
+    best_state = None
     for epoch in range(1, config.NUM_EPOCHS + 1):
         train_loss, train_acc = train_epoch(model, tr_loader, optimizer, criterion, device, model_type)
         va_result = evaluate(model, va_loader, device, model_type)
         if va_result["accuracy"] > best_va_acc:
             best_va_acc = va_result["accuracy"]
-            torch.save(model.state_dict(), f"best_{model_type}_{split_type}_{aug_type}_seed{seed}.pt")
+            best_state = {k: v.cpu().clone() for k, v in model.state_dict().items()}
 
-    model.load_state_dict(torch.load(f"best_{model_type}_{split_type}_{aug_type}_seed{seed}.pt", map_location=device))
+    if best_state is not None:
+        model.load_state_dict(best_state)
     te_result = evaluate(model, te_loader, device, model_type)
     return te_result
 
@@ -186,7 +189,13 @@ def main():
                 all_results.append(row)
                 print(f"  → Acc: {avg_acc:.4f} ± {std_acc:.4f}  F1: {avg_f1:.4f} ± {std_f1:.4f}")
 
-    with open(os.path.join(config.RESULTS_DIR, "tables", "main_results.json"), "w") as f:
+                partial_path = os.path.join(config.RESULTS_DIR, "tables", "main_results.json")
+                os.makedirs(os.path.dirname(partial_path), exist_ok=True)
+                with open(partial_path, "w") as f:
+                    json.dump(all_results, f, indent=2, ensure_ascii=False)
+
+    final_path = os.path.join(config.RESULTS_DIR, "tables", "main_results.json")
+    with open(final_path, "w") as f:
         json.dump(all_results, f, indent=2, ensure_ascii=False)
 
     print(f"\nResults saved to {config.RESULTS_DIR}/tables/main_results.json")
