@@ -1,0 +1,21 @@
+[
+  {
+    "model": "1d",
+    "split": "random",
+    "augmentation": "none",
+    "accuracy_mean": 0.9999,
+    "accuracy_std": 0.0002,
+    "macro_f1_mean": 0.9999,
+    "macro_f1_std": 0.0002,
+    "per_seed_accuracy": [
+      0.9996,
+      1.0,
+      1.0
+    ],
+    "per_seed_macro_f1": [
+      0.9996,
+      1.0,
+      1.0
+    ]
+  }
+]

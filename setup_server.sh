@@ -8,8 +8,8 @@ echo "=== 2. Install NVIDIA driver + CUDA ==="
 apt install -y nvidia-driver-535 nvidia-utils-535
 
 echo "=== 3. Install Python packages ==="
-pip3 install --upgrade pip
-pip3 install torch torchvision --index-url https://download.pytorch.org/whl/cu118
+pip3 install --upgrade pip -q
+pip3 install torch torchvision --index-url https://download.pytorch.org/whl/cu121
 pip3 install numpy scipy scikit-learn tqdm matplotlib
 
 echo "=== 4. Verify GPU ==="

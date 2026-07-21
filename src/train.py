@@ -25,7 +25,10 @@ def to_stft(x_batch, n_fft=128):
     hop_length = n_fft // 2
     freqs = n_fft // 2 + 1
     frames = (l - n_fft) // hop_length + 1
-    x_t = torch.from_numpy(x_batch).float()
+    if isinstance(x_batch, torch.Tensor):
+        x_t = x_batch.float()
+    else:
+        x_t = torch.from_numpy(x_batch).float()
     window = torch.hann_window(n_fft)
     spec = torch.stft(
         x_t, n_fft=n_fft, hop_length=hop_length, win_length=n_fft,
