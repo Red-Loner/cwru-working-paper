@@ -161,12 +161,17 @@ def plot_fault_band_energy(audit_summary, output_dir=None):
 
 
 def main():
+    import json
     records = load_and_segment(DATA_ROOT)
     print(f"Loaded {len(records)} recordings for energy audit")
     fault_records = [r for r in records if r["fault_type"] != "Normal"]
     print(f"  Fault recordings: {len(fault_records)}")
     summary = audit_all_augmentations(fault_records, n_samples=30)
     plot_fault_band_energy(summary)
+    output_dir = os.path.join(RESULTS_DIR, "tables")
+    os.makedirs(output_dir, exist_ok=True)
+    with open(os.path.join(output_dir, "energy_audit.json"), "w") as f:
+        json.dump(summary, f, indent=2, ensure_ascii=False)
     for aug in sorted(summary.keys(), key=lambda k: summary[k]["energy_retention_mean"], reverse=True):
         r = summary[aug]["energy_retention_mean"]
         status = "PHYSICALLY SAFE" if r >= 0.95 else ("DESTRUCTIVE" if r < 0.80 else "MARGINAL")
