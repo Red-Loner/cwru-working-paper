@@ -29,7 +29,7 @@ def to_stft(x_batch, n_fft=128):
         x_t = x_batch.float()
     else:
         x_t = torch.from_numpy(x_batch).float()
-    window = torch.hann_window(n_fft)
+    window = torch.hann_window(n_fft, device=x_t.device)
     spec = torch.stft(
         x_t, n_fft=n_fft, hop_length=hop_length, win_length=n_fft,
         window=window, return_complex=True, onesided=True
@@ -86,18 +86,24 @@ def evaluate(model, loader, device, model_type="1d"):
     cm = confusion_matrix(labels, preds).tolist()
     report = classification_report(labels, preds, target_names=list(LABEL_MAP.keys()),
                                    output_dict=True, zero_division=0)
+    per_class = {}
+    for k in LABEL_MAP:
+        if k in report:
+            per_class[k] = {
+                "precision": round(report[k]["precision"], 4),
+                "recall": round(report[k]["recall"], 4),
+                "f1": round(report[k]["f1-score"], 4),
+            }
     return {
         "accuracy": round(acc, 4),
         "macro_f1": round(mf1, 4),
         "loss": round(total_loss / len(labels), 4),
         "confusion_matrix": cm,
-        "per_class": {k: {"precision": round(v["precision"], 4),
-                          "recall": round(v["recall"], 4)}
-                      for k, v in report.items() if k in LABEL_MAP},
+        "per_class": per_class,
     }
 
 
-def run_experiment(model_type, split_type, aug_type, seed):
+def run_experiment(model_type, split_type, aug_type, seed, log_dir=None):
     device = torch.device(config.DEVICE if torch.cuda.is_available() else "cpu")
     windows, labels, rec_ids, records = build_datasets(random_seed=seed)
 
@@ -131,52 +137,125 @@ def run_experiment(model_type, split_type, aug_type, seed):
     criterion = nn.CrossEntropyLoss()
     optimizer = optim.Adam(model.parameters(), lr=config.LEARNING_RATE)
 
+    epoch_log = []
     best_va_acc = 0
     best_state = None
     for epoch in range(1, config.NUM_EPOCHS + 1):
         train_loss, train_acc = train_epoch(model, tr_loader, optimizer, criterion, device, model_type)
         va_result = evaluate(model, va_loader, device, model_type)
+        epoch_log.append([epoch, train_loss, train_acc, va_result["accuracy"], va_result["loss"]])
         if va_result["accuracy"] > best_va_acc:
             best_va_acc = va_result["accuracy"]
             best_state = {k: v.cpu().clone() for k, v in model.state_dict().items()}
 
+    if log_dir:
+        log_path = os.path.join(log_dir, f"{model_type}_{split_type}_{aug_type}_s{seed}.csv")
+        with open(log_path, "w") as f:
+            f.write("epoch,train_loss,train_acc,val_acc,val_loss\n")
+            for row in epoch_log:
+                f.write(",".join(str(x) for x in row) + "\n")
+
     if best_state is not None:
         model.load_state_dict(best_state)
     te_result = evaluate(model, te_loader, device, model_type)
+    te_result["best_val_acc"] = round(best_va_acc, 4)
+    te_result["final_epoch"] = config.NUM_EPOCHS
     return te_result
+
+
+def load_existing_results(results_dir):
+    path = os.path.join(results_dir, "tables", "main_results.json")
+    if not os.path.exists(path):
+        return {}
+    with open(path, "r") as f:
+        rows = json.load(f)
+    existing = {}
+    for row in rows:
+        key = (row["model"], row["split"], row["augmentation"])
+        existing[key] = row
+    return existing
 
 
 def main():
     os.makedirs(config.RESULTS_DIR, exist_ok=True)
     os.makedirs(os.path.join(config.RESULTS_DIR, "tables"), exist_ok=True)
     os.makedirs(os.path.join(config.RESULTS_DIR, "logs"), exist_ok=True)
+    epoch_log_dir = os.path.join(config.RESULTS_DIR, "logs", "epoch_logs")
+    os.makedirs(epoch_log_dir, exist_ok=True)
+
+    existing = load_existing_results(config.RESULTS_DIR)
 
     models = ["1d", "2d"]
     splits = ["random", "recording"]
     augs = AUGMENTATION_CONDITIONS
 
     all_results = []
+    total_new = 0
+    total_skip = 0
 
     for model_type in models:
         for split_type in splits:
             for aug_type in augs:
-                seed_results = []
+                key = (model_type, split_type, aug_type)
+                old_entry = existing.get(key, None)
+                old_seed_results = {}
+                if old_entry and "per_seed_accuracy" in old_entry:
+                    if "per_seed_ids" in old_entry and len(old_entry["per_seed_ids"]) == len(old_entry["per_seed_accuracy"]):
+                        seed_ids = old_entry["per_seed_ids"]
+                    else:
+                        seed_ids = [42, 123, 456]
+                    old_seed_results = {s: {"accuracy": old_entry["per_seed_accuracy"][i],
+                                            "macro_f1": old_entry["per_seed_macro_f1"][i]}
+                                        for i, s in enumerate(seed_ids)}
+
+                new_runs = []
                 for seed in config.RANDOM_SEEDS:
-                    print(f"[{model_type} | {split_type} | {aug_type} | seed={seed}]")
+                    if seed in old_seed_results:
+                        print(f"[{model_type} | {split_type} | {aug_type} | seed={seed}] SKIPPED (cached)")
+                        total_skip += 1
+                        new_runs.append(old_seed_results[seed])
+                        continue
+
+                    print(f"[{model_type} | {split_type} | {aug_type} | seed={seed}] RUNNING")
+                    total_new += 1
                     try:
-                        result = run_experiment(model_type, split_type, aug_type, seed)
-                        seed_results.append(result)
+                        result = run_experiment(model_type, split_type, aug_type, seed, log_dir=epoch_log_dir)
+                        new_runs.append(result)
                     except Exception as e:
                         print(f"  ERROR: {e}")
-                        seed_results.append(None)
+                        new_runs.append(None)
 
-                valid = [r for r in seed_results if r is not None]
+                valid = [r for r in new_runs if r is not None]
                 if not valid:
+                    row = old_entry if old_entry else None
+                    if row:
+                        all_results.append(row)
                     continue
+
                 avg_acc = np.mean([r["accuracy"] for r in valid])
                 std_acc = np.std([r["accuracy"] for r in valid])
                 avg_f1 = np.mean([r["macro_f1"] for r in valid])
                 std_f1 = np.std([r["macro_f1"] for r in valid])
+
+                per_class_agg = {}
+                for cls_name in LABEL_MAP:
+                    c_precisions = []
+                    c_recalls = []
+                    c_f1s = []
+                    for r in valid:
+                        if cls_name in r.get("per_class", {}):
+                            c_precisions.append(r["per_class"][cls_name]["precision"])
+                            c_recalls.append(r["per_class"][cls_name]["recall"])
+                            c_f1s.append(r["per_class"][cls_name]["f1"])
+                    if c_precisions:
+                        per_class_agg[cls_name] = {
+                            "precision_mean": round(float(np.mean(c_precisions)), 4),
+                            "precision_std": round(float(np.std(c_precisions)), 4),
+                            "recall_mean": round(float(np.mean(c_recalls)), 4),
+                            "recall_std": round(float(np.std(c_recalls)), 4),
+                            "f1_mean": round(float(np.mean(c_f1s)), 4),
+                            "f1_std": round(float(np.std(c_f1s)), 4),
+                        }
 
                 row = {
                     "model": model_type,
@@ -188,12 +267,14 @@ def main():
                     "macro_f1_std": round(float(std_f1), 4),
                     "per_seed_accuracy": [r["accuracy"] for r in valid],
                     "per_seed_macro_f1": [r["macro_f1"] for r in valid],
+                    "per_seed_ids": [s for s in config.RANDOM_SEEDS
+                                     if new_runs[config.RANDOM_SEEDS.index(s)] is not None],
+                    "per_class": per_class_agg,
                 }
                 all_results.append(row)
                 print(f"  → Acc: {avg_acc:.4f} ± {std_acc:.4f}  F1: {avg_f1:.4f} ± {std_f1:.4f}")
 
                 partial_path = os.path.join(config.RESULTS_DIR, "tables", "main_results.json")
-                os.makedirs(os.path.dirname(partial_path), exist_ok=True)
                 with open(partial_path, "w") as f:
                     json.dump(all_results, f, indent=2, ensure_ascii=False)
 
@@ -203,6 +284,8 @@ def main():
 
     print(f"\nResults saved to {config.RESULTS_DIR}/tables/main_results.json")
     print(f"Total combinations: {len(all_results)}")
+    print(f"New runs: {total_new}, Cached: {total_skip}")
+    print(f"Seeds per combo: {len(config.RANDOM_SEEDS)}")
 
 
 if __name__ == "__main__":

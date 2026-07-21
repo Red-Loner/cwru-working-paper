@@ -6,6 +6,7 @@ from torch.utils.data import DataLoader, TensorDataset
 from sklearn.metrics import accuracy_score
 from preprocess import build_datasets, recording_level_split, random_split, normalize_dataset
 from augmentation import apply_augmentation, AUGMENTATION_CONDITIONS
+from train import to_stft
 from models.cnn1d import CNN1D
 from models.cnn2d import CNN2D
 from config import (
@@ -35,10 +36,15 @@ def quick_train(model, train_loader, device, epochs=20):
 
 
 @torch.no_grad()
-def test_acc(model, test_x, test_y, device):
+def test_acc(model, test_x, test_y, device, model_type="1d"):
     model.eval()
-    ds = TensorDataset(torch.tensor(test_x, dtype=torch.float32).unsqueeze(1),
-                       torch.tensor(test_y, dtype=torch.long))
+    if model_type == "2d":
+        x_t = torch.tensor(test_x, dtype=torch.float32)
+        x_t = to_stft(x_t)
+        ds = TensorDataset(x_t, torch.tensor(test_y, dtype=torch.long))
+    else:
+        ds = TensorDataset(torch.tensor(test_x, dtype=torch.float32).unsqueeze(1),
+                           torch.tensor(test_y, dtype=torch.long))
     loader = DataLoader(ds, batch_size=BATCH_SIZE)
     preds, labels = [], []
     for x, y in loader:
@@ -68,8 +74,11 @@ def run_contamination_test(model_type="2d", split_type="recording", seed=42):
         else:
             tr_aug = tr_x_norm
 
-        tr_ds = TensorDataset(torch.tensor(tr_aug, dtype=torch.float32).unsqueeze(1),
-                              torch.tensor(tr_y, dtype=torch.long))
+        if model_type == "2d":
+            tr_tensor = to_stft(torch.tensor(tr_aug, dtype=torch.float32))
+        else:
+            tr_tensor = torch.tensor(tr_aug, dtype=torch.float32).unsqueeze(1)
+        tr_ds = TensorDataset(tr_tensor, torch.tensor(tr_y, dtype=torch.long))
         tr_loader = DataLoader(tr_ds, batch_size=BATCH_SIZE, shuffle=True)
 
         model = CNN1D() if model_type == "1d" else CNN2D()
@@ -81,7 +90,7 @@ def run_contamination_test(model_type="2d", split_type="recording", seed=42):
             te_noisy = te_x_norm.copy()
             if sigma > 0:
                 te_noisy = add_noise(te_noisy, sigma)
-            acc = test_acc(model, te_noisy, te_y, device)
+            acc = test_acc(model, te_noisy, te_y, device, model_type)
             noise_accs.append({"noise_sigma": sigma, "accuracy": round(float(acc), 4)})
         results[aug_type] = noise_accs
         print(f"  {aug_type}: clean_acc={noise_accs[0]['accuracy']:.4f}, "

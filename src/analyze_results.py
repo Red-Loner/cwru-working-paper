@@ -5,6 +5,14 @@ from scipy.stats import spearmanr
 from config import RESULTS_DIR
 
 
+def cohens_d(x, y):
+    nx, ny = len(x), len(y)
+    dof = nx + ny - 2
+    pooled_std = np.sqrt(((nx - 1) * np.var(x, ddof=1) + (ny - 1) * np.var(y, ddof=1)) / dof)
+    pooled_std = max(pooled_std, 1e-8)
+    return (np.mean(x) - np.mean(y)) / pooled_std
+
+
 def compute_gap_recovery(results):
     splits = {}
     for row in results:
@@ -21,6 +29,7 @@ def compute_gap_recovery(results):
         gap = acc_random - acc_recording
         noaug_key = (model, "none")
         noaug_gap = None
+        noaug_recording = 0
         if noaug_key in splits:
             noaug_random = splits[noaug_key].get("random", 0)
             noaug_recording = splits[noaug_key].get("recording", 0)
@@ -29,6 +38,20 @@ def compute_gap_recovery(results):
             delta_recovery = (acc_recording - noaug_recording) / noaug_gap
         else:
             delta_recovery = 0.0
+
+        random_seeds = []
+        recording_seeds = []
+        for r in results:
+            if r["model"] == model and r["augmentation"] == aug:
+                if r["split"] == "random":
+                    random_seeds = r.get("per_seed_accuracy", [])
+                elif r["split"] == "recording":
+                    recording_seeds = r.get("per_seed_accuracy", [])
+
+        effect_size = None
+        if len(random_seeds) >= 5 and len(recording_seeds) >= 5:
+            effect_size = round(cohens_d(random_seeds, recording_seeds), 4)
+
         rows.append({
             "model": model,
             "augmentation": aug,
@@ -36,6 +59,7 @@ def compute_gap_recovery(results):
             "acc_recording": round(acc_recording, 4),
             "leakage_gap": round(gap, 4),
             "delta_recovery": round(delta_recovery, 4),
+            "cohens_d": effect_size,
         })
     return rows
 
@@ -63,7 +87,7 @@ def compute_h4_correlation(gap_recovery_rows, energy_audit):
         "delta_recovery": deltas,
         "spearman_rho": round(float(rho), 4) if not np.isnan(rho) else None,
         "p_value": round(float(p_value), 4) if not np.isnan(p_value) else None,
-        "h4_supported": rho > 0.5 if not np.isnan(rho) else None,
+        "h4_supported": bool(rho > 0.5 and p_value < 0.05) if not bool(np.isnan(rho)) else None,
     }
 
 
@@ -80,21 +104,14 @@ def compute_falsification(results):
         return {"error": "Missing baseline results"}
     gap = noaug_random_acc - noaug_recording_acc
     falsification = {}
-    for row in results:
-        if row["model"] != "2d":
-            continue
-        aug = row["augmentation"]
-        if aug == "none":
-            continue
-        acc_recording = row["accuracy_mean"] if row["split"] == "recording" else 0
-    recording_by_aug = {}
-    for row in results:
-        if row["model"] == "2d" and row["split"] == "recording":
-            recording_by_aug[row["augmentation"]] = row["accuracy_mean"]
     if gap < 0.02:
         falsification["H2_null"] = "gap too small — leakage effect negligible"
     else:
         falsification["H2_null"] = f"leakage gap = {gap:.4f} — test H1/H2"
+    recording_by_aug = {}
+    for row in results:
+        if row["model"] == "2d" and row["split"] == "recording":
+            recording_by_aug[row["augmentation"]] = row["accuracy_mean"]
     recovery_values = []
     for aug, acc in recording_by_aug.items():
         if aug == "none":
@@ -114,26 +131,59 @@ def compute_falsification(results):
     else:
         falsification["H1"] = "UNKNOWN"
         falsification["H2"] = "UNKNOWN"
+
+    falsification["effect_sizes"] = {}
+    for model in ["1d", "2d"]:
+        random_seeds = []
+        recording_seeds = []
+        for row in results:
+            if row["model"] == model and row["augmentation"] == "none":
+                if row["split"] == "random":
+                    random_seeds = row.get("per_seed_accuracy", [])
+                elif row["split"] == "recording":
+                    recording_seeds = row.get("per_seed_accuracy", [])
+        if len(random_seeds) >= 3 and len(recording_seeds) >= 3:
+            falsification["effect_sizes"][model] = {
+                "cohens_d_random_vs_recording": round(cohens_d(random_seeds, recording_seeds), 4),
+                "random_seeds": random_seeds,
+                "recording_seeds": recording_seeds,
+            }
     return falsification
+
+
+def compute_per_class_analysis(results):
+    per_class_rows = []
+    for row in results:
+        if "per_class" in row and row["per_class"]:
+            for cls_name, metrics in row["per_class"].items():
+                per_class_rows.append({
+                    "model": row["model"],
+                    "split": row["split"],
+                    "augmentation": row["augmentation"],
+                    "class": cls_name,
+                    **metrics,
+                })
+    return per_class_rows
 
 
 def main():
     results_path = os.path.join(RESULTS_DIR, "tables", "main_results.json")
     if not os.path.exists(results_path):
         print(f"Results file not found: {results_path}")
-        print("Run src/train.py first, then re-run this script.")
         return
     with open(results_path, "r") as f:
         results = json.load(f)
+
     recovery = compute_gap_recovery(results)
     output_path = os.path.join(RESULTS_DIR, "tables", "gap_recovery.json")
     with open(output_path, "w") as f:
         json.dump(recovery, f, indent=2, ensure_ascii=False)
     print(f"Gap-recovery table saved to {output_path}")
     for r in recovery:
+        es = f" d={r['cohens_d']}" if r['cohens_d'] is not None else ""
         print(f"  [{r['model']}] {r['augmentation']:15s}  "
               f"random={r['acc_random']:.4f}  recording={r['acc_recording']:.4f}  "
-              f"gap={r['leakage_gap']:.4f}  Δ_recovery={r['delta_recovery']:.4f}")
+              f"gap={r['leakage_gap']:.4f}  Δ={r['delta_recovery']:.4f}{es}")
 
     falsification = compute_falsification(results)
     fp_path = os.path.join(RESULTS_DIR, "tables", "falsification.json")
@@ -142,6 +192,12 @@ def main():
     print(f"Falsification analysis saved to {fp_path}")
     for k, v in falsification.items():
         print(f"  {k}: {v}")
+
+    per_class = compute_per_class_analysis(results)
+    pc_path = os.path.join(RESULTS_DIR, "tables", "per_class_analysis.json")
+    with open(pc_path, "w") as f:
+        json.dump(per_class, f, indent=2, ensure_ascii=False)
+    print(f"Per-class analysis saved to {pc_path} ({len(per_class)} rows)")
 
     energy_path = os.path.join(RESULTS_DIR, "tables", "energy_audit.json")
     if os.path.exists(energy_path):

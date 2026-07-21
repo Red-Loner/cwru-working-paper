@@ -10,6 +10,7 @@ from preprocess import build_datasets, recording_level_split, normalize_dataset
 from augmentation import apply_augmentation, AUGMENTATION_CONDITIONS
 from models.cnn1d import CNN1D
 from models.cnn2d import CNN2D
+from train import to_stft
 from config import DATA_ROOT, RANDOM_SEEDS, TRAIN_RATIO, VAL_RATIO, RESULTS_DIR, DEVICE
 
 
@@ -39,7 +40,8 @@ def feature_diversity(x_orig, x_aug, model_type="1d", seed=42):
         model.bn4(model.conv4(
             model.pool3(model.bn3(model.conv3(
                 model.pool2(model.bn2(model.conv2(
-                    model.pool1(model.bn1(model.conv1(x.unsqueeze(1) if x.dim() == 2 else x)))))))))))).view(x.size(0), -1))
+                    model.pool1(model.bn1(model.conv1(
+                        x.unsqueeze(1) if x.dim() == 3 else x)))))))))))).view(x.size(0), -1))
     model = model.to(device)
 
     n_samples = min(200, len(tr_norm))
@@ -47,8 +49,15 @@ def feature_diversity(x_orig, x_aug, model_type="1d", seed=42):
     tr_sub = tr_norm[indices]
     tr_aug_sub = tr_aug[indices]
 
-    ds_orig = TensorDataset(torch.tensor(tr_sub, dtype=torch.float32), torch.zeros(n_samples, dtype=torch.long))
-    ds_aug = TensorDataset(torch.tensor(tr_aug_sub, dtype=torch.float32), torch.zeros(n_samples, dtype=torch.long))
+    if model_type == "2d":
+        tr_sub_t = to_stft(torch.tensor(tr_sub, dtype=torch.float32))
+        tr_aug_sub_t = to_stft(torch.tensor(tr_aug_sub, dtype=torch.float32))
+    else:
+        tr_sub_t = torch.tensor(tr_sub, dtype=torch.float32)
+        tr_aug_sub_t = torch.tensor(tr_aug_sub, dtype=torch.float32)
+
+    ds_orig = TensorDataset(tr_sub_t, torch.zeros(n_samples, dtype=torch.long))
+    ds_aug = TensorDataset(tr_aug_sub_t, torch.zeros(n_samples, dtype=torch.long))
     loader_orig = DataLoader(ds_orig, batch_size=32)
     loader_aug = DataLoader(ds_aug, batch_size=32)
 
