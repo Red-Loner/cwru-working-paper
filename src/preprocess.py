@@ -9,9 +9,9 @@ LABEL_MAP = {"Normal": 0, "IR": 1, "OR": 2, "B": 3}
 def load_one_file(filepath):
     mat = scipy.io.loadmat(filepath)
     for key in mat:
-        if key.startswith("DE"):
+        if "DE_time" in key:
             return mat[key].flatten()
-    raise KeyError(f"No DE variable found in {filepath}")
+    raise KeyError(f"No DE_time variable found in {filepath}")
 
 def parse_filename(filename):
     base = os.path.basename(filename).replace(".mat", "")
@@ -20,12 +20,17 @@ def parse_filename(filename):
         fault_type = "Normal"
         diameter = "None"
     else:
-        fault_type = parts[0][:2] if parts[0].startswith("IR") or parts[0].startswith("OR") else parts[0][0]
-        fault_type = "Normal" if fault_type == "Norm" else fault_type
-        for p in parts[0]:
-            if p.isdigit():
-                diameter = parts[0][parts[0].index(p):]
+        fault_type = parts[0][:2] if (parts[0].startswith("IR") or parts[0].startswith("OR")) else parts[0][0]
+        diameter_part = parts[0]
+        if "@" in diameter_part:
+            diameter_part = diameter_part.split("@")[0]
+        digits_start = None
+        for i, ch in enumerate(diameter_part):
+            if ch.isdigit():
+                digits_start = i
                 break
+        if digits_start is not None:
+            diameter = diameter_part[digits_start:]
         else:
             diameter = "None"
     load_str = [p for p in parts if "HP" in p][0]
@@ -77,7 +82,11 @@ def build_datasets(random_seed=42, fault_diameters=None):
     window_recording_ids = []
 
     for rec in records:
-        signal = load_one_file(rec["path"])
+        try:
+            signal = load_one_file(rec["path"])
+        except Exception as e:
+            print(f"  [WARN] Skipping {rec['recording_id']}: {e}")
+            continue
         windows = sliding_windows(signal, WINDOW_LENGTH, OVERLAP_RANDOM)
         all_windows.append(windows)
         window_labels.extend([LABEL_MAP[rec["fault_type"]]] * len(windows))
