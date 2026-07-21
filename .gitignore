@@ -1,0 +1,34 @@
+# Local configuration (do not commit)
+src/config.py
+
+# Python
+__pycache__/
+*.py[cod]
+*.so
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Virtual environments
+venv/
+.env
+.venv
+
+# Notebooks
+.ipynb_checkpoints/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Results (generated)
+results/logs/training_logs/*.log
+results/tables/*.csv
+
+# Large data (do not commit raw data)
+data_manifest/raw/

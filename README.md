@@ -19,5 +19,24 @@ cwru-working-paper/
   reviews/           # 模拟审稿与修回
   ars/               # ARS 全流程产物
   claim_evidence_table.md   # 结论-证据对照表
-  AI_use_disclosure.md      # AI 使用声明
+## Setup
+
+1. Install dependencies:
+   ```bash
+   pip install -r environment/requirements.txt
+   ```
+
+2. Configure data path:
+   ```bash
+   cp src/config.example.py src/config.py
+   # Edit src/config.py → set DATA_ROOT to your CWRU data directory
+   ```
+
+3. Run the full experiment:
+   ```bash
+   python src/train.py
+   ```
+
+## CI
+
 ```
