@@ -156,3 +156,84 @@ def normalize_dataset(train_x, val_x, test_x):
     if std == 0:
         std = 1.0
     return (train_x - mean) / std, (val_x - mean) / std, (test_x - mean) / std
+
+
+def load_based_split(all_windows, window_labels, window_recording_ids, records,
+                     train_r=0.6, val_r=0.2, seed=42):
+    rng = np.random.RandomState(seed)
+    load_of_recording = {}
+    label_of_recording = {}
+    for rec in records:
+        load_of_recording[rec["recording_id"]] = rec["load"]
+        label_of_recording[rec["recording_id"]] = LABEL_MAP[rec["fault_type"]]
+
+    unique_loads = sorted(set(load_of_recording.values()))
+    rng.shuffle(unique_loads)
+    n = len(unique_loads)
+    train_end = max(1, int(n * train_r))
+    val_end = max(1, int(n * (train_r + val_r)))
+    train_loads = set(unique_loads[:train_end])
+    val_loads = set(unique_loads[train_end:val_end])
+    test_loads = set(unique_loads[val_end:])
+
+    train_ids = [rid for rid, ld in load_of_recording.items() if ld in train_loads]
+    val_ids = [rid for rid, ld in load_of_recording.items() if ld in val_loads]
+    test_ids = [rid for rid, ld in load_of_recording.items() if ld in test_loads]
+
+    train_mask = np.isin(window_recording_ids, train_ids)
+    val_mask = np.isin(window_recording_ids, val_ids)
+    test_mask = np.isin(window_recording_ids, test_ids)
+
+    return (
+        (all_windows[train_mask], window_labels[train_mask]),
+        (all_windows[val_mask], window_labels[val_mask]),
+        (all_windows[test_mask], window_labels[test_mask]),
+    )
+
+
+def fault_size_based_split(all_windows, window_labels, window_recording_ids, records,
+                           train_r=0.6, val_r=0.2, seed=42):
+    rng = np.random.RandomState(seed)
+    diam_of_recording = {}
+    for rec in records:
+        diam_of_recording[rec["recording_id"]] = rec["diameter"]
+
+    normal_ids = [rid for rid, d in diam_of_recording.items() if d == "None"]
+    fault_ids = [rid for rid, d in diam_of_recording.items() if d != "None"]
+
+    rng.shuffle(normal_ids)
+    n_norm = len(normal_ids)
+    norm_train_end = max(1, int(n_norm * train_r))
+    norm_val_end = max(1, int(n_norm * (train_r + val_r)))
+
+    unique_diams = sorted(set(d for d in diam_of_recording.values() if d != "None"))
+    rng.shuffle(unique_diams)
+    n = len(unique_diams)
+    train_end = max(1, int(n * train_r))
+    val_end = max(1, int(n * (train_r + val_r)))
+    train_diams = set(unique_diams[:train_end])
+    val_diams = set(unique_diams[train_end:val_end])
+    test_diams = set(unique_diams[val_end:])
+
+    train_ids = normal_ids[:norm_train_end]
+    val_ids = normal_ids[norm_train_end:norm_val_end]
+    test_ids = normal_ids[norm_val_end:]
+
+    for rid in fault_ids:
+        d = diam_of_recording[rid]
+        if d in train_diams:
+            train_ids.append(rid)
+        elif d in val_diams:
+            val_ids.append(rid)
+        else:
+            test_ids.append(rid)
+
+    train_mask = np.isin(window_recording_ids, train_ids)
+    val_mask = np.isin(window_recording_ids, val_ids)
+    test_mask = np.isin(window_recording_ids, test_ids)
+
+    return (
+        (all_windows[train_mask], window_labels[train_mask]),
+        (all_windows[val_mask], window_labels[val_mask]),
+        (all_windows[test_mask], window_labels[test_mask]),
+    )
