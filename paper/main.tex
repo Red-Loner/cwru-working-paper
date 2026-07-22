@@ -138,15 +138,43 @@ Following the evidence hierarchy outlined in the course manual, we conduct three
 % [M1邻窗自相关]：这里的表述比较谨慎（specific correlations exist而非high correlation），因为实际数值并不高。诚实报告比夸大效果更好。
 We compute the Pearson correlation between window $i$ and window $i+\text{offset}$ from the same recording, for offsets 1--10. The results (Figure~\ref{fig:m1}) confirm that specific recording- and class-dependent correlations exist, providing the mechanistic basis for leakage concern: classifiers can exploit even weak but consistent temporal signatures.
 
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{../results/figures/m1_adjacent_autocorrelation.png}
+\caption{M1: Adjacent-window autocorrelation by fault class.}
+\label{fig:m1}
+\end{figure}
+
 \subsection{Fault-Band Energy Audit (M5)}
 
 % [M5故障频带能量审计]：所有增强通过安全检验的事实很重要——它说明H3的零结果不是因为增强破坏了物理特征。要区分"通过安全检查"与"有助于分类"。
 For each augmentation, we compute the energy retention ratio $R_{\text{energy}} = E_{\text{augmented}}(\text{fault\_band}) / E_{\text{original}}(\text{fault\_band})$ in the spectral neighborhood of theoretical bearing fault frequencies (BPFO, BPFI, BSF). All nine augmentations yield $R_{\text{energy}} \geq 1.0$ (Figure~\ref{fig:m5}), indicating no augmentation catastrophically destroys fault-frequency content.
 
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{../results/figures/m5_fault_band_energy.png}
+\caption{M5: Fault-band energy retention audit ($R_{\text{energy}}$).}
+\label{fig:m5}
+\end{figure}
+
 \subsection{Feature Diversity Analysis (M2)}
 
 % [M2特征多样性]：M2的主要结论是所有增强都增加多样性，这为H3的零发现提供了一个解释——增强通过增加多样性而非保留物理特征来帮助（或不帮助）分类。
 We extract penultimate-layer features from a 2D-CNN for original and augmented versions of 200 training samples, computing pairwise cosine distances and SVD effective rank ratios (Figure~\ref{fig:m2}). All augmentations increase feature diversity beyond the no-augmentation baseline.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.7\textwidth]{../results/figures/m2_feature_diversity.png}
+\caption{M2: Feature diversity analysis (cosine distance).}
+\label{fig:m2}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{../results/figures/envelope_spectra_examples.png}
+\caption{Envelope spectrum examples for each fault class.}
+\label{fig:env}
+\end{figure}
 
 % ================================================================
 \section{Experimental Setup}
@@ -162,6 +190,13 @@ We extract penultimate-layer features from a 2D-CNN for original and augmented v
     \item \textbf{Convergence}: Mean epoch = 15.2 (median = 9, max = 48). 93.3\% of runs converge by epoch 45 (Figure~\ref{fig:convergence}).
 \end{itemize}
 
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{../results/figures/convergence_curves.png}
+\caption{Convergence curves for all 200 training runs across four configurations.}
+\label{fig:convergence}
+\end{figure}
+
 % ================================================================
 \section{Results}
 \label{sec:results}
@@ -171,6 +206,14 @@ We extract penultimate-layer features from a 2D-CNN for original and augmented v
 
 % [Table 1解读]：写论文最怕的就是表格数据没人读，所以一定要在正文里解读关键数字。这里挑出gap和d值，引导审稿人关注最重要的发现。
 Table~\ref{tab:main} reports test accuracy for all 40 combinations. Under random splitting, both models achieve near-ceiling accuracy (0.999--1.000). Under recording-level splitting, accuracy drops substantially. The no-augmentation baseline records a leakage gap of 0.0537 (1D, Cohen's $d=1.35$) and 0.1017 (2D, Cohen's $d=1.45$)---both large effect sizes (Figure~\ref{fig:cohens}).
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.48\textwidth]{../results/figures/cohens_d_1d.png}
+\includegraphics[width=0.48\textwidth]{../results/figures/cohens_d_2d.png}
+\caption{Cohen's $d$ effect sizes. Left: 1D-CNN. Right: 2D-CNN.}
+\label{fig:cohens}
+\end{figure}
 
 \begin{table}[H]
 \centering
@@ -196,6 +239,20 @@ FreqFlip (neg.) & $0.9996 \pm 0.000$ & $0.9286 \pm 0.055$ & $0.9920 \pm 0.002$ &
 
 % [2D-CNN的负面结果]：这个发现很重要且反直觉——大多数增强居然有害。明确列出哪些增强有用、哪些有害，不可含糊其辞。
 For 2D-CNN under recording-level split, 6 of 9 augmentation conditions perform \emph{worse} than no augmentation. Only noise\_01 ($0.9020$), shift\_5 ($0.9041$), and specaugment ($0.9033$) surpass the $0.8979$ baseline. Figures~\ref{fig:rvr1d}--\ref{fig:rvr2d} visualize the random-vs-recording contrast.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{../results/figures/random_vs_recording_1d.png}
+\caption{Random vs.\ recording-level split accuracy (1D-CNN).}
+\label{fig:rvr1d}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{../results/figures/random_vs_recording_2d.png}
+\caption{Random vs.\ recording-level split accuracy (2D-CNN).}
+\label{fig:rvr2d}
+\end{figure}
 
 \subsection{Per-Class Analysis}
 
@@ -224,6 +281,14 @@ FreqFlip      & $0.910 \pm 0.170$ & $0.771 \pm 0.189$ & $0.876 \pm 0.134$ & $0.8
 \end{table}
 
 Per-class heatmaps for both models are provided in Figure~\ref{fig:pc}.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.48\textwidth]{../results/figures/per_class_1d_recording.png}
+\includegraphics[width=0.48\textwidth]{../results/figures/per_class_2d_recording.png}
+\caption{Per-class F1 heatmaps. Left: 1D-CNN. Right: 2D-CNN.}
+\label{fig:pc}
+\end{figure}
 
 \subsection{Gap-Recovery Analysis}
 
@@ -254,6 +319,20 @@ FreqFlip      & 0.0713 & $-$0.328 & 1.29 & 0.1450 & $-$0.426 & 1.66 \\
 
 Figures~\ref{fig:gap1d}--\ref{fig:gap2d} visualize the gap-recovery landscape.
 
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{../results/figures/gap_recovery_1d.png}
+\caption{Gap-recovery ratio by augmentation (1D-CNN).}
+\label{fig:gap1d}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{../results/figures/gap_recovery_2d.png}
+\caption{Gap-recovery ratio by augmentation (2D-CNN).}
+\label{fig:gap2d}
+\end{figure}
+
 \subsection{Grouping-Variable Ablation}
 
 % [消融解读]：fault\_size >> recording > load的结论是本文最强发现之一。cross-severity generalization这个术语是领域通用语，使用它能增加论文的专业性。
@@ -280,6 +359,13 @@ This reveals the generalization difficulty ordering: \textbf{fault\_size $\gg$ r
 
 % [H3被证伪]：诚实报告null result需要框架——这里将negative Spearman解释为noise-as-regularizer假说，把不显著的发现转化为建设性讨论。
 The H3 hypothesis is not supported. Spearman correlation between $R_{\text{energy}}$ and $\Delta_{\text{rec}}$ is $\rho = -0.37$ ($p = 0.33$), a non-significant negative trend (Figure~\ref{fig:h3}). We note that $R_{\text{energy}}$ conflates physical fidelity with noise injection level: broadband Gaussian noise increases energy in all frequency bands (including fault bands), yielding $R_{\text{energy}}\geq1.0$ for all augmentation conditions. This limits the metric's ability to isolate physical feature preservation from simple broadband energy injection. The negative coefficient suggests that broad-spectrum noise augmentations may incidentally help generalization through regularization effects, despite greater physical distortion. Per-band signal-to-noise ratio may provide a more diagnostic metric for future studies.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{../results/figures/h4_correlation.png}
+\caption{H3: Physical fidelity ($R_{\text{energy}}$) vs.\ gap recovery ($\Delta_{\text{rec}}$).}
+\label{fig:h3}
+\end{figure}
 
 % ================================================================
 \section{Ablation}
@@ -348,98 +434,6 @@ All code, data manifest, experimental configurations, and results are available 
 
 % [AI使用披露]：按功能分类——代码实现、调试、起草。结尾的universal denial是防止M3（幻觉结果）的基础防护。
 The following parts involved AI assistance (DeepSeek, via OpenCode CLI): code implementation (pair-programming, verified on hardware), experimental debugging (STFT device mismatch, import paths, JSON serialization), and manuscript drafting (from experimental results and author outlines; all factual claims verified against results tables and logs). No experimental result was hallucinated or fabricated.
-
-% ================================================================
-% FIGURES
-% ================================================================
-\newpage
-\section*{Figures}
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=\textwidth]{../results/figures/convergence_curves.png}
-\caption{Convergence curves for all 200 training runs across four configurations.}
-\label{fig:convergence}
-\end{figure}
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=\textwidth]{../results/figures/random_vs_recording_1d.png}
-\caption{Random vs.\ recording-level split accuracy (1D-CNN).}
-\label{fig:rvr1d}
-\end{figure}
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=\textwidth]{../results/figures/random_vs_recording_2d.png}
-\caption{Random vs.\ recording-level split accuracy (2D-CNN).}
-\label{fig:rvr2d}
-\end{figure}
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=\textwidth]{../results/figures/gap_recovery_1d.png}
-\caption{Gap-recovery ratio by augmentation (1D-CNN).}
-\label{fig:gap1d}
-\end{figure}
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=\textwidth]{../results/figures/gap_recovery_2d.png}
-\caption{Gap-recovery ratio by augmentation (2D-CNN).}
-\label{fig:gap2d}
-\end{figure}
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.48\textwidth]{../results/figures/cohens_d_1d.png}
-\includegraphics[width=0.48\textwidth]{../results/figures/cohens_d_2d.png}
-\caption{Cohen's $d$ effect sizes. Left: 1D-CNN. Right: 2D-CNN.}
-\label{fig:cohens}
-\end{figure}
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=\textwidth]{../results/figures/m1_adjacent_autocorrelation.png}
-\caption{M1: Adjacent-window autocorrelation by fault class.}
-\label{fig:m1}
-\end{figure}
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.7\textwidth]{../results/figures/m2_feature_diversity.png}
-\caption{M2: Feature diversity analysis (cosine distance).}
-\label{fig:m2}
-\end{figure}
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=\textwidth]{../results/figures/m5_fault_band_energy.png}
-\caption{M5: Fault-band energy retention audit ($R_{\text{energy}}$).}
-\label{fig:m5}
-\end{figure}
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=\textwidth]{../results/figures/envelope_spectra_examples.png}
-\caption{Envelope spectrum examples for each fault class.}
-\label{fig:env}
-\end{figure}
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.48\textwidth]{../results/figures/per_class_1d_recording.png}
-\includegraphics[width=0.48\textwidth]{../results/figures/per_class_2d_recording.png}
-\caption{Per-class F1 heatmaps. Left: 1D-CNN. Right: 2D-CNN.}
-\label{fig:pc}
-\end{figure}
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.8\textwidth]{../results/figures/h4_correlation.png}
-\caption{H3: Physical fidelity ($R_{\text{energy}}$) vs.\ gap recovery ($\Delta_{\text{rec}}$).}
-\label{fig:h3}
-\end{figure}
 
 % ================================================================
 % REFERENCES
