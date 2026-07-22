@@ -2,121 +2,127 @@
   "1d_random_shift_50_s789": {
     "best_val_acc": 1.0,
     "last10_val_acc": 1.0,
-    "converged_at_epoch": 2,
+    "converged_at_epoch": 5,
     "final_epoch": 50
   },
   "1d_recording_none_s456": {
-    "best_val_acc": 0.9979,
-    "last10_val_acc": 0.9598,
-    "converged_at_epoch": 45,
+    "best_val_acc": 1.0,
+    "last10_val_acc": 0.868,
+    "converged_at_epoch": 44,
     "final_epoch": 50
   },
   "2d_random_shift_5_s456": {
     "best_val_acc": 1.0,
-    "last10_val_acc": 0.9993,
-    "converged_at_epoch": 16,
+    "last10_val_acc": 0.9998,
+    "converged_at_epoch": 9,
     "final_epoch": 50
   },
   "2d_recording_noise_005_s1024": {
-    "best_val_acc": 0.9219,
-    "last10_val_acc": 0.8693,
-    "converged_at_epoch": 23,
+    "best_val_acc": 0.8821,
+    "last10_val_acc": 0.8728,
+    "converged_at_epoch": 1,
     "final_epoch": 50
   },
   "2d_random_shift_20_s1024": {
     "best_val_acc": 1.0,
-    "last10_val_acc": 0.9993,
-    "converged_at_epoch": 5,
+    "last10_val_acc": 0.9989,
+    "converged_at_epoch": 11,
     "final_epoch": 50
   },
   "2d_random_none_s789": {
     "best_val_acc": 1.0,
-    "last10_val_acc": 0.9991,
-    "converged_at_epoch": 3,
+    "last10_val_acc": 0.9612,
+    "converged_at_epoch": 6,
+    "final_epoch": 50
+  },
+  "1d_random_none_s456": {
+    "best_val_acc": 1.0,
+    "last10_val_acc": 1.0,
+    "converged_at_epoch": 1,
     "final_epoch": 50
   },
   "2d_random_shift_20_s123": {
-    "best_val_acc": 1.0,
-    "last10_val_acc": 0.9997,
-    "converged_at_epoch": 30,
+    "best_val_acc": 0.9996,
+    "last10_val_acc": 0.9996,
+    "converged_at_epoch": 8,
     "final_epoch": 50
   },
   "1d_random_freq_flip_s789": {
     "best_val_acc": 1.0,
-    "last10_val_acc": 0.9991,
-    "converged_at_epoch": 24,
+    "last10_val_acc": 0.9946,
+    "converged_at_epoch": 11,
     "final_epoch": 50
   },
   "2d_recording_shift_20_s789": {
-    "best_val_acc": 0.6995,
-    "last10_val_acc": 0.6968,
-    "converged_at_epoch": 2,
+    "best_val_acc": 0.6991,
+    "last10_val_acc": 0.6947,
+    "converged_at_epoch": 31,
     "final_epoch": 50
   },
   "2d_random_shift_20_s789": {
     "best_val_acc": 1.0,
-    "last10_val_acc": 0.9999,
-    "converged_at_epoch": 4,
+    "last10_val_acc": 0.9917,
+    "converged_at_epoch": 9,
     "final_epoch": 50
   },
   "1d_random_specaugment_s123": {
     "best_val_acc": 1.0,
-    "last10_val_acc": 0.9977,
-    "converged_at_epoch": 12,
+    "last10_val_acc": 0.9998,
+    "converged_at_epoch": 3,
     "final_epoch": 50
   },
   "1d_recording_freq_flip_s123": {
-    "best_val_acc": 0.9615,
-    "last10_val_acc": 0.9047,
-    "converged_at_epoch": 47,
+    "best_val_acc": 0.9949,
+    "last10_val_acc": 0.9066,
+    "converged_at_epoch": 5,
     "final_epoch": 50
   },
   "2d_recording_shift_5_s42": {
-    "best_val_acc": 0.9805,
-    "last10_val_acc": 0.8777,
-    "converged_at_epoch": 7,
+    "best_val_acc": 0.9822,
+    "last10_val_acc": 0.9783,
+    "converged_at_epoch": 41,
     "final_epoch": 50
   },
   "1d_recording_shift_20_s789": {
-    "best_val_acc": 0.835,
-    "last10_val_acc": 0.7963,
+    "best_val_acc": 0.8521,
+    "last10_val_acc": 0.801,
     "converged_at_epoch": 5,
     "final_epoch": 50
   },
   "2d_recording_shift_50_s789": {
-    "best_val_acc": 0.7046,
-    "last10_val_acc": 0.6836,
-    "converged_at_epoch": 5,
+    "best_val_acc": 0.7008,
+    "last10_val_acc": 0.6964,
+    "converged_at_epoch": 22,
     "final_epoch": 50
   },
   "2d_random_none_s1024": {
     "best_val_acc": 1.0,
     "last10_val_acc": 1.0,
-    "converged_at_epoch": 6,
+    "converged_at_epoch": 4,
     "final_epoch": 50
   },
   "1d_random_noise_005_s456": {
     "best_val_acc": 1.0,
     "last10_val_acc": 1.0,
-    "converged_at_epoch": 6,
+    "converged_at_epoch": 4,
     "final_epoch": 50
   },
   "1d_recording_none_s789": {
-    "best_val_acc": 0.8134,
-    "last10_val_acc": 0.8001,
-    "converged_at_epoch": 7,
+    "best_val_acc": 0.8571,
+    "last10_val_acc": 0.8346,
+    "converged_at_epoch": 44,
     "final_epoch": 50
   },
   "1d_recording_noise_001_s456": {
-    "best_val_acc": 0.9966,
-    "last10_val_acc": 0.9959,
-    "converged_at_epoch": 36,
+    "best_val_acc": 0.9975,
+    "last10_val_acc": 0.9446,
+    "converged_at_epoch": 30,
     "final_epoch": 50
   },
   "1d_random_shift_20_s1024": {
     "best_val_acc": 1.0,
-    "last10_val_acc": 0.999,
-    "converged_at_epoch": 1,
+    "last10_val_acc": 1.0,
+    "converged_at_epoch": 2,
     "final_epoch": 50
   },
   "2d_random_shift_5_s1024": {
@@ -127,68 +133,74 @@
   },
   "1d_random_shift_20_s456": {
     "best_val_acc": 1.0,
-    "last10_val_acc": 1.0,
-    "converged_at_epoch": 4,
+    "last10_val_acc": 0.9998,
+    "converged_at_epoch": 1,
     "final_epoch": 50
   },
   "2d_recording_noise_01_s123": {
-    "best_val_acc": 0.9606,
-    "last10_val_acc": 0.9511,
-    "converged_at_epoch": 7,
+    "best_val_acc": 0.9763,
+    "last10_val_acc": 0.9492,
+    "converged_at_epoch": 4,
     "final_epoch": 50
   },
   "1d_random_freq_flip_s456": {
     "best_val_acc": 1.0,
-    "last10_val_acc": 0.9983,
-    "converged_at_epoch": 6,
+    "last10_val_acc": 0.9698,
+    "converged_at_epoch": 9,
     "final_epoch": 50
   },
   "2d_random_shift_50_s789": {
     "best_val_acc": 1.0,
-    "last10_val_acc": 0.9998,
-    "converged_at_epoch": 4,
+    "last10_val_acc": 1.0,
+    "converged_at_epoch": 6,
     "final_epoch": 50
   },
   "2d_random_none_s123": {
     "best_val_acc": 0.9996,
-    "last10_val_acc": 0.9996,
-    "converged_at_epoch": 6,
-    "final_epoch": 50
-  },
-  "1d_recording_freq_flip_s456": {
-    "best_val_acc": 0.9966,
-    "last10_val_acc": 0.9699,
-    "converged_at_epoch": 14,
-    "final_epoch": 50
-  },
-  "2d_recording_freq_flip_s42": {
-    "best_val_acc": 0.9268,
-    "last10_val_acc": 0.8166,
-    "converged_at_epoch": 38,
-    "final_epoch": 50
-  },
-  "2d_recording_none_s456": {
-    "best_val_acc": 0.9501,
-    "last10_val_acc": 0.9048,
-    "converged_at_epoch": 3,
-    "final_epoch": 50
-  },
-  "2d_recording_noise_01_s456": {
-    "best_val_acc": 0.9683,
-    "last10_val_acc": 0.9284,
+    "last10_val_acc": 0.9991,
     "converged_at_epoch": 11,
     "final_epoch": 50
   },
+  "1d_random_none_s789": {
+    "best_val_acc": 1.0,
+    "last10_val_acc": 0.9997,
+    "converged_at_epoch": 8,
+    "final_epoch": 50
+  },
+  "1d_recording_freq_flip_s456": {
+    "best_val_acc": 0.9899,
+    "last10_val_acc": 0.9603,
+    "converged_at_epoch": 12,
+    "final_epoch": 50
+  },
+  "2d_recording_freq_flip_s42": {
+    "best_val_acc": 0.868,
+    "last10_val_acc": 0.8568,
+    "converged_at_epoch": 19,
+    "final_epoch": 50
+  },
+  "2d_recording_none_s456": {
+    "best_val_acc": 0.9467,
+    "last10_val_acc": 0.9094,
+    "converged_at_epoch": 4,
+    "final_epoch": 50
+  },
+  "2d_recording_noise_01_s456": {
+    "best_val_acc": 0.9552,
+    "last10_val_acc": 0.9293,
+    "converged_at_epoch": 4,
+    "final_epoch": 50
+  },
   "1d_recording_noise_001_s789": {
-    "best_val_acc": 0.8756,
-    "last10_val_acc": 0.8003,
-    "converged_at_epoch": 25,
+    "best_val_acc": 0.8149,
+    "last10_val_acc": 0.7794,
+    "converged_at_epoch": 33,
     "final_epoch": 50
   },
   "2d_random_noise_005_s456": {
     "best_val_acc": 1.0,
-    "last10_val_acc": 0.9999,
-    "converged_at_epoch": 4,
+    "last10_val_acc": 0.9942,
+    "converged_at_epoch": 9,
     "final_epoch": 50
   },
   "2d_random_noise_001_s42": {
@@ -199,758 +211,770 @@
   },
   "1d_random_noise_001_s789": {
     "best_val_acc": 1.0,
-    "last10_val_acc": 0.9998,
-    "converged_at_epoch": 5,
+    "last10_val_acc": 0.9955,
+    "converged_at_epoch": 3,
     "final_epoch": 50
   },
   "1d_random_combined_s123": {
     "best_val_acc": 1.0,
-    "last10_val_acc": 1.0,
-    "converged_at_epoch": 5,
+    "last10_val_acc": 0.9393,
+    "converged_at_epoch": 3,
     "final_epoch": 50
   },
   "2d_recording_combined_s123": {
-    "best_val_acc": 0.9226,
-    "last10_val_acc": 0.88,
-    "converged_at_epoch": 9,
+    "best_val_acc": 0.9399,
+    "last10_val_acc": 0.9149,
+    "converged_at_epoch": 4,
     "final_epoch": 50
   },
   "2d_recording_freq_flip_s789": {
-    "best_val_acc": 0.6424,
-    "last10_val_acc": 0.537,
-    "converged_at_epoch": 9,
+    "best_val_acc": 0.6475,
+    "last10_val_acc": 0.5932,
+    "converged_at_epoch": 3,
     "final_epoch": 50
   },
   "2d_recording_combined_s789": {
-    "best_val_acc": 0.7584,
-    "last10_val_acc": 0.6998,
-    "converged_at_epoch": 34,
+    "best_val_acc": 0.6957,
+    "last10_val_acc": 0.6828,
+    "converged_at_epoch": 5,
     "final_epoch": 50
   },
   "2d_random_shift_5_s789": {
     "best_val_acc": 1.0,
     "last10_val_acc": 1.0,
-    "converged_at_epoch": 6,
+    "converged_at_epoch": 5,
     "final_epoch": 50
   },
   "1d_recording_freq_flip_s789": {
-    "best_val_acc": 0.8003,
-    "last10_val_acc": 0.7702,
-    "converged_at_epoch": 1,
+    "best_val_acc": 0.8056,
+    "last10_val_acc": 0.7997,
+    "converged_at_epoch": 10,
     "final_epoch": 50
   },
   "1d_random_noise_001_s456": {
     "best_val_acc": 1.0,
-    "last10_val_acc": 1.0,
-    "converged_at_epoch": 2,
+    "last10_val_acc": 0.9757,
+    "converged_at_epoch": 3,
     "final_epoch": 50
   },
   "1d_random_specaugment_s42": {
     "best_val_acc": 1.0,
-    "last10_val_acc": 0.9996,
-    "converged_at_epoch": 4,
-    "final_epoch": 50
-  },
-  "1d_recording_noise_005_s123": {
-    "best_val_acc": 0.9975,
-    "last10_val_acc": 0.9438,
+    "last10_val_acc": 0.9934,
     "converged_at_epoch": 9,
     "final_epoch": 50
   },
+  "1d_recording_noise_005_s123": {
+    "best_val_acc": 1.0,
+    "last10_val_acc": 0.9384,
+    "converged_at_epoch": 17,
+    "final_epoch": 50
+  },
   "1d_recording_shift_5_s123": {
-    "best_val_acc": 0.9987,
-    "last10_val_acc": 0.9521,
-    "converged_at_epoch": 28,
+    "best_val_acc": 1.0,
+    "last10_val_acc": 0.9123,
+    "converged_at_epoch": 17,
     "final_epoch": 50
   },
   "2d_recording_noise_001_s42": {
-    "best_val_acc": 0.9839,
-    "last10_val_acc": 0.9797,
-    "converged_at_epoch": 24,
+    "best_val_acc": 0.9721,
+    "last10_val_acc": 0.8675,
+    "converged_at_epoch": 13,
     "final_epoch": 50
   },
   "2d_random_noise_01_s123": {
-    "best_val_acc": 0.9996,
-    "last10_val_acc": 0.9991,
-    "converged_at_epoch": 7,
+    "best_val_acc": 1.0,
+    "last10_val_acc": 0.9979,
+    "converged_at_epoch": 12,
     "final_epoch": 50
   },
   "2d_random_noise_01_s1024": {
     "best_val_acc": 1.0,
-    "last10_val_acc": 1.0,
-    "converged_at_epoch": 13,
+    "last10_val_acc": 0.9998,
+    "converged_at_epoch": 9,
     "final_epoch": 50
   },
   "1d_recording_shift_50_s42": {
-    "best_val_acc": 0.9992,
-    "last10_val_acc": 0.9987,
+    "best_val_acc": 0.9805,
+    "last10_val_acc": 0.9236,
     "converged_at_epoch": 21,
     "final_epoch": 50
   },
   "1d_recording_combined_s1024": {
     "best_val_acc": 1.0,
-    "last10_val_acc": 1.0,
-    "converged_at_epoch": 6,
+    "last10_val_acc": 0.9998,
+    "converged_at_epoch": 5,
     "final_epoch": 50
   },
   "1d_recording_shift_50_s1024": {
     "best_val_acc": 1.0,
-    "last10_val_acc": 0.9953,
-    "converged_at_epoch": 2,
+    "last10_val_acc": 1.0,
+    "converged_at_epoch": 3,
     "final_epoch": 50
   },
   "2d_random_freq_flip_s42": {
-    "best_val_acc": 0.9873,
-    "last10_val_acc": 0.956,
-    "converged_at_epoch": 37,
+    "best_val_acc": 0.9954,
+    "last10_val_acc": 0.9757,
+    "converged_at_epoch": 8,
     "final_epoch": 50
   },
   "1d_random_shift_5_s456": {
     "best_val_acc": 1.0,
     "last10_val_acc": 1.0,
-    "converged_at_epoch": 2,
+    "converged_at_epoch": 8,
     "final_epoch": 50
   },
   "2d_recording_noise_001_s789": {
-    "best_val_acc": 0.7004,
-    "last10_val_acc": 0.6972,
-    "converged_at_epoch": 47,
+    "best_val_acc": 0.7016,
+    "last10_val_acc": 0.6999,
+    "converged_at_epoch": 31,
     "final_epoch": 50
   },
   "2d_random_noise_01_s456": {
     "best_val_acc": 1.0,
-    "last10_val_acc": 0.9996,
-    "converged_at_epoch": 7,
+    "last10_val_acc": 0.9993,
+    "converged_at_epoch": 24,
     "final_epoch": 50
   },
   "1d_recording_freq_flip_s1024": {
     "best_val_acc": 1.0,
-    "last10_val_acc": 1.0,
+    "last10_val_acc": 0.9982,
     "converged_at_epoch": 2,
     "final_epoch": 50
   },
   "1d_recording_noise_01_s456": {
-    "best_val_acc": 0.9949,
-    "last10_val_acc": 0.985,
-    "converged_at_epoch": 18,
+    "best_val_acc": 0.9992,
+    "last10_val_acc": 0.9958,
+    "converged_at_epoch": 22,
     "final_epoch": 50
   },
   "1d_recording_shift_20_s456": {
     "best_val_acc": 0.9992,
-    "last10_val_acc": 0.9577,
-    "converged_at_epoch": 14,
+    "last10_val_acc": 0.9933,
+    "converged_at_epoch": 31,
     "final_epoch": 50
   },
   "1d_recording_shift_20_s123": {
-    "best_val_acc": 1.0,
-    "last10_val_acc": 0.9334,
-    "converged_at_epoch": 3,
-    "final_epoch": 50
-  },
-  "1d_recording_noise_01_s42": {
-    "best_val_acc": 1.0,
-    "last10_val_acc": 0.9926,
-    "converged_at_epoch": 8,
-    "final_epoch": 50
-  },
-  "2d_recording_combined_s456": {
-    "best_val_acc": 0.945,
-    "last10_val_acc": 0.9141,
-    "converged_at_epoch": 19,
-    "final_epoch": 50
-  },
-  "2d_recording_shift_20_s1024": {
-    "best_val_acc": 0.9013,
-    "last10_val_acc": 0.8787,
+    "best_val_acc": 0.9992,
+    "last10_val_acc": 0.9873,
     "converged_at_epoch": 16,
     "final_epoch": 50
   },
+  "1d_recording_noise_01_s42": {
+    "best_val_acc": 0.9907,
+    "last10_val_acc": 0.9294,
+    "converged_at_epoch": 26,
+    "final_epoch": 50
+  },
+  "2d_recording_combined_s456": {
+    "best_val_acc": 0.9746,
+    "last10_val_acc": 0.9303,
+    "converged_at_epoch": 4,
+    "final_epoch": 50
+  },
+  "2d_recording_shift_20_s1024": {
+    "best_val_acc": 0.8979,
+    "last10_val_acc": 0.8703,
+    "converged_at_epoch": 1,
+    "final_epoch": 50
+  },
   "2d_recording_shift_20_s123": {
-    "best_val_acc": 0.9331,
-    "last10_val_acc": 0.9215,
-    "converged_at_epoch": 11,
+    "best_val_acc": 0.9095,
+    "last10_val_acc": 0.9024,
+    "converged_at_epoch": 43,
     "final_epoch": 50
   },
   "2d_random_specaugment_s1024": {
-    "best_val_acc": 0.9987,
-    "last10_val_acc": 0.9979,
-    "converged_at_epoch": 47,
+    "best_val_acc": 0.9983,
+    "last10_val_acc": 0.9971,
+    "converged_at_epoch": 16,
     "final_epoch": 50
   },
   "1d_recording_shift_5_s789": {
-    "best_val_acc": 0.8341,
-    "last10_val_acc": 0.8045,
-    "converged_at_epoch": 48,
+    "best_val_acc": 0.9053,
+    "last10_val_acc": 0.8098,
+    "converged_at_epoch": 41,
     "final_epoch": 50
   },
   "2d_random_shift_5_s42": {
     "best_val_acc": 1.0,
-    "last10_val_acc": 1.0,
-    "converged_at_epoch": 4,
+    "last10_val_acc": 0.9997,
+    "converged_at_epoch": 5,
     "final_epoch": 50
   },
   "2d_recording_noise_01_s42": {
-    "best_val_acc": 0.9924,
-    "last10_val_acc": 0.9907,
-    "converged_at_epoch": 39,
+    "best_val_acc": 0.9729,
+    "last10_val_acc": 0.9197,
+    "converged_at_epoch": 2,
     "final_epoch": 50
   },
   "2d_random_noise_001_s1024": {
     "best_val_acc": 1.0,
-    "last10_val_acc": 0.9996,
-    "converged_at_epoch": 6,
+    "last10_val_acc": 1.0,
+    "converged_at_epoch": 5,
     "final_epoch": 50
   },
   "1d_random_noise_01_s1024": {
     "best_val_acc": 1.0,
-    "last10_val_acc": 0.9999,
-    "converged_at_epoch": 8,
+    "last10_val_acc": 0.9997,
+    "converged_at_epoch": 7,
     "final_epoch": 50
   },
   "1d_random_noise_005_s42": {
     "best_val_acc": 1.0,
-    "last10_val_acc": 0.9816,
-    "converged_at_epoch": 1,
+    "last10_val_acc": 1.0,
+    "converged_at_epoch": 7,
     "final_epoch": 50
   },
   "2d_random_noise_005_s123": {
     "best_val_acc": 1.0,
-    "last10_val_acc": 0.9997,
-    "converged_at_epoch": 8,
+    "last10_val_acc": 1.0,
+    "converged_at_epoch": 5,
     "final_epoch": 50
   },
   "2d_recording_noise_005_s789": {
-    "best_val_acc": 0.6995,
-    "last10_val_acc": 0.6767,
-    "converged_at_epoch": 23,
+    "best_val_acc": 0.7025,
+    "last10_val_acc": 0.6968,
+    "converged_at_epoch": 21,
     "final_epoch": 50
   },
   "1d_random_noise_01_s456": {
     "best_val_acc": 1.0,
-    "last10_val_acc": 0.9999,
-    "converged_at_epoch": 7,
+    "last10_val_acc": 0.9998,
+    "converged_at_epoch": 3,
     "final_epoch": 50
   },
   "2d_recording_specaugment_s123": {
-    "best_val_acc": 0.9911,
-    "last10_val_acc": 0.9256,
-    "converged_at_epoch": 16,
+    "best_val_acc": 0.9898,
+    "last10_val_acc": 0.9243,
+    "converged_at_epoch": 11,
     "final_epoch": 50
   },
   "2d_random_noise_01_s42": {
     "best_val_acc": 1.0,
-    "last10_val_acc": 0.9993,
-    "converged_at_epoch": 16,
+    "last10_val_acc": 0.9996,
+    "converged_at_epoch": 4,
     "final_epoch": 50
   },
   "1d_recording_combined_s789": {
-    "best_val_acc": 0.8739,
-    "last10_val_acc": 0.7998,
-    "converged_at_epoch": 12,
+    "best_val_acc": 0.8867,
+    "last10_val_acc": 0.8,
+    "converged_at_epoch": 37,
     "final_epoch": 50
   },
   "1d_random_shift_50_s456": {
     "best_val_acc": 1.0,
-    "last10_val_acc": 1.0,
-    "converged_at_epoch": 6,
+    "last10_val_acc": 0.994,
+    "converged_at_epoch": 3,
     "final_epoch": 50
   },
   "2d_recording_shift_20_s42": {
-    "best_val_acc": 0.9733,
-    "last10_val_acc": 0.951,
-    "converged_at_epoch": 22,
+    "best_val_acc": 0.9822,
+    "last10_val_acc": 0.9576,
+    "converged_at_epoch": 30,
     "final_epoch": 50
   },
   "1d_recording_noise_005_s1024": {
     "best_val_acc": 1.0,
-    "last10_val_acc": 0.998,
+    "last10_val_acc": 0.9991,
     "converged_at_epoch": 3,
     "final_epoch": 50
   },
   "2d_recording_noise_01_s1024": {
-    "best_val_acc": 0.934,
-    "last10_val_acc": 0.9006,
-    "converged_at_epoch": 8,
+    "best_val_acc": 0.8863,
+    "last10_val_acc": 0.8776,
+    "converged_at_epoch": 43,
     "final_epoch": 50
   },
   "1d_recording_specaugment_s123": {
-    "best_val_acc": 1.0,
-    "last10_val_acc": 0.967,
-    "converged_at_epoch": 28,
+    "best_val_acc": 0.9992,
+    "last10_val_acc": 0.9129,
+    "converged_at_epoch": 13,
     "final_epoch": 50
   },
   "1d_recording_shift_5_s456": {
-    "best_val_acc": 0.9928,
-    "last10_val_acc": 0.9706,
-    "converged_at_epoch": 18,
+    "best_val_acc": 0.9992,
+    "last10_val_acc": 0.9964,
+    "converged_at_epoch": 29,
     "final_epoch": 50
   },
   "2d_recording_combined_s1024": {
-    "best_val_acc": 0.8865,
-    "last10_val_acc": 0.8795,
+    "best_val_acc": 0.8958,
+    "last10_val_acc": 0.8675,
     "converged_at_epoch": 1,
     "final_epoch": 50
   },
   "1d_random_shift_5_s42": {
     "best_val_acc": 1.0,
-    "last10_val_acc": 0.9921,
-    "converged_at_epoch": 3,
+    "last10_val_acc": 1.0,
+    "converged_at_epoch": 2,
     "final_epoch": 50
   },
   "1d_random_specaugment_s789": {
     "best_val_acc": 1.0,
-    "last10_val_acc": 0.9962,
-    "converged_at_epoch": 18,
+    "last10_val_acc": 0.9995,
+    "converged_at_epoch": 14,
     "final_epoch": 50
   },
   "2d_recording_shift_5_s789": {
-    "best_val_acc": 0.7042,
-    "last10_val_acc": 0.691,
-    "converged_at_epoch": 35,
+    "best_val_acc": 0.7025,
+    "last10_val_acc": 0.7005,
+    "converged_at_epoch": 29,
     "final_epoch": 50
   },
   "2d_random_noise_001_s123": {
-    "best_val_acc": 1.0,
-    "last10_val_acc": 0.9997,
-    "converged_at_epoch": 11,
+    "best_val_acc": 0.9996,
+    "last10_val_acc": 0.9989,
+    "converged_at_epoch": 5,
     "final_epoch": 50
   },
   "1d_random_combined_s1024": {
     "best_val_acc": 1.0,
-    "last10_val_acc": 0.995,
+    "last10_val_acc": 1.0,
     "converged_at_epoch": 4,
     "final_epoch": 50
   },
   "2d_random_noise_001_s456": {
-    "best_val_acc": 1.0,
-    "last10_val_acc": 0.9999,
-    "converged_at_epoch": 6,
+    "best_val_acc": 0.9996,
+    "last10_val_acc": 0.9993,
+    "converged_at_epoch": 3,
     "final_epoch": 50
   },
   "2d_recording_noise_01_s789": {
-    "best_val_acc": 0.7004,
-    "last10_val_acc": 0.6967,
+    "best_val_acc": 0.6999,
+    "last10_val_acc": 0.6983,
+    "converged_at_epoch": 6,
+    "final_epoch": 50
+  },
+  "1d_random_none_s123": {
+    "best_val_acc": 1.0,
+    "last10_val_acc": 0.997,
     "converged_at_epoch": 4,
     "final_epoch": 50
   },
   "1d_recording_shift_50_s456": {
-    "best_val_acc": 1.0,
-    "last10_val_acc": 0.9513,
-    "converged_at_epoch": 27,
+    "best_val_acc": 0.9983,
+    "last10_val_acc": 0.9423,
+    "converged_at_epoch": 8,
     "final_epoch": 50
   },
   "1d_recording_none_s123": {
-    "best_val_acc": 0.9962,
-    "last10_val_acc": 0.9413,
-    "converged_at_epoch": 13,
+    "best_val_acc": 1.0,
+    "last10_val_acc": 0.9305,
+    "converged_at_epoch": 3,
     "final_epoch": 50
   },
   "1d_recording_shift_50_s123": {
-    "best_val_acc": 0.9966,
-    "last10_val_acc": 0.9142,
-    "converged_at_epoch": 35,
+    "best_val_acc": 1.0,
+    "last10_val_acc": 0.9608,
+    "converged_at_epoch": 2,
     "final_epoch": 50
   },
   "1d_random_noise_001_s1024": {
     "best_val_acc": 1.0,
     "last10_val_acc": 1.0,
-    "converged_at_epoch": 8,
+    "converged_at_epoch": 2,
     "final_epoch": 50
   },
   "2d_random_freq_flip_s456": {
-    "best_val_acc": 0.9806,
-    "last10_val_acc": 0.948,
-    "converged_at_epoch": 36,
+    "best_val_acc": 0.9932,
+    "last10_val_acc": 0.9898,
+    "converged_at_epoch": 10,
     "final_epoch": 50
   },
   "2d_random_noise_005_s42": {
     "best_val_acc": 1.0,
     "last10_val_acc": 0.9996,
-    "converged_at_epoch": 27,
+    "converged_at_epoch": 8,
     "final_epoch": 50
   },
   "2d_random_noise_005_s789": {
     "best_val_acc": 1.0,
-    "last10_val_acc": 1.0,
-    "converged_at_epoch": 3,
+    "last10_val_acc": 0.9983,
+    "converged_at_epoch": 6,
     "final_epoch": 50
   },
   "2d_recording_noise_001_s1024": {
-    "best_val_acc": 0.8976,
-    "last10_val_acc": 0.8902,
-    "converged_at_epoch": 29,
+    "best_val_acc": 0.8842,
+    "last10_val_acc": 0.8753,
+    "converged_at_epoch": 15,
     "final_epoch": 50
   },
   "1d_recording_none_s1024": {
     "best_val_acc": 1.0,
-    "last10_val_acc": 1.0,
-    "converged_at_epoch": 1,
+    "last10_val_acc": 0.999,
+    "converged_at_epoch": 3,
     "final_epoch": 50
   },
   "1d_random_shift_20_s42": {
     "best_val_acc": 1.0,
-    "last10_val_acc": 0.9972,
-    "converged_at_epoch": 5,
+    "last10_val_acc": 0.9999,
+    "converged_at_epoch": 2,
     "final_epoch": 50
   },
   "2d_recording_shift_50_s456": {
-    "best_val_acc": 0.9522,
-    "last10_val_acc": 0.9256,
-    "converged_at_epoch": 26,
+    "best_val_acc": 0.9628,
+    "last10_val_acc": 0.9434,
+    "converged_at_epoch": 10,
     "final_epoch": 50
   },
   "1d_recording_noise_01_s789": {
-    "best_val_acc": 0.7998,
-    "last10_val_acc": 0.7998,
-    "converged_at_epoch": 1,
+    "best_val_acc": 0.8969,
+    "last10_val_acc": 0.7997,
+    "converged_at_epoch": 17,
     "final_epoch": 50
   },
   "2d_random_shift_50_s1024": {
     "best_val_acc": 1.0,
-    "last10_val_acc": 1.0,
-    "converged_at_epoch": 8,
+    "last10_val_acc": 0.9915,
+    "converged_at_epoch": 25,
     "final_epoch": 50
   },
   "2d_recording_shift_5_s123": {
-    "best_val_acc": 0.923,
-    "last10_val_acc": 0.8539,
-    "converged_at_epoch": 1,
+    "best_val_acc": 0.9425,
+    "last10_val_acc": 0.9224,
+    "converged_at_epoch": 5,
     "final_epoch": 50
   },
   "1d_recording_noise_005_s42": {
-    "best_val_acc": 0.9983,
-    "last10_val_acc": 0.9772,
-    "converged_at_epoch": 25,
+    "best_val_acc": 0.9941,
+    "last10_val_acc": 0.957,
+    "converged_at_epoch": 49,
     "final_epoch": 50
   },
   "1d_random_shift_50_s42": {
     "best_val_acc": 1.0,
-    "last10_val_acc": 0.9997,
-    "converged_at_epoch": 8,
+    "last10_val_acc": 1.0,
+    "converged_at_epoch": 4,
     "final_epoch": 50
   },
   "1d_random_combined_s42": {
     "best_val_acc": 1.0,
-    "last10_val_acc": 1.0,
-    "converged_at_epoch": 4,
+    "last10_val_acc": 0.9999,
+    "converged_at_epoch": 5,
     "final_epoch": 50
   },
   "1d_recording_specaugment_s42": {
-    "best_val_acc": 0.9738,
-    "last10_val_acc": 0.9057,
-    "converged_at_epoch": 46,
+    "best_val_acc": 0.9729,
+    "last10_val_acc": 0.8258,
+    "converged_at_epoch": 4,
     "final_epoch": 50
   },
   "2d_recording_shift_50_s1024": {
-    "best_val_acc": 0.8945,
-    "last10_val_acc": 0.8763,
-    "converged_at_epoch": 41,
+    "best_val_acc": 0.8789,
+    "last10_val_acc": 0.8742,
+    "converged_at_epoch": 1,
     "final_epoch": 50
   },
   "1d_recording_noise_01_s1024": {
     "best_val_acc": 1.0,
-    "last10_val_acc": 0.9998,
-    "converged_at_epoch": 8,
+    "last10_val_acc": 1.0,
+    "converged_at_epoch": 3,
     "final_epoch": 50
   },
   "1d_recording_shift_20_s1024": {
     "best_val_acc": 1.0,
-    "last10_val_acc": 0.9997,
+    "last10_val_acc": 0.9987,
     "converged_at_epoch": 3,
     "final_epoch": 50
   },
   "2d_recording_specaugment_s789": {
-    "best_val_acc": 0.697,
-    "last10_val_acc": 0.6127,
-    "converged_at_epoch": 9,
+    "best_val_acc": 0.7422,
+    "last10_val_acc": 0.6614,
+    "converged_at_epoch": 48,
     "final_epoch": 50
   },
   "2d_random_specaugment_s123": {
-    "best_val_acc": 0.9983,
-    "last10_val_acc": 0.9979,
-    "converged_at_epoch": 5,
+    "best_val_acc": 0.9987,
+    "last10_val_acc": 0.9978,
+    "converged_at_epoch": 24,
     "final_epoch": 50
   },
   "2d_recording_freq_flip_s123": {
-    "best_val_acc": 0.986,
-    "last10_val_acc": 0.9552,
-    "converged_at_epoch": 46,
+    "best_val_acc": 0.9729,
+    "last10_val_acc": 0.9679,
+    "converged_at_epoch": 12,
     "final_epoch": 50
   },
   "2d_random_freq_flip_s123": {
-    "best_val_acc": 0.9903,
-    "last10_val_acc": 0.9395,
-    "converged_at_epoch": 3,
-    "final_epoch": 50
-  },
-  "2d_recording_none_s123": {
-    "best_val_acc": 0.9513,
-    "last10_val_acc": 0.9406,
-    "converged_at_epoch": 47,
-    "final_epoch": 50
-  },
-  "2d_random_shift_50_s123": {
-    "best_val_acc": 0.9996,
-    "last10_val_acc": 0.9873,
+    "best_val_acc": 0.9945,
+    "last10_val_acc": 0.9901,
     "converged_at_epoch": 8,
     "final_epoch": 50
   },
+  "2d_recording_none_s123": {
+    "best_val_acc": 0.9484,
+    "last10_val_acc": 0.918,
+    "converged_at_epoch": 3,
+    "final_epoch": 50
+  },
+  "2d_random_shift_50_s123": {
+    "best_val_acc": 1.0,
+    "last10_val_acc": 0.9997,
+    "converged_at_epoch": 49,
+    "final_epoch": 50
+  },
   "1d_recording_noise_001_s123": {
-    "best_val_acc": 0.9975,
-    "last10_val_acc": 0.9502,
-    "converged_at_epoch": 20,
+    "best_val_acc": 0.9941,
+    "last10_val_acc": 0.923,
+    "converged_at_epoch": 3,
     "final_epoch": 50
   },
   "2d_recording_noise_005_s123": {
-    "best_val_acc": 0.9458,
-    "last10_val_acc": 0.8905,
-    "converged_at_epoch": 21,
+    "best_val_acc": 0.9577,
+    "last10_val_acc": 0.9147,
+    "converged_at_epoch": 16,
     "final_epoch": 50
   },
   "2d_recording_freq_flip_s1024": {
-    "best_val_acc": 0.9499,
-    "last10_val_acc": 0.8807,
-    "converged_at_epoch": 17,
+    "best_val_acc": 0.9158,
+    "last10_val_acc": 0.9057,
+    "converged_at_epoch": 35,
     "final_epoch": 50
   },
   "2d_random_combined_s42": {
     "best_val_acc": 1.0,
-    "last10_val_acc": 1.0,
-    "converged_at_epoch": 4,
+    "last10_val_acc": 0.999,
+    "converged_at_epoch": 24,
     "final_epoch": 50
   },
   "2d_random_combined_s789": {
     "best_val_acc": 1.0,
     "last10_val_acc": 1.0,
-    "converged_at_epoch": 5,
+    "converged_at_epoch": 7,
     "final_epoch": 50
   },
   "2d_random_combined_s123": {
-    "best_val_acc": 0.9996,
-    "last10_val_acc": 0.9996,
-    "converged_at_epoch": 10,
+    "best_val_acc": 0.9992,
+    "last10_val_acc": 0.9981,
+    "converged_at_epoch": 6,
+    "final_epoch": 50
+  },
+  "1d_random_none_s1024": {
+    "best_val_acc": 1.0,
+    "last10_val_acc": 1.0,
+    "converged_at_epoch": 3,
     "final_epoch": 50
   },
   "2d_random_combined_s1024": {
     "best_val_acc": 1.0,
-    "last10_val_acc": 0.9996,
-    "converged_at_epoch": 6,
+    "last10_val_acc": 0.9998,
+    "converged_at_epoch": 11,
     "final_epoch": 50
   },
   "2d_recording_none_s42": {
-    "best_val_acc": 0.9865,
-    "last10_val_acc": 0.9831,
-    "converged_at_epoch": 8,
+    "best_val_acc": 0.9814,
+    "last10_val_acc": 0.9651,
+    "converged_at_epoch": 41,
     "final_epoch": 50
   },
   "1d_random_shift_20_s123": {
     "best_val_acc": 1.0,
-    "last10_val_acc": 0.9891,
-    "converged_at_epoch": 6,
+    "last10_val_acc": 1.0,
+    "converged_at_epoch": 5,
     "final_epoch": 50
   },
   "2d_recording_noise_001_s123": {
-    "best_val_acc": 0.9518,
-    "last10_val_acc": 0.874,
-    "converged_at_epoch": 31,
+    "best_val_acc": 0.9535,
+    "last10_val_acc": 0.9454,
+    "converged_at_epoch": 48,
     "final_epoch": 50
   },
   "2d_random_none_s42": {
     "best_val_acc": 1.0,
-    "last10_val_acc": 1.0,
-    "converged_at_epoch": 10,
+    "last10_val_acc": 0.9997,
+    "converged_at_epoch": 4,
     "final_epoch": 50
   },
   "1d_recording_combined_s123": {
-    "best_val_acc": 0.9996,
-    "last10_val_acc": 0.9404,
-    "converged_at_epoch": 47,
+    "best_val_acc": 1.0,
+    "last10_val_acc": 0.9315,
+    "converged_at_epoch": 32,
     "final_epoch": 50
   },
   "1d_random_shift_5_s789": {
     "best_val_acc": 1.0,
-    "last10_val_acc": 0.9859,
+    "last10_val_acc": 1.0,
     "converged_at_epoch": 4,
     "final_epoch": 50
   },
   "2d_random_combined_s456": {
     "best_val_acc": 1.0,
-    "last10_val_acc": 0.9996,
-    "converged_at_epoch": 24,
+    "last10_val_acc": 0.9988,
+    "converged_at_epoch": 7,
     "final_epoch": 50
   },
   "2d_recording_shift_5_s456": {
-    "best_val_acc": 0.9272,
-    "last10_val_acc": 0.8716,
-    "converged_at_epoch": 40,
+    "best_val_acc": 0.9645,
+    "last10_val_acc": 0.9371,
+    "converged_at_epoch": 4,
     "final_epoch": 50
   },
   "2d_random_freq_flip_s1024": {
-    "best_val_acc": 0.9928,
-    "last10_val_acc": 0.9451,
-    "converged_at_epoch": 8,
+    "best_val_acc": 0.997,
+    "last10_val_acc": 0.9655,
+    "converged_at_epoch": 6,
     "final_epoch": 50
   },
   "1d_random_shift_5_s1024": {
     "best_val_acc": 1.0,
-    "last10_val_acc": 0.9999,
-    "converged_at_epoch": 9,
+    "last10_val_acc": 0.9994,
+    "converged_at_epoch": 2,
     "final_epoch": 50
   },
   "1d_random_shift_5_s123": {
     "best_val_acc": 1.0,
-    "last10_val_acc": 0.9592,
-    "converged_at_epoch": 3,
+    "last10_val_acc": 0.9991,
+    "converged_at_epoch": 2,
     "final_epoch": 50
   },
   "2d_recording_shift_20_s456": {
-    "best_val_acc": 0.9395,
-    "last10_val_acc": 0.8989,
-    "converged_at_epoch": 13,
+    "best_val_acc": 0.9721,
+    "last10_val_acc": 0.9163,
+    "converged_at_epoch": 33,
     "final_epoch": 50
   },
   "1d_random_freq_flip_s1024": {
     "best_val_acc": 1.0,
-    "last10_val_acc": 0.9955,
-    "converged_at_epoch": 31,
+    "last10_val_acc": 0.9976,
+    "converged_at_epoch": 16,
     "final_epoch": 50
   },
   "2d_recording_shift_50_s123": {
-    "best_val_acc": 0.9196,
-    "last10_val_acc": 0.8686,
-    "converged_at_epoch": 4,
+    "best_val_acc": 0.8672,
+    "last10_val_acc": 0.8618,
+    "converged_at_epoch": 50,
     "final_epoch": 50
   },
   "1d_random_noise_001_s42": {
     "best_val_acc": 1.0,
-    "last10_val_acc": 1.0,
-    "converged_at_epoch": 2,
+    "last10_val_acc": 0.9428,
+    "converged_at_epoch": 4,
     "final_epoch": 50
   },
   "2d_random_shift_20_s456": {
     "best_val_acc": 1.0,
-    "last10_val_acc": 0.9997,
-    "converged_at_epoch": 16,
+    "last10_val_acc": 0.9993,
+    "converged_at_epoch": 7,
     "final_epoch": 50
   },
   "2d_random_freq_flip_s789": {
-    "best_val_acc": 0.9772,
-    "last10_val_acc": 0.9517,
-    "converged_at_epoch": 8,
+    "best_val_acc": 0.9899,
+    "last10_val_acc": 0.9175,
+    "converged_at_epoch": 9,
     "final_epoch": 50
   },
   "1d_random_specaugment_s1024": {
     "best_val_acc": 1.0,
-    "last10_val_acc": 0.9994,
-    "converged_at_epoch": 11,
+    "last10_val_acc": 0.9828,
+    "converged_at_epoch": 8,
     "final_epoch": 50
   },
   "2d_recording_shift_50_s42": {
-    "best_val_acc": 0.9822,
-    "last10_val_acc": 0.9379,
-    "converged_at_epoch": 31,
+    "best_val_acc": 0.9865,
+    "last10_val_acc": 0.981,
+    "converged_at_epoch": 29,
     "final_epoch": 50
   },
   "1d_recording_combined_s456": {
-    "best_val_acc": 0.9979,
-    "last10_val_acc": 0.9771,
-    "converged_at_epoch": 20,
+    "best_val_acc": 0.9848,
+    "last10_val_acc": 0.9792,
+    "converged_at_epoch": 23,
     "final_epoch": 50
   },
   "1d_random_noise_01_s42": {
     "best_val_acc": 1.0,
-    "last10_val_acc": 0.9644,
-    "converged_at_epoch": 4,
+    "last10_val_acc": 1.0,
+    "converged_at_epoch": 3,
     "final_epoch": 50
   },
   "2d_random_noise_005_s1024": {
     "best_val_acc": 1.0,
     "last10_val_acc": 1.0,
-    "converged_at_epoch": 8,
+    "converged_at_epoch": 4,
     "final_epoch": 50
   },
   "2d_random_specaugment_s42": {
-    "best_val_acc": 0.9992,
-    "last10_val_acc": 0.9984,
-    "converged_at_epoch": 46,
+    "best_val_acc": 0.9996,
+    "last10_val_acc": 0.9987,
+    "converged_at_epoch": 29,
     "final_epoch": 50
   },
   "1d_random_combined_s456": {
     "best_val_acc": 1.0,
-    "last10_val_acc": 0.9999,
+    "last10_val_acc": 0.9998,
     "converged_at_epoch": 4,
     "final_epoch": 50
   },
   "1d_recording_noise_005_s789": {
-    "best_val_acc": 0.8637,
-    "last10_val_acc": 0.8026,
-    "converged_at_epoch": 3,
+    "best_val_acc": 0.8014,
+    "last10_val_acc": 0.7997,
+    "converged_at_epoch": 4,
     "final_epoch": 50
   },
   "2d_recording_noise_005_s42": {
-    "best_val_acc": 0.9924,
-    "last10_val_acc": 0.9906,
-    "converged_at_epoch": 45,
+    "best_val_acc": 0.9839,
+    "last10_val_acc": 0.9685,
+    "converged_at_epoch": 29,
     "final_epoch": 50
   },
   "1d_recording_specaugment_s1024": {
     "best_val_acc": 1.0,
-    "last10_val_acc": 0.9967,
-    "converged_at_epoch": 2,
+    "last10_val_acc": 1.0,
+    "converged_at_epoch": 3,
     "final_epoch": 50
   },
   "1d_recording_shift_5_s42": {
-    "best_val_acc": 0.9898,
-    "last10_val_acc": 0.9682,
-    "converged_at_epoch": 13,
+    "best_val_acc": 0.9839,
+    "last10_val_acc": 0.9073,
+    "converged_at_epoch": 26,
     "final_epoch": 50
   },
   "2d_recording_freq_flip_s456": {
-    "best_val_acc": 0.9585,
-    "last10_val_acc": 0.8726,
-    "converged_at_epoch": 6,
+    "best_val_acc": 0.9738,
+    "last10_val_acc": 0.9682,
+    "converged_at_epoch": 34,
     "final_epoch": 50
   },
   "2d_random_none_s456": {
     "best_val_acc": 1.0,
-    "last10_val_acc": 0.9984,
-    "converged_at_epoch": 5,
+    "last10_val_acc": 0.9752,
+    "converged_at_epoch": 16,
     "final_epoch": 50
   },
   "1d_random_noise_001_s123": {
     "best_val_acc": 1.0,
-    "last10_val_acc": 0.9999,
-    "converged_at_epoch": 11,
+    "last10_val_acc": 0.9982,
+    "converged_at_epoch": 6,
     "final_epoch": 50
   },
   "1d_recording_noise_001_s1024": {
     "best_val_acc": 1.0,
-    "last10_val_acc": 0.9639,
+    "last10_val_acc": 0.8451,
     "converged_at_epoch": 2,
     "final_epoch": 50
   },
   "1d_recording_shift_5_s1024": {
     "best_val_acc": 1.0,
-    "last10_val_acc": 1.0,
-    "converged_at_epoch": 1,
+    "last10_val_acc": 0.9709,
+    "converged_at_epoch": 6,
     "final_epoch": 50
   },
   "1d_random_shift_50_s1024": {
     "best_val_acc": 1.0,
     "last10_val_acc": 1.0,
-    "converged_at_epoch": 7,
+    "converged_at_epoch": 2,
     "final_epoch": 50
   },
   "2d_recording_none_s1024": {
-    "best_val_acc": 0.8902,
-    "last10_val_acc": 0.88,
-    "converged_at_epoch": 10,
+    "best_val_acc": 0.8768,
+    "last10_val_acc": 0.8574,
+    "converged_at_epoch": 42,
     "final_epoch": 50
   },
   "1d_recording_shift_50_s789": {
-    "best_val_acc": 0.9408,
-    "last10_val_acc": 0.8589,
-    "converged_at_epoch": 9,
+    "best_val_acc": 0.8022,
+    "last10_val_acc": 0.7948,
+    "converged_at_epoch": 4,
     "final_epoch": 50
   },
   "2d_random_shift_50_s42": {
@@ -960,213 +984,219 @@
     "final_epoch": 50
   },
   "1d_recording_specaugment_s789": {
-    "best_val_acc": 0.8565,
-    "last10_val_acc": 0.7878,
-    "converged_at_epoch": 38,
+    "best_val_acc": 0.8935,
+    "last10_val_acc": 0.8063,
+    "converged_at_epoch": 24,
     "final_epoch": 50
   },
   "1d_recording_noise_001_s42": {
     "best_val_acc": 1.0,
-    "last10_val_acc": 0.9957,
-    "converged_at_epoch": 30,
+    "last10_val_acc": 0.9286,
+    "converged_at_epoch": 21,
     "final_epoch": 50
   },
   "2d_random_shift_50_s456": {
     "best_val_acc": 1.0,
-    "last10_val_acc": 0.9999,
-    "converged_at_epoch": 11,
+    "last10_val_acc": 0.9994,
+    "converged_at_epoch": 8,
     "final_epoch": 50
   },
   "2d_recording_specaugment_s456": {
-    "best_val_acc": 0.9683,
-    "last10_val_acc": 0.9318,
-    "converged_at_epoch": 17,
+    "best_val_acc": 0.9687,
+    "last10_val_acc": 0.911,
+    "converged_at_epoch": 10,
     "final_epoch": 50
   },
   "1d_recording_combined_s42": {
-    "best_val_acc": 1.0,
-    "last10_val_acc": 0.9994,
-    "converged_at_epoch": 31,
+    "best_val_acc": 0.9932,
+    "last10_val_acc": 0.9372,
+    "converged_at_epoch": 13,
     "final_epoch": 50
   },
   "1d_random_noise_005_s1024": {
     "best_val_acc": 1.0,
     "last10_val_acc": 1.0,
-    "converged_at_epoch": 5,
+    "converged_at_epoch": 3,
     "final_epoch": 50
   },
   "2d_random_noise_01_s789": {
-    "best_val_acc": 0.9992,
-    "last10_val_acc": 0.9992,
-    "converged_at_epoch": 7,
+    "best_val_acc": 1.0,
+    "last10_val_acc": 1.0,
+    "converged_at_epoch": 10,
     "final_epoch": 50
   },
   "1d_random_freq_flip_s123": {
     "best_val_acc": 1.0,
-    "last10_val_acc": 0.9947,
-    "converged_at_epoch": 9,
+    "last10_val_acc": 0.9996,
+    "converged_at_epoch": 6,
     "final_epoch": 50
   },
   "2d_recording_none_s789": {
-    "best_val_acc": 0.711,
-    "last10_val_acc": 0.7027,
-    "converged_at_epoch": 41,
+    "best_val_acc": 0.7025,
+    "last10_val_acc": 0.7001,
+    "converged_at_epoch": 30,
     "final_epoch": 50
   },
   "1d_recording_noise_01_s123": {
-    "best_val_acc": 0.9898,
-    "last10_val_acc": 0.9117,
-    "converged_at_epoch": 29,
+    "best_val_acc": 0.9966,
+    "last10_val_acc": 0.9499,
+    "converged_at_epoch": 39,
     "final_epoch": 50
   },
   "1d_random_shift_50_s123": {
-    "best_val_acc": 1.0,
-    "last10_val_acc": 0.9838,
-    "converged_at_epoch": 4,
-    "final_epoch": 50
-  },
-  "2d_random_specaugment_s789": {
-    "best_val_acc": 0.9992,
-    "last10_val_acc": 0.9977,
-    "converged_at_epoch": 14,
-    "final_epoch": 50
-  },
-  "1d_random_shift_20_s789": {
     "best_val_acc": 1.0,
     "last10_val_acc": 1.0,
     "converged_at_epoch": 2,
     "final_epoch": 50
   },
-  "1d_random_noise_005_s123": {
+  "2d_random_specaugment_s789": {
     "best_val_acc": 1.0,
-    "last10_val_acc": 0.992,
-    "converged_at_epoch": 3,
+    "last10_val_acc": 0.9982,
+    "converged_at_epoch": 16,
     "final_epoch": 50
   },
-  "2d_recording_specaugment_s42": {
-    "best_val_acc": 0.9391,
-    "last10_val_acc": 0.9074,
-    "converged_at_epoch": 9,
-    "final_epoch": 50
-  },
-  "2d_recording_noise_005_s456": {
-    "best_val_acc": 0.9602,
-    "last10_val_acc": 0.9364,
-    "converged_at_epoch": 13,
-    "final_epoch": 50
-  },
-  "1d_recording_freq_flip_s42": {
+  "1d_random_shift_20_s789": {
     "best_val_acc": 1.0,
-    "last10_val_acc": 0.963,
-    "converged_at_epoch": 36,
-    "final_epoch": 50
-  },
-  "1d_recording_specaugment_s456": {
-    "best_val_acc": 0.9962,
-    "last10_val_acc": 0.9614,
-    "converged_at_epoch": 48,
-    "final_epoch": 50
-  },
-  "2d_random_specaugment_s456": {
-    "best_val_acc": 0.9983,
-    "last10_val_acc": 0.9972,
-    "converged_at_epoch": 37,
-    "final_epoch": 50
-  },
-  "2d_recording_noise_001_s456": {
-    "best_val_acc": 0.9636,
-    "last10_val_acc": 0.8995,
+    "last10_val_acc": 0.9703,
     "converged_at_epoch": 5,
     "final_epoch": 50
   },
+  "1d_random_noise_005_s123": {
+    "best_val_acc": 1.0,
+    "last10_val_acc": 0.9992,
+    "converged_at_epoch": 4,
+    "final_epoch": 50
+  },
+  "2d_recording_specaugment_s42": {
+    "best_val_acc": 0.9797,
+    "last10_val_acc": 0.8518,
+    "converged_at_epoch": 35,
+    "final_epoch": 50
+  },
+  "2d_recording_noise_005_s456": {
+    "best_val_acc": 0.9611,
+    "last10_val_acc": 0.8994,
+    "converged_at_epoch": 4,
+    "final_epoch": 50
+  },
+  "1d_recording_freq_flip_s42": {
+    "best_val_acc": 0.9975,
+    "last10_val_acc": 0.9515,
+    "converged_at_epoch": 43,
+    "final_epoch": 50
+  },
+  "1d_recording_specaugment_s456": {
+    "best_val_acc": 0.9958,
+    "last10_val_acc": 0.9348,
+    "converged_at_epoch": 6,
+    "final_epoch": 50
+  },
+  "2d_random_specaugment_s456": {
+    "best_val_acc": 0.9992,
+    "last10_val_acc": 0.9968,
+    "converged_at_epoch": 20,
+    "final_epoch": 50
+  },
+  "2d_recording_noise_001_s456": {
+    "best_val_acc": 0.967,
+    "last10_val_acc": 0.9179,
+    "converged_at_epoch": 22,
+    "final_epoch": 50
+  },
   "1d_random_freq_flip_s42": {
-    "best_val_acc": 0.9996,
-    "last10_val_acc": 0.9938,
-    "converged_at_epoch": 42,
+    "best_val_acc": 1.0,
+    "last10_val_acc": 0.9987,
+    "converged_at_epoch": 31,
     "final_epoch": 50
   },
   "1d_random_specaugment_s456": {
     "best_val_acc": 1.0,
-    "last10_val_acc": 0.9886,
-    "converged_at_epoch": 12,
+    "last10_val_acc": 0.9964,
+    "converged_at_epoch": 8,
     "final_epoch": 50
   },
   "1d_recording_noise_005_s456": {
-    "best_val_acc": 0.9953,
-    "last10_val_acc": 0.9832,
-    "converged_at_epoch": 39,
+    "best_val_acc": 0.9983,
+    "last10_val_acc": 0.9961,
+    "converged_at_epoch": 36,
     "final_epoch": 50
   },
   "1d_random_noise_01_s123": {
     "best_val_acc": 1.0,
-    "last10_val_acc": 1.0,
-    "converged_at_epoch": 4,
+    "last10_val_acc": 0.9883,
+    "converged_at_epoch": 8,
     "final_epoch": 50
   },
   "1d_random_combined_s789": {
     "best_val_acc": 1.0,
-    "last10_val_acc": 1.0,
+    "last10_val_acc": 0.9915,
     "converged_at_epoch": 6,
     "final_epoch": 50
   },
   "1d_recording_none_s42": {
-    "best_val_acc": 0.9987,
-    "last10_val_acc": 0.991,
-    "converged_at_epoch": 44,
+    "best_val_acc": 0.9941,
+    "last10_val_acc": 0.9075,
+    "converged_at_epoch": 26,
+    "final_epoch": 50
+  },
+  "1d_random_none_s42": {
+    "best_val_acc": 1.0,
+    "last10_val_acc": 1.0,
+    "converged_at_epoch": 12,
     "final_epoch": 50
   },
   "2d_random_noise_001_s789": {
     "best_val_acc": 1.0,
     "last10_val_acc": 0.9998,
-    "converged_at_epoch": 9,
+    "converged_at_epoch": 2,
     "final_epoch": 50
   },
   "2d_recording_specaugment_s1024": {
-    "best_val_acc": 0.9578,
-    "last10_val_acc": 0.8997,
-    "converged_at_epoch": 24,
+    "best_val_acc": 0.9474,
+    "last10_val_acc": 0.8764,
+    "converged_at_epoch": 21,
     "final_epoch": 50
   },
   "2d_recording_combined_s42": {
-    "best_val_acc": 0.989,
-    "last10_val_acc": 0.987,
-    "converged_at_epoch": 47,
+    "best_val_acc": 0.9721,
+    "last10_val_acc": 0.9134,
+    "converged_at_epoch": 18,
     "final_epoch": 50
   },
   "1d_recording_shift_20_s42": {
-    "best_val_acc": 0.9987,
-    "last10_val_acc": 0.9944,
-    "converged_at_epoch": 30,
+    "best_val_acc": 0.9983,
+    "last10_val_acc": 0.8972,
+    "converged_at_epoch": 26,
     "final_epoch": 50
   },
   "2d_random_shift_20_s42": {
     "best_val_acc": 1.0,
-    "last10_val_acc": 1.0,
-    "converged_at_epoch": 12,
+    "last10_val_acc": 0.9999,
+    "converged_at_epoch": 3,
     "final_epoch": 50
   },
   "1d_random_noise_01_s789": {
     "best_val_acc": 1.0,
     "last10_val_acc": 1.0,
-    "converged_at_epoch": 3,
+    "converged_at_epoch": 5,
     "final_epoch": 50
   },
   "2d_recording_shift_5_s1024": {
-    "best_val_acc": 0.9113,
-    "last10_val_acc": 0.8772,
-    "converged_at_epoch": 35,
+    "best_val_acc": 0.8821,
+    "last10_val_acc": 0.8749,
+    "converged_at_epoch": 6,
     "final_epoch": 50
   },
   "2d_random_shift_5_s123": {
     "best_val_acc": 1.0,
-    "last10_val_acc": 0.9995,
-    "converged_at_epoch": 9,
+    "last10_val_acc": 0.9989,
+    "converged_at_epoch": 41,
     "final_epoch": 50
   },
   "1d_random_noise_005_s789": {
     "best_val_acc": 1.0,
-    "last10_val_acc": 0.9929,
-    "converged_at_epoch": 6,
+    "last10_val_acc": 1.0,
+    "converged_at_epoch": 3,
     "final_epoch": 50
   }
 }

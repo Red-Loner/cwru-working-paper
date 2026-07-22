@@ -27,7 +27,7 @@
 
 \begin{abstract}
 % [Abstract结构]：一句背景→一句问题→一句方法→5点核心发现→一句建议。所有数字均来自results/main_results.json，审稿人可逐条验证。
-In vibration-based bearing fault diagnosis, the standard sliding-window preprocessing creates highly correlated adjacent segments. Random train/test splitting of these windows introduces data leakage: models may learn window identity rather than fault signatures, inflating reported accuracy. Recording-level splitting eliminates this leakage but reduces training diversity, often degrading test performance. We investigate whether data augmentation can compensate for this performance drop under leakage-safe evaluation. Through a $2\times2\times10\times5$ factorial experiment (2 models $\times$ 2 split protocols $\times$ 10 augmentation conditions $\times$ 5 random seeds, 200 independent training runs) on the CWRU bearing dataset, we find: (1) recording-level splitting reduces accuracy by 6.8pp (1D-CNN) and 9.9pp (2D-CNN), both large effects (Cohen's $d=1.17$, $1.80$); (2) augmentation recovers at most 46\% of this gap for 1D-CNN but only 15\% for 2D-CNN; (3) five of nine augmentations \emph{degrade} 2D recording-split performance below the no-augmentation baseline, while only four provide modest improvements; (4) physical frequency-band energy retention under augmentation (H3: Spearman $\rho=-0.37$, $p=0.33$) does not predict recovery; and (5) a grouping-variable ablation reveals that fault-size domain shift ($\text{acc}=0.47$) dominates recording-level leakage ($\text{acc}=0.90$) and load variation ($\text{acc}=0.98$) as the hardest generalization challenge. We recommend a minimum of five random seeds for recording-level evaluation and provide a reproducible benchmark for leakage-controlled CWRU studies.
+In vibration-based bearing fault diagnosis, the standard sliding-window preprocessing creates highly correlated adjacent segments. Random train/test splitting of these windows introduces data leakage: models may learn window identity rather than fault signatures, inflating reported accuracy. Recording-level splitting eliminates this leakage but reduces training diversity, often degrading test performance. We investigate whether data augmentation can compensate for this performance drop under leakage-safe evaluation. Through a $2\times2\times10\times5$ factorial experiment (2 models $\times$ 2 split protocols $\times$ 10 augmentation conditions $\times$ 5 random seeds, 200 independent training runs) on the CWRU bearing dataset, we find: (1) recording-level splitting reduces accuracy by 5.4pp (1D-CNN) and 10.2pp (2D-CNN), both large effects (Cohen's $d=1.35$, $1.45$); (2) augmentation recovers at most 35\% of this gap for 1D-CNN but only 6\% for 2D-CNN; (3) six of nine augmentations \emph{degrade} 2D recording-split performance below the no-augmentation baseline, while only three provide modest improvements; (4) physical frequency-band energy retention under augmentation (H3: Spearman $\rho=-0.37$, $p=0.33$) does not predict recovery; and (5) a grouping-variable ablation reveals that fault-size domain shift ($\text{acc}=0.47$) dominates recording-level leakage ($\text{acc}=0.90$) and load variation ($\text{acc}=0.98$) as the hardest generalization challenge. We recommend a minimum of five random seeds for recording-level evaluation and provide a reproducible benchmark for leakage-controlled CWRU studies.
 \end{abstract}
 
 % ================================================================
@@ -52,7 +52,7 @@ We pose three hypotheses:
 To test these hypotheses, we conduct a fully factorial experiment on the Case Western Reserve University (CWRU) bearing dataset: 2 model architectures (1D-CNN on raw waveform, 2D-CNN on STFT spectrograms) $\times$ 2 split protocols $\times$ 10 augmentation conditions $\times$ 5 random seeds, totaling 200 independent training runs. We further ablate three grouping variables---recording identity, motor load, and fault size---to identify which domain shift most challenges generalization.
 
 % [数据集与训练细节]：在引言末尾交代数据集规模和训练配置，为可重复性提供早期保证。不是Method的完整细节，而是让读者在引言阶段就能判断实验规模是否可信。
-The dataset comprises 40 recording files yielding 11,832 windows (1,024 samples per window, 50\% overlap). Each configuration trains for 50 epochs on an NVIDIA A10 GPU (Adam optimizer, $\text{lr}=0.001$, batch size 64).
+The dataset comprises 40 recording files yielding 11,832 windows (1,024 samples per window, 50\% overlap). Each configuration trains for 50 epochs on an NVIDIA A10 GPU (Adam optimizer, $\text{lr}=0.001$, batch size 128).
 
 % ================================================================
 \section{Related Work}
@@ -155,7 +155,7 @@ We extract penultimate-layer features from a 2D-CNN for original and augmented v
 % [实验设置]：使用itemize列表统一收敛性报告，方便审稿人快速定位超参数。收敛分析的结果（中位数epoch=9）是对50epoch选择的事后辩护。
 \begin{itemize}[nosep]
     \item \textbf{Hardware}: Baidu Cloud BCC, NVIDIA A10 (24\,GB), Ubuntu 22.04, PyTorch 2.5.1+cu121
-    \item \textbf{Training}: Adam ($\text{lr}=0.001$), CrossEntropy loss, batch\_size=64, 50 epochs
+    \item \textbf{Training}: Adam ($\text{lr}=0.001$), CrossEntropy loss, batch\_size=128, 50 epochs
     \item \textbf{Normalization}: Z-score computed on training set only
     \item \textbf{Metrics}: Accuracy, macro-F1, per-class precision/recall/F1
     \item \textbf{Statistics}: Mean $\pm$ std across 5 seeds; Cohen's $d$ for effect size
@@ -170,7 +170,7 @@ We extract penultimate-layer features from a 2D-CNN for original and augmented v
 \subsection{Main Factorial Results}
 
 % [Table 1解读]：写论文最怕的就是表格数据没人读，所以一定要在正文里解读关键数字。这里挑出gap和d值，引导审稿人关注最重要的发现。
-Table~\ref{tab:main} reports test accuracy for all 40 combinations. Under random splitting, both models achieve near-ceiling accuracy (0.999--1.000). Under recording-level splitting, accuracy drops substantially. The no-augmentation baseline records a leakage gap of 0.0676 (1D, Cohen's $d=1.17$) and 0.0988 (2D, Cohen's $d=1.80$)---both large effect sizes (Figure~\ref{fig:cohens}).
+Table~\ref{tab:main} reports test accuracy for all 40 combinations. Under random splitting, both models achieve near-ceiling accuracy (0.999--1.000). Under recording-level splitting, accuracy drops substantially. The no-augmentation baseline records a leakage gap of 0.0537 (1D, Cohen's $d=1.35$) and 0.1017 (2D, Cohen's $d=1.45$)---both large effect sizes (Figure~\ref{fig:cohens}).
 
 \begin{table}[H]
 \centering
@@ -180,27 +180,27 @@ Table~\ref{tab:main} reports test accuracy for all 40 combinations. Under random
 \toprule
 & \multicolumn{2}{c}{\textbf{CNN--1D}} & \multicolumn{2}{c}{\textbf{CNN--2D}} \\
 Augmentation & Random & Recording & Random & Recording \\ \midrule
-None & $0.9997 \pm 0.001$ & $\mathbf{0.9321 \pm 0.073}$ & $0.9995 \pm 0.000$ & $\mathbf{0.9007 \pm 0.069}$ \\
-Noise $\sigma=0.01$ & $0.9999 \pm 0.000$ & $0.9484 \pm 0.054$ & $0.9996 \pm 0.000$ & $0.9138 \pm 0.076$ \\
-Noise $\sigma=0.05$ & $1.0000 \pm 0.000$ & $\mathbf{0.9634 \pm 0.038}$ & $0.9998 \pm 0.000$ & $0.8723 \pm 0.091$ \\
-Noise $\sigma=0.10$ & $0.9999 \pm 0.000$ & $0.9339 \pm 0.079$ & $0.9995 \pm 0.001$ & $0.9098 \pm 0.073$ \\
-Shift 5 & $0.9998 \pm 0.000$ & $0.9486 \pm 0.051$ & $0.9997 \pm 0.001$ & $\mathbf{0.9152 \pm 0.075}$ \\
-Shift 20 & $0.9999 \pm 0.000$ & $0.9526 \pm 0.057$ & $0.9997 \pm 0.001$ & $0.9139 \pm 0.076$ \\
-Shift 50 & $1.0000 \pm 0.000$ & $0.9366 \pm 0.071$ & $0.9994 \pm 0.001$ & $0.8722 \pm 0.085$ \\
-SpecAugment & $0.9996 \pm 0.000$ & $0.9362 \pm 0.037$ & $0.9987 \pm 0.000$ & $0.8717 \pm 0.082$ \\
-Combined & $0.9999 \pm 0.000$ & $0.9531 \pm 0.048$ & $0.9998 \pm 0.000$ & $0.8766 \pm 0.134$ \\
-FreqFlip (neg.) & $0.9992 \pm 0.001$ & $0.9271 \pm 0.074$ & $0.9813 \pm 0.009$ & $0.8846 \pm 0.098$ \\
+None & $0.9999 \pm 0.000$ & $\mathbf{0.9462 \pm 0.050}$ & $0.9996 \pm 0.001$ & $\mathbf{0.8979 \pm 0.089}$ \\
+Noise $\sigma=0.01$ & $0.9997 \pm 0.001$ & $0.9600 \pm 0.046$ & $0.9994 \pm 0.000$ & $0.8861 \pm 0.073$ \\
+Noise $\sigma=0.05$ & $0.9999 \pm 0.000$ & $0.9294 \pm 0.075$ & $0.9995 \pm 0.000$ & $0.8934 \pm 0.073$ \\
+Noise $\sigma=0.10$ & $0.9999 \pm 0.000$ & $\mathbf{0.9648 \pm 0.041}$ & $0.9995 \pm 0.001$ & $0.9020 \pm 0.050$ \\
+Shift 5 & $0.9998 \pm 0.000$ & $0.9615 \pm 0.044$ & $0.9998 \pm 0.000$ & $\mathbf{0.9041 \pm 0.079}$ \\
+Shift 20 & $0.9998 \pm 0.000$ & $0.9430 \pm 0.084$ & $0.9998 \pm 0.000$ & $0.8728 \pm 0.090$ \\
+Shift 50 & $0.9999 \pm 0.000$ & $0.9313 \pm 0.043$ & $0.9998 \pm 0.000$ & $0.8858 \pm 0.079$ \\
+SpecAugment & $0.9992 \pm 0.001$ & $0.9498 \pm 0.042$ & $0.9987 \pm 0.001$ & $0.9033 \pm 0.076$ \\
+Combined & $1.0000 \pm 0.000$ & $0.9441 \pm 0.046$ & $0.9994 \pm 0.001$ & $0.8963 \pm 0.071$ \\
+FreqFlip (neg.) & $0.9996 \pm 0.000$ & $0.9286 \pm 0.055$ & $0.9920 \pm 0.002$ & $0.8546 \pm 0.105$ \\
 \bottomrule
 \end{tabular}
 \end{table}
 
 % [2D-CNN的负面结果]：这个发现很重要且反直觉——大多数增强居然有害。明确列出哪些增强有用、哪些有害，不可含糊其辞。
-For 2D-CNN under recording-level split, 5 of 9 augmentation conditions perform \emph{worse} than no augmentation. Only noise\_001 ($0.9138$), noise\_01 ($0.9098$), shift\_5 ($0.9152$), and shift\_20 ($0.9139$) surpass the $0.9007$ baseline. Figures~\ref{fig:rvr1d}--\ref{fig:rvr2d} visualize the random-vs-recording contrast.
+For 2D-CNN under recording-level split, 6 of 9 augmentation conditions perform \emph{worse} than no augmentation. Only noise\_01 ($0.9020$), shift\_5 ($0.9041$), and specaugment ($0.9033$) surpass the $0.8979$ baseline. Figures~\ref{fig:rvr1d}--\ref{fig:rvr2d} visualize the random-vs-recording contrast.
 
 \subsection{Per-Class Analysis}
 
 % [Per-class结果解读]：不要避免指出最差类（IR和B）。诚实报告每个类的短板比只报平均指标更有说服力。
-Table~\ref{tab:perclass} reports per-class F1 scores for the most challenging configuration (2D-CNN, recording-level split). The Normal class is universally recognized ($F1=0.947$--$1.000$). Inner Race ($0.761$--$0.860$) and Ball ($0.812$--$0.945$) faults show the widest variance.
+Table~\ref{tab:perclass} reports per-class F1 scores for the most challenging configuration (2D-CNN, recording-level split). The Normal class is universally recognized ($F1=0.910$--$1.000$). Inner Race ($0.771$--$0.840$) and Ball ($0.829$--$0.919$) faults show the widest variance.
 
 \begin{table}[H]
 \centering
@@ -209,16 +209,16 @@ Table~\ref{tab:perclass} reports per-class F1 scores for the most challenging co
 \begin{tabular}{lcccc}
 \toprule
 Augmentation & Normal & IR & OR & B \\ \midrule
-None          & $1.000 \pm 0.000$ & $0.835 \pm 0.193$ & $0.856 \pm 0.098$ & $0.898 \pm 0.060$ \\
-Noise $\sigma=0.01$ & $1.000 \pm 0.000$ & $0.848 \pm 0.197$ & $0.884 \pm 0.114$ & $0.910 \pm 0.070$ \\
-Noise $\sigma=0.05$ & $0.997 \pm 0.004$ & $0.812 \pm 0.198$ & $0.840 \pm 0.133$ & $0.825 \pm 0.101$ \\
-Noise $\sigma=0.10$ & $1.000 \pm 0.000$ & $0.845 \pm 0.187$ & $0.888 \pm 0.119$ & $0.898 \pm 0.059$ \\
-Shift 5       & $1.000 \pm 0.000$ & $0.840 \pm 0.193$ & $0.858 \pm 0.115$ & $\mathbf{0.945 \pm 0.053}$ \\
-Shift 20      & $1.000 \pm 0.000$ & $0.850 \pm 0.189$ & $0.863 \pm 0.110$ & $0.928 \pm 0.060$ \\
-Shift 50      & $0.999 \pm 0.002$ & $0.761 \pm 0.228$ & $0.839 \pm 0.133$ & $0.866 \pm 0.088$ \\
-SpecAugment   & $1.000 \pm 0.000$ & $0.774 \pm 0.200$ & $0.897 \pm 0.112$ & $0.812 \pm 0.046$ \\
-Combined      & $0.947 \pm 0.105$ & $0.860 \pm 0.147$ & $0.804 \pm 0.197$ & $0.867 \pm 0.143$ \\
-FreqFlip      & $1.000 \pm 0.000$ & $0.775 \pm 0.251$ & $0.900 \pm 0.126$ & $0.852 \pm 0.093$ \\
+None          & $1.000 \pm 0.000$ & $0.834 \pm 0.209$ & $0.849 \pm 0.124$ & $0.898 \pm 0.062$ \\
+Noise $\sigma=0.01$ & $1.000 \pm 0.000$ & $0.786 \pm 0.196$ & $0.863 \pm 0.106$ & $0.880 \pm 0.093$ \\
+Noise $\sigma=0.05$ & $1.000 \pm 0.000$ & $0.809 \pm 0.203$ & $0.839 \pm 0.120$ & $0.905 \pm 0.063$ \\
+Noise $\sigma=0.10$ & $1.000 \pm 0.001$ & $0.840 \pm 0.136$ & $0.867 \pm 0.096$ & $0.890 \pm 0.087$ \\
+Shift 5       & $1.000 \pm 0.000$ & $0.837 \pm 0.197$ & $0.847 \pm 0.117$ & $\mathbf{0.919 \pm 0.052}$ \\
+Shift 20      & $1.000 \pm 0.000$ & $0.785 \pm 0.209$ & $0.829 \pm 0.129$ & $0.865 \pm 0.067$ \\
+Shift 50      & $1.000 \pm 0.000$ & $0.776 \pm 0.214$ & $0.849 \pm 0.121$ & $0.892 \pm 0.067$ \\
+SpecAugment   & $1.000 \pm 0.000$ & $0.831 \pm 0.196$ & $0.902 \pm 0.111$ & $0.875 \pm 0.074$ \\
+Combined      & $0.999 \pm 0.002$ & $0.814 \pm 0.198$ & $0.848 \pm 0.107$ & $0.904 \pm 0.061$ \\
+FreqFlip      & $0.910 \pm 0.170$ & $0.771 \pm 0.189$ & $0.876 \pm 0.134$ & $0.829 \pm 0.088$ \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -238,15 +238,16 @@ Table~\ref{tab:gap} reports $\Delta_{\text{rec}}$---the proportion of the leakag
 \toprule
 & \multicolumn{3}{c}{\textbf{CNN--1D}} & \multicolumn{3}{c}{\textbf{CNN--2D}} \\
 Aug. & Gap & $\Delta_{\text{rec}}$ & $d$ & Gap & $\Delta_{\text{rec}}$ & $d$ \\ \midrule
-Noise $\sigma=0.01$ & 0.0515 & 0.241 & 1.20 & 0.0858 & 0.133 & 1.43 \\
-Noise $\sigma=0.05$ & 0.0366 & $\mathbf{0.463}$ & 1.21 & 0.1275 & $-$0.287 & 1.76 \\
-Noise $\sigma=0.10$ & 0.0660 & 0.027 & 1.06 & 0.0897 & 0.092 & 1.56 \\
-Shift 5      & 0.0512 & 0.244 & 1.28 & 0.0845 & $\mathbf{0.147}$ & 1.42 \\
-Shift 20     & 0.0473 & 0.303 & 1.05 & 0.0858 & 0.134 & 1.44 \\
-Shift 50     & 0.0634 & 0.067 & 1.13 & 0.1272 & $-$0.288 & 1.89 \\
-SpecAugment  & 0.0634 & 0.061 & 2.15 & 0.1270 & $-$0.293 & 1.96 \\
-Combined     & 0.0468 & 0.311 & 1.25 & 0.1232 & $-$0.244 & 1.16 \\
-FreqFlip     & 0.0721 & $-$0.074 & 1.23 & 0.0967 & $-$0.163 & 1.25 \\
+None          & 0.0537 & 0.000 & 1.35 & 0.1017 & 0.000 & 1.45 \\
+Noise $\sigma=0.01$ & 0.0397 & 0.257 & 1.10 & 0.1133 & $-$0.116 & 1.22 \\
+Noise $\sigma=0.05$ & 0.0705 & $-$0.313 & 1.18 & 0.1061 & $-$0.044 & 1.26 \\
+Noise $\sigma=0.10$ & 0.0351 & $\mathbf{0.346}$ & 1.08 & 0.0974 & 0.040 & 1.33 \\
+Shift 5       & 0.0384 & 0.285 & 1.09 & 0.0955 & $\mathbf{0.061}$ & 1.15 \\
+Shift 20      & 0.0569 & $-$0.060 & 1.06 & 0.1268 & $-$0.247 & 1.49 \\
+Shift 50      & 0.0686 & $-$0.278 & 1.17 & 0.1140 & $-$0.119 & 1.30 \\
+SpecAugment   & 0.0501 & 0.067 & 1.13 & 0.0963 & 0.053 & 1.22 \\
+Combined      & 0.0558 & $-$0.039 & 1.13 & 0.1033 & $-$0.016 & 1.36 \\
+FreqFlip      & 0.0713 & $-$0.328 & 1.29 & 0.1450 & $-$0.426 & 1.66 \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -287,7 +288,7 @@ The H3 hypothesis is not supported. Spearman correlation between $R_{\text{energ
 \subsection{Single vs.\ Combined Augmentation}
 
 % [单增强vs组合增强]：这个消融证明stacking不总是有益的，与常见做法相反。用具体数字对比而非只陈述结论。
-Combined augmentation does not outperform the best single augmentation. For 1D-CNN, combined achieves $0.9531$ vs.\ noise\_005's $0.9634$. For 2D-CNN, combined ($0.8766$) underperforms even the no-augmentation baseline ($0.9007$). Stacking augmentations amplifies distribution shift beyond what training data can support.
+Combined augmentation does not outperform the best single augmentation. For 1D-CNN, combined achieves $0.9441$ vs.\ noise\_01's $0.9648$. For 2D-CNN, combined ($0.8963$) underperforms even the no-augmentation baseline ($0.8979$). Stacking augmentations amplifies distribution shift beyond what training data can support.
 
 \subsection{Grouping Variable Importance}
 
@@ -299,19 +300,19 @@ The ablation in Section~\ref{sec:results} (Table~\ref{tab:ablation}) establishes
 % ================================================================
 
 % [H1讨论]：先确认成立再指出局限。2D弱于1D的现象可以引发关于spectrogram信息损失的讨论。
-\textbf{H1 (partial recovery)} is supported but weak for 2D-CNN. The best augmentation recovers only 15\% of the leakage gap in the 2D case, and most augmentations are counterproductive.
+\textbf{H1 (partial recovery)} is supported but weak for 2D-CNN. The best augmentation recovers only 6\% of the leakage gap in the 2D case, and most augmentations are counterproductive.
 
 % [H2讨论]：用Cohen's d的定量语言确保论点的统计严谨性。proper evaluation protocol一词强调方法论意义。
-\textbf{H2 (leakage dominates)} is strongly supported. With Cohen's $d \geq 1.17$ and max $\Delta_{\text{rec}}$ of 0.46, the leakage gap is the dominant effect. No augmentation can substitute for proper evaluation protocol.
+\textbf{H2 (leakage dominates)} is strongly supported. With Cohen's $d \geq 1.35$ and max $\Delta_{\text{rec}}$ of 0.35, the leakage gap is the dominant effect. No augmentation can substitute for proper evaluation protocol.
 
 % [H3讨论]：honest null result是对无法拒绝零假设的诚实措辞。将发现归因于sample diversity而非feature corruption，为增强选择提供新视角。
 \textbf{H3 (physical fidelity)} is falsified. The absence of correlation between energy retention and recovery is an ``honest null result.'' Performance drop under recording-level splitting appears driven by reduced sample diversity rather than augmentation-induced feature corruption.
 
 % [3-seed不足的教训]：从初版3-seed实验的错误中提炼方法论建议。叙述视角从what we found转向what we learned，更有教学意义。
-\textbf{The 3-seed insufficiency.} Our initial 3-seed experiment estimated the 2D recording baseline at $0.9653$ ($\text{gap}=0.034$). Expanding to 5 seeds dropped this to $0.9007$ ($\text{gap}=0.099$)---a nearly $3\times$ increase. We recommend $\geq 5$ seeds as minimum for recording-level evaluations.
+\textbf{The 3-seed insufficiency.} Our initial 3-seed experiment estimated the 2D recording baseline at $0.9653$ ($\text{gap}=0.034$). Expanding to 5 seeds dropped this to $0.8979$ ($\text{gap}=0.102$)---a nearly $3\times$ increase. We recommend $\geq 5$ seeds as minimum for recording-level evaluations.
 
 % [跨严重度泛化]：将消融发现的含义提升到领域级别。这句话是整篇论文的hook——把泄漏讨论重新框架化为一个更根本问题的子集。
-\textbf{Cross-severity generalization is the real bottleneck.} The fault-size ablation ($\text{acc}=0.47$--$0.63$) dwarfs the recording-level split effect ($0.90$--$0.94$).
+\textbf{Cross-severity generalization is the real bottleneck.} The fault-size ablation ($\text{acc}=0.47$--$0.63$) dwarfs the recording-level split effect ($0.90$--$0.95$).
 
 % ================================================================
 \section{Limitations}
@@ -332,7 +333,7 @@ The ablation in Section~\ref{sec:results} (Table~\ref{tab:ablation}) establishes
 % ================================================================
 
 % [结论段]：遵循标准结构——重申核心发现→量化效果→指出最限制因素（跨严重度泛化）→方法论建议→开放数据承诺。不需要新信息，只需要强有力地复述Results+Discussion。
-Under leakage-safe recording-level evaluation on CWRU, data augmentation provides at most 46\% (1D-CNN) and 15\% (2D-CNN) recovery of the leakage gap. The gap itself is large (Cohen's $d \geq 1.17$), and most augmentations degrade 2D-CNN performance. Physical frequency-band energy preservation does not predict recovery efficacy. A grouping-variable ablation reveals that cross-severity generalization ($0.47$--$0.63$) is a substantially harder problem than recording-level leakage control ($0.90$--$0.94$) or cross-load generalization ($0.98$). We recommend $\geq 5$ seeds for recording-level evaluations and release our full experimental results as a benchmark for leakage-controlled CWRU studies.
+Under leakage-safe recording-level evaluation on CWRU, data augmentation provides at most 35\% (1D-CNN) and 6\% (2D-CNN) recovery of the leakage gap. The gap itself is large (Cohen's $d \geq 1.35$), and most augmentations degrade 2D-CNN performance. Physical frequency-band energy preservation does not predict recovery efficacy. A grouping-variable ablation reveals that cross-severity generalization ($0.47$--$0.63$) is a substantially harder problem than recording-level leakage control ($0.90$--$0.95$) or cross-load generalization ($0.98$). We recommend $\geq 5$ seeds for recording-level evaluations and release our full experimental results as a benchmark for leakage-controlled CWRU studies.
 
 % ================================================================
 \section{Reproducibility Statement}

@@ -1,41 +1,41 @@
 {
-  "H2_null": "leakage gap = 0.0988 — test H1/H2",
-  "H1_result": "max_delta_recovery = 0.1468",
+  "H2_null": "leakage gap = 0.1017 — test H1/H2",
+  "H1_result": "max_delta_recovery = 0.0610",
   "H1": "SUPPORTED: partial recovery",
   "H2": "SUPPORTED: leakage dominates",
   "effect_sizes": {
     "1d": {
-      "cohens_d_random_vs_recording": 1.1723,
+      "cohens_d_random_vs_recording": 1.3496,
       "random_seeds": [
+        0.9996,
         1.0,
-        0.9983,
         1.0,
         1.0,
         1.0
       ],
       "recording_seeds": [
-        0.9948,
-        1.0,
-        0.9632,
-        0.896,
-        0.8067
+        0.9767,
+        0.9993,
+        0.977,
+        0.9157,
+        0.8622
       ]
     },
     "2d": {
-      "cohens_d_random_vs_recording": 1.8024,
+      "cohens_d_random_vs_recording": 1.4464,
       "random_seeds": [
-        0.9992,
-        0.9992,
+        0.9987,
         1.0,
-        0.9996,
-        0.9996
+        1.0,
+        1.0,
+        0.9992
       ],
       "recording_seeds": [
         0.9987,
-        0.8873,
-        0.9271,
-        0.7843,
-        0.906
+        0.9168,
+        0.9702,
+        0.7502,
+        0.8538
       ]
     }
   }

@@ -5,7 +5,7 @@
 
 ## Abstract
 
-In vibration-based bearing fault diagnosis, the standard sliding-window preprocessing creates highly correlated adjacent segments. Random train/test splitting of these windows introduces data leakage: models may learn window identity rather than fault signatures, inflating reported accuracy. Recording-level splitting eliminates this leakage but reduces training diversity, often degrading test performance. We investigate whether data augmentation can compensate for this performance drop under leakage-safe evaluation. Through a 2×2×10×5 factorial experiment (2 models × 2 split protocols × 10 augmentation conditions × 5 random seeds, 200 independent training runs) on the CWRU bearing dataset, we find: (1) recording-level splitting reduces accuracy by 6.8pp (1D-CNN) and 9.9pp (2D-CNN), both large effects (Cohen's d=1.17, 1.80); (2) augmentation recovers at most 46% of this gap for 1D-CNN but only 15% for 2D-CNN; (3) seven of nine augmentations *degrade* 2D recording-split performance below the no-augmentation baseline; (4) physical frequency-band energy retention under augmentation (H3: Spearman ρ=-0.37, p=0.33) does not predict recovery; and (5) a grouping-variable ablation reveals that fault-size domain shift (acc=0.47) dominates recording-level leakage (0.90) and load variation (0.98) as the hardest generalization challenge. We recommend a minimum of five random seeds for recording-level evaluation and provide a reproducible benchmark for leakage-controlled CWRU experiments.
+In vibration-based bearing fault diagnosis, the standard sliding-window preprocessing creates highly correlated adjacent segments. Random train/test splitting of these windows introduces data leakage: models may learn window identity rather than fault signatures, inflating reported accuracy. Recording-level splitting eliminates this leakage but reduces training diversity, often degrading test performance. We investigate whether data augmentation can compensate for this performance drop under leakage-safe evaluation. Through a 2×2×10×5 factorial experiment (2 models × 2 split protocols × 10 augmentation conditions × 5 random seeds, 200 independent training runs) on the CWRU bearing dataset, we find: (1) recording-level splitting reduces accuracy by 5.4pp (1D-CNN) and 10.2pp (2D-CNN), both large effects (Cohen's d=1.35, 1.45); (2) augmentation recovers at most 35% of this gap for 1D-CNN but only 6% for 2D-CNN; (3) six of nine augmentations *degrade* 2D recording-split performance below the no-augmentation baseline, while only three provide modest improvements; (4) physical frequency-band energy retention under augmentation (H3: Spearman ρ=-0.37, p=0.33) does not predict recovery; and (5) a grouping-variable ablation reveals that fault-size domain shift (acc=0.47) dominates recording-level leakage (0.90) and load variation (0.98) as the hardest generalization challenge. We recommend a minimum of five random seeds for recording-level evaluation and provide a reproducible benchmark for leakage-controlled CWRU experiments.
 
 
 ## 1. Introduction
@@ -21,7 +21,7 @@ We pose three hypotheses:
 
 To test these hypotheses, we conduct a fully factorial experiment on the Case Western Reserve University (CWRU) bearing dataset: 2 model architectures (1D-CNN on raw waveform, 2D-CNN on STFT spectrograms) × 2 split protocols × 10 augmentation conditions × 5 random seeds, totaling 200 independent training runs. We further ablate three grouping variables — recording identity, motor load, and fault size — to identify which domain shift most challenges generalization.
 
-The dataset comprises 40 recording files yielding 11,832 windows (1,024 samples per window, 50% overlap). Each configuration trains for 50 epochs on an NVIDIA A10 GPU (Adam optimizer, lr=0.001, batch size 64).
+The dataset comprises 40 recording files yielding 11,832 windows (1,024 samples per window, 50% overlap). Each configuration trains for 50 epochs on an NVIDIA A10 GPU (Adam optimizer, lr=0.001, batch size 128).
 
 
 ## 2. Related Work
@@ -96,7 +96,7 @@ We extract penultimate-layer features from a 2D-CNN for original and augmented v
 ## 6. Experimental Setup
 
 - **Hardware**: Baidu Cloud BCC instance, NVIDIA A10 (24GB), Ubuntu 22.04, PyTorch 2.5.1+cu121
-- **Training**: Adam optimizer, lr=0.001, CrossEntropy loss, batch_size=64, 50 epochs
+- **Training**: Adam optimizer, lr=0.001, CrossEntropy loss, batch_size=128, 50 epochs
 - **Normalization**: Z-score normalization computed on training set only
 - **Metrics**: Accuracy, macro-F1, per-class precision/recall/F1, confusion matrix
 - **Statistical reporting**: Mean ± standard deviation across 5 seeds; Cohen's d for effect size
@@ -127,9 +127,9 @@ Table 1 reports test accuracy for all 40 combinations. Under random splitting, b
 
 *Bold: best per-column (excluding FreqFlip as negative control).*
 
-The no-augmentation baseline records a leakage gap of 0.0676 (1D, Cohen's d=1.17) and 0.0988 (2D, Cohen's d=1.80) — both large effect sizes (Figure 6–7). For 1D-CNN, additive noise (σ=0.05) achieves the best recording-split accuracy of 0.9634. For 2D-CNN, time shift (5 samples) achieves 0.9152.
+The no-augmentation baseline records a leakage gap of 0.0537 (1D, Cohen's d=1.35) and 0.1017 (2D, Cohen's d=1.45) — both large effect sizes (Figure 6–7). For 1D-CNN, additive noise (σ=0.05) achieves the best recording-split accuracy of 0.9634. For 2D-CNN, time shift (5 samples) achieves 0.9152.
 
-Critically, for 2D-CNN under recording-level split, 7 of 9 augmentation conditions perform *worse* than no augmentation: noise_005 (0.8723), shift_50 (0.8722), SpecAugment (0.8717), combined (0.8766), freq_flip (0.8846), noise_001 (0.9138), and noise_01 (0.9098) — only shift_5 (0.9152) and shift_20 (0.9139) surpass the 0.9007 baseline. The negative control (frequency flip) at 0.8846 suggests that even destructive frequency-axis operations do not catastrophically differ from physically motivated augmentations in practice. Figures 2–3 visualize the random-vs-recording contrast.
+For 2D-CNN under recording-level split, 6 of 9 augmentation conditions perform *worse* than no augmentation. Only noise_01 (0.9020), shift_5 (0.9041), and SpecAugment (0.9033) surpass the 0.8979 baseline. Figures 2–3 visualize the random-vs-recording contrast.
 
 ### 7.2 Per-Class Analysis
 
@@ -199,7 +199,7 @@ The negative coefficient suggests that broad-spectrum noise augmentations may in
 
 ### 9.1 Single vs. Combined Augmentation
 
-Combined augmentation (noise + shift) does not outperform the best single augmentation. For 1D-CNN recording split, combined achieves 0.9531 vs. noise_005's 0.9634. For 2D-CNN, combined (0.8766) underperforms even the no-augmentation baseline (0.9007). Stacking augmentations amplifies distribution shift beyond what the training data can support.
+Combined augmentation (noise + shift) does not outperform the best single augmentation. For 1D-CNN recording split, combined achieves 0.9441 vs. noise_01's 0.9648. For 2D-CNN, combined (0.8963) underperforms even the no-augmentation baseline (0.8979). Stacking augmentations amplifies distribution shift beyond what the training data can support.
 
 ### 9.2 Grouping Variable Importance
 
@@ -208,15 +208,15 @@ The ablation in Section 7.4 (Table 4) establishes fault_size >> recording > load
 
 ## 10. Discussion
 
-**H1 (partial recovery) is supported but weak for 2D-CNN.** The best augmentation recovers only 15% of the leakage gap in the 2D case, and most augmentations are counterproductive. 2D-CNN's reliance on spectrogram representations makes it particularly vulnerable to distribution shift from augmentation.
+**H1 (partial recovery) is supported but weak for 2D-CNN.** The best augmentation recovers only 6% of the leakage gap in the 2D case, and most augmentations are counterproductive. 2D-CNN's reliance on spectrogram representations makes it particularly vulnerable to distribution shift from augmentation.
 
-**H2 (leakage dominates) is strongly supported.** With Cohen's d ≥ 1.17 and max Δ_recovery of 0.46, the leakage gap is the dominant effect. No augmentation configuration can substitute for proper evaluation protocol.
+**H2 (leakage dominates) is strongly supported.** With Cohen's d ≥ 1.35 and max Δ_recovery of 0.35, the leakage gap is the dominant effect. No augmentation configuration can substitute for proper evaluation protocol.
 
 **H3 (physical fidelity) is falsified.** The absence of correlation between energy retention and recovery is a "honest null result." The performance drop under recording-level splitting appears driven by reduced sample diversity rather than augmentation-induced feature corruption. Augmentations that distort physical features may still help by increasing diversity.
 
-**The 3-seed insufficiency.** Our initial 3-seed experiment estimated the 2D recording baseline at 0.9653 (gap=0.034). Expanding to 5 seeds dropped this to 0.9007 (gap=0.099) — a nearly 3× increase in the estimated leakage gap. Individual seed performance spans 0.784–0.999 for 2D recording. We recommend ≥5 seeds as minimum for recording-level evaluations.
+**The 3-seed insufficiency.** Our initial 3-seed experiment estimated the 2D recording baseline at 0.9653 (gap=0.034). Expanding to 5 seeds dropped this to 0.8979 (gap=0.102) — a nearly 3× increase in the estimated leakage gap. Individual seed performance spans 0.784–0.999 for 2D recording. We recommend ≥5 seeds as minimum for recording-level evaluations.
 
-**Cross-severity generalization is the real bottleneck.** The fault-size ablation (accuracy 0.47–0.63) dwarfs the recording-level split effect (0.90–0.94). This deserves greater research attention than leakage control alone.
+**Cross-severity generalization is the real bottleneck.** The fault-size ablation (accuracy 0.47–0.63) dwarfs the recording-level split effect (0.90–0.95). This deserves greater research attention than leakage control alone.
 
 
 ## 11. Limitations
@@ -231,7 +231,7 @@ The ablation in Section 7.4 (Table 4) establishes fault_size >> recording > load
 
 ## 12. Conclusion
 
-Under leakage-safe recording-level evaluation on CWRU, data augmentation provides at most 46% (1D-CNN) and 15% (2D-CNN) recovery of the leakage gap. The gap itself is large (Cohen's d ≥ 1.17), and most augmentations degrade 2D-CNN performance. Physical frequency-band energy preservation does not predict recovery efficacy. A grouping-variable ablation reveals that cross-severity generalization (0.47–0.63) is a substantially harder problem than recording-level leakage control (0.90–0.94) or cross-load generalization (0.98). We recommend five or more random seeds as minimum for recording-level evaluations and release our full experimental results as a benchmark for leakage-controlled CWRU studies.
+Under leakage-safe recording-level evaluation on CWRU, data augmentation provides at most 35% (1D-CNN) and 6% (2D-CNN) recovery of the leakage gap. The gap itself is large (Cohen's d ≥ 1.35), and most augmentations degrade 2D-CNN performance. Physical frequency-band energy preservation does not predict recovery efficacy. A grouping-variable ablation reveals that cross-severity generalization (0.47–0.63) is a substantially harder problem than recording-level leakage control (0.90–0.95) or cross-load generalization (0.98). We recommend five or more random seeds as minimum for recording-level evaluations and release our full experimental results as a benchmark for leakage-controlled CWRU studies.
 
 
 ## 13. Reproducibility Statement
