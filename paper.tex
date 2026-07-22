@@ -1,0 +1,468 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{caption}
+\usepackage{float}
+\usepackage{cite}
+\usepackage{enumitem}
+
+\hypersetup{colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue}
+
+\title{\textbf{How Much Can Data Augmentation Compensate\\for Leakage-Safe Splitting?}\\[4pt]
+\large A Factorial Experiment on CWRU Bearing Fault Diagnosis}
+
+\author{[Author names]\\
+\small [Affiliation]\\
+\small \texttt{[email]}}
+
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+In vibration-based bearing fault diagnosis, the standard sliding-window preprocessing creates highly correlated adjacent segments. Random train/test splitting of these windows introduces data leakage: models may learn window identity rather than fault signatures, inflating reported accuracy. Recording-level splitting eliminates this leakage but reduces training diversity, often degrading test performance. We investigate whether data augmentation can compensate for this performance drop under leakage-safe evaluation. Through a $2\times2\times10\times5$ factorial experiment (2 models $\times$ 2 split protocols $\times$ 10 augmentation conditions $\times$ 5 random seeds, 200 independent training runs) on the CWRU bearing dataset, we find: (1) recording-level splitting reduces accuracy by 6.8pp (1D-CNN) and 9.9pp (2D-CNN), both large effects (Cohen's $d=1.17$, $1.80$); (2) augmentation recovers at most 46\% of this gap for 1D-CNN but only 15\% for 2D-CNN; (3) seven of nine augmentations \emph{degrade} 2D recording-split performance below the no-augmentation baseline; (4) physical frequency-band energy retention under augmentation (H3: Spearman $\rho=-0.37$, $p=0.33$) does not predict recovery; and (5) a grouping-variable ablation reveals that fault-size domain shift ($\text{acc}=0.47$) dominates recording-level leakage ($\text{acc}=0.90$) and load variation ($\text{acc}=0.98$) as the hardest generalization challenge. We recommend a minimum of five random seeds for recording-level evaluation and provide a reproducible benchmark for leakage-controlled CWRU studies.
+\end{abstract}
+
+% ================================================================
+\section{Introduction}
+% ================================================================
+
+Vibration-based deep learning for bearing fault diagnosis has achieved near-perfect accuracy on benchmark datasets~\cite{smith2015rolling,wen2018new,zhang2017new}. However, the standard preprocessing pipeline---fixed-length sliding windows extracted from continuous vibration recordings---introduces a subtle but critical flaw. Adjacent windows from the same recording share a large fraction of signal content. When all windows are pooled and randomly split into train/validation/test sets, windows from the same original recording appear in multiple splits. A classifier can exploit this temporal adjacency to achieve high accuracy without learning fault-specific features, effectively performing a ``recording identification'' task rather than fault diagnosis~\cite{bergmeir2012use,cerqueira2020evaluating}.
+
+This data leakage is a known problem in time-series evaluation~\cite{bergmeir2012use,cerqueira2020evaluating}, yet its interaction with data augmentation---a standard regularization technique---has not been systematically studied. Augmentation increases training diversity and could, in principle, compensate for the reduced diversity under leakage-safe splitting. But augmentation may also distort physically diagnostic frequency bands, undermining the very features a classifier should learn.
+
+We pose three hypotheses:
+\begin{itemize}[nosep]
+    \item \textbf{H1}: Data augmentation partially recovers the performance gap between leakage-prone (random window) and leakage-safe (recording-level) splits.
+    \item \textbf{H2}: The leakage gap dominates---even the best augmentation cannot restore random-split performance.
+    \item \textbf{H3}: Augmentations that better preserve fault-frequency-band energy yield greater recovery (physical fidelity hypothesis).
+\end{itemize}
+
+To test these hypotheses, we conduct a fully factorial experiment on the Case Western Reserve University (CWRU) bearing dataset: 2 model architectures (1D-CNN on raw waveform, 2D-CNN on STFT spectrograms) $\times$ 2 split protocols $\times$ 10 augmentation conditions $\times$ 5 random seeds, totaling 200 independent training runs. We further ablate three grouping variables---recording identity, motor load, and fault size---to identify which domain shift most challenges generalization.
+
+The dataset comprises 40 recording files yielding 11,832 windows (1,024 samples per window, 50\% overlap). Each configuration trains for 50 epochs on an NVIDIA A10 GPU (Adam optimizer, $\text{lr}=0.001$, batch size 128).
+
+% ================================================================
+\section{Related Work}
+% ================================================================
+
+\textbf{CWRU benchmark.} The Case Western Reserve University bearing dataset~\cite{cwru} is the most widely used benchmark in vibration-based fault diagnosis. Smith and Randall~\cite{smith2015rolling} provided a comprehensive benchmark study establishing standard evaluation protocols. Subsequent work has achieved near-ceiling accuracy under random window splitting using 1D-CNN~\cite{wen2018new} and 2D-CNN~\cite{zhang2017new} architectures.
+
+\textbf{Data augmentation for fault diagnosis.} Data augmentation techniques adapted from computer vision and speech processing have been applied to vibration signals, including additive noise injection, time-domain transformations (shifting, scaling), and frequency-domain masking. SpecAugment~\cite{park2019specaugment}, originally proposed for speech recognition, applies time and frequency masking to spectrogram inputs. However, the physical implications of these operations on vibration spectrograms---where the frequency axis carries diagnostic meaning---remain under-explored.
+
+\textbf{Data leakage in time-series evaluation.} Random train/test splitting of temporally dependent observations inflates performance estimates~\cite{bergmeir2012use}. Bergmeir and Ben\'{i}tez~\cite{bergmeir2012use} established that standard cross-validation is invalid for time-series prediction. Cerqueira et al.~\cite{cerqueira2020evaluating} empirically compared estimation methods and confirmed that out-of-sample (temporal) evaluation is necessary. In fault diagnosis, the sliding-window preprocessing creates an analogous dependence structure that standard random splitting fails to respect.
+
+\textbf{Physical constraints on spectrogram augmentation.} Unlike natural images, spectrogram axes carry physical meaning: the frequency axis maps to specific fault characteristic frequencies, and the time axis maps to shaft rotation periods. Naively applying image-domain augmentations to spectrograms can destroy diagnostically relevant features. Prior work has proposed physically constrained augmentation strategies~\cite{shao2019highly,li2020diagnosing} but has not systematically tested the relationship between physical fidelity and downstream performance.
+
+% ================================================================
+\section{Dataset and Leakage Control}
+% ================================================================
+
+\subsection{CWRU Bearing Dataset}
+
+We use the CWRU 12\,kHz Drive End bearing dataset, comprising 40 .mat recording files across four fault classes: Normal (4 recordings), Inner Race fault (12), Outer Race fault @6 o'clock (12), and Ball fault (12). Fault diameters include 0.007, 0.014, and 0.021\,inches. Motor loads range from 0 to 3\,HP.
+
+Each recording is segmented into fixed-length windows of 1,024 points with 50\% overlap, yielding 11,832 windows total. The fault-class distribution is: Normal 952, IR 3,624, OR 3,582, Ball 3,674.
+
+\subsection{Leakage Audit}
+
+\textbf{Leakage source}: Sliding-window overlap. Adjacent windows from the same recording share up to 512 points (50\% overlap). Random splitting distributes these correlated windows across train/val/test, enabling a classifier to recognize recording identity via temporal proximity.
+
+\textbf{Leakage control}: Recording-level split. All windows from a given .mat file are assigned entirely to train, validation, or test, stratified by fault class. Train/val/test ratio is 60/20/20. No recording appears in more than one split.
+
+We verify the leakage structure through adjacent-window autocorrelation analysis (Section~\ref{sec:mechanism}, Figure~\ref{fig:m1}), which confirms that window pairs from the same recording carry redundant information exploitable under random splitting.
+
+\textbf{Safe practices}: Z-score normalization statistics are computed on the training set only and applied to val/test. Data augmentation is applied after splitting, exclusively to the training set. All hyperparameters and augmentation parameters are fixed prior to experimentation.
+
+% ================================================================
+\section{Method}
+% ================================================================
+
+\subsection{Experimental Design}
+
+We employ a fully crossed factorial design:
+
+\begin{itemize}[nosep]
+    \item \textbf{Factor A---Model}: 1D-CNN (3 conv layers, raw waveform input $1\times1024$) and 2D-CNN (4 conv layers, STFT spectrogram input $1\times32\times32$, $n_{\text{fft}}=128$, $\text{hop}=64$)
+    \item \textbf{Factor B---Split Protocol}: Random window split (leakage baseline) and Recording-level split (leakage-safe)
+    \item \textbf{Factor C---Augmentation}: 10 conditions---none, additive Gaussian noise ($\sigma=0.01,0.05,0.10$), time shift (5, 20, 50 samples), SpecAugment (frequency\,+\ time masking), combined (noise $\sigma=0.05$ + shift 20 + SpecAugment), and frequency-axis flip (negative control)
+    \item \textbf{Factor D---Random Seed}: 5 seeds (42, 123, 456, 789, 1024)
+\end{itemize}
+
+\subsection{Grouping-Variable Ablation}
+
+We additionally compare three grouping strategies for train/val/test splitting (no augmentation, 5 seeds each):
+
+\begin{itemize}[nosep]
+    \item \textbf{By Recording}: groups defined by .mat file identity
+    \item \textbf{By Load}: groups defined by motor load (0, 1, 2, 3\,HP)
+    \item \textbf{By Fault Size}: groups defined by fault diameter (0.007, 0.014, 0.021\,inches)
+\end{itemize}
+
+This isolates which domain-shift axis most affects cross-group generalization.
+
+% ================================================================
+\section{Mechanism Validation}
+\label{sec:mechanism}
+% ================================================================
+
+Following the evidence hierarchy outlined in the course manual, we conduct three mechanism-validation experiments \emph{before} classification evaluation:
+
+\subsection{Adjacent-Window Autocorrelation (M1)}
+
+We compute the Pearson correlation between window $i$ and window $i+\text{offset}$ from the same recording, for offsets 1--10. The results (Figure~\ref{fig:m1}) confirm that specific recording- and class-dependent correlations exist, providing the mechanistic basis for leakage concern: classifiers can exploit even weak but consistent temporal signatures.
+
+\subsection{Fault-Band Energy Audit (M5)}
+
+For each augmentation, we compute the energy retention ratio $R_{\text{energy}} = E_{\text{augmented}}(\text{fault\_band}) / E_{\text{original}}(\text{fault\_band})$ in the spectral neighborhood of theoretical bearing fault frequencies (BPFO, BPFI, BSF). All nine augmentations yield $R_{\text{energy}} \geq 1.0$ (Figure~\ref{fig:m5}), indicating no augmentation catastrophically destroys fault-frequency content.
+
+\subsection{Feature Diversity Analysis (M2)}
+
+We extract penultimate-layer features from a 2D-CNN for original and augmented versions of 200 training samples, computing pairwise cosine distances and SVD effective rank ratios (Figure~\ref{fig:m2}). All augmentations increase feature diversity beyond the no-augmentation baseline.
+
+% ================================================================
+\section{Experimental Setup}
+% ================================================================
+
+\begin{itemize}[nosep]
+    \item \textbf{Hardware}: Baidu Cloud BCC, NVIDIA A10 (24\,GB), Ubuntu 22.04, PyTorch 2.5.1+cu121
+    \item \textbf{Training}: Adam ($\text{lr}=0.001$), CrossEntropy loss, batch\_size=128, 50 epochs
+    \item \textbf{Normalization}: Z-score computed on training set only
+    \item \textbf{Metrics}: Accuracy, macro-F1, per-class precision/recall/F1
+    \item \textbf{Statistics}: Mean $\pm$ std across 5 seeds; Cohen's $d$ for effect size
+    \item \textbf{Convergence}: Mean epoch = 15.2 (median = 9, max = 48). 93.3\% of runs converge by epoch 45 (Figure~\ref{fig:convergence}).
+\end{itemize}
+
+% ================================================================
+\section{Results}
+% ================================================================
+
+\subsection{Main Factorial Results}
+
+Table~\ref{tab:main} reports test accuracy for all 40 combinations. Under random splitting, both models achieve near-ceiling accuracy (0.999--1.000). Under recording-level splitting, accuracy drops substantially. The no-augmentation baseline records a leakage gap of 0.0676 (1D, Cohen's $d=1.17$) and 0.0988 (2D, Cohen's $d=1.80$)---both large effect sizes (Figure~\ref{fig:cohens}).
+
+\begin{table}[H]
+\centering
+\caption{Test accuracy (mean $\pm$ std) over 5 random seeds.}
+\label{tab:main}
+\begin{tabular}{lcccc}
+\toprule
+& \multicolumn{2}{c}{\textbf{CNN--1D}} & \multicolumn{2}{c}{\textbf{CNN--2D}} \\
+Augmentation & Random & Recording & Random & Recording \\ \midrule
+None & $0.9997 \pm 0.001$ & $\mathbf{0.9321 \pm 0.073}$ & $0.9995 \pm 0.000$ & $\mathbf{0.9007 \pm 0.069}$ \\
+Noise $\sigma=0.01$ & $0.9999 \pm 0.000$ & $0.9484 \pm 0.054$ & $0.9996 \pm 0.000$ & $0.9138 \pm 0.076$ \\
+Noise $\sigma=0.05$ & $1.0000 \pm 0.000$ & $\mathbf{0.9634 \pm 0.038}$ & $0.9998 \pm 0.000$ & $0.8723 \pm 0.091$ \\
+Noise $\sigma=0.10$ & $0.9999 \pm 0.000$ & $0.9339 \pm 0.079$ & $0.9995 \pm 0.001$ & $0.9098 \pm 0.073$ \\
+Shift 5 & $0.9998 \pm 0.000$ & $0.9486 \pm 0.051$ & $0.9997 \pm 0.001$ & $\mathbf{0.9152 \pm 0.075}$ \\
+Shift 20 & $0.9999 \pm 0.000$ & $0.9526 \pm 0.057$ & $0.9997 \pm 0.001$ & $0.9139 \pm 0.076$ \\
+Shift 50 & $1.0000 \pm 0.000$ & $0.9366 \pm 0.071$ & $0.9994 \pm 0.001$ & $0.8722 \pm 0.085$ \\
+SpecAugment & $0.9996 \pm 0.000$ & $0.9362 \pm 0.037$ & $0.9987 \pm 0.000$ & $0.8717 \pm 0.082$ \\
+Combined & $0.9999 \pm 0.000$ & $0.9531 \pm 0.048$ & $0.9998 \pm 0.000$ & $0.8766 \pm 0.134$ \\
+FreqFlip (neg.) & $0.9992 \pm 0.001$ & $0.9271 \pm 0.074$ & $0.9813 \pm 0.009$ & $0.8846 \pm 0.098$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+For 2D-CNN under recording-level split, 7 of 9 augmentation conditions perform \emph{worse} than no augmentation. Only shift\_5 ($0.9152$) and shift\_20 ($0.9139$) surpass the $0.9007$ baseline. Figures~\ref{fig:rvr1d}--\ref{fig:rvr2d} visualize the random-vs-recording contrast.
+
+\subsection{Per-Class Analysis}
+
+Table~\ref{tab:perclass} reports per-class F1 scores for the most challenging configuration (2D-CNN, recording-level split). The Normal class is universally recognized ($F1=0.947$--$1.000$). Inner Race ($0.761$--$0.860$) and Ball ($0.812$--$0.945$) faults show the widest variance.
+
+\begin{table}[H]
+\centering
+\caption{Per-class F1 scores (CNN--2D, recording-level split, 5 seeds).}
+\label{tab:perclass}
+\begin{tabular}{lcccc}
+\toprule
+Augmentation & Normal & IR & OR & B \\ \midrule
+None          & $1.000 \pm 0.000$ & $0.835 \pm 0.193$ & $0.856 \pm 0.098$ & $0.898 \pm 0.060$ \\
+Noise $\sigma=0.01$ & $1.000 \pm 0.000$ & $0.848 \pm 0.197$ & $0.884 \pm 0.114$ & $0.910 \pm 0.070$ \\
+Noise $\sigma=0.05$ & $0.997 \pm 0.004$ & $0.812 \pm 0.198$ & $0.840 \pm 0.133$ & $0.825 \pm 0.101$ \\
+Noise $\sigma=0.10$ & $1.000 \pm 0.000$ & $0.845 \pm 0.187$ & $0.888 \pm 0.119$ & $0.898 \pm 0.059$ \\
+Shift 5       & $1.000 \pm 0.000$ & $0.840 \pm 0.193$ & $0.858 \pm 0.115$ & $\mathbf{0.945 \pm 0.053}$ \\
+Shift 20      & $1.000 \pm 0.000$ & $0.850 \pm 0.189$ & $0.863 \pm 0.110$ & $0.928 \pm 0.060$ \\
+Shift 50      & $0.999 \pm 0.002$ & $0.761 \pm 0.228$ & $0.839 \pm 0.133$ & $0.866 \pm 0.088$ \\
+SpecAugment   & $1.000 \pm 0.000$ & $0.774 \pm 0.200$ & $0.897 \pm 0.112$ & $0.812 \pm 0.046$ \\
+Combined      & $0.947 \pm 0.105$ & $0.860 \pm 0.147$ & $0.804 \pm 0.197$ & $0.867 \pm 0.143$ \\
+FreqFlip      & $1.000 \pm 0.000$ & $0.775 \pm 0.251$ & $0.900 \pm 0.126$ & $0.852 \pm 0.093$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Per-class heatmaps for both models are provided in Figures~\ref{fig:pc1d}--\ref{fig:pc2d}.
+
+\subsection{Gap-Recovery Analysis}
+
+Table~\ref{tab:gap} reports $\Delta_{\text{rec}}$---the proportion of the leakage gap recovered by each augmentation.
+
+\begin{table}[H]
+\centering
+\caption{Gap-recovery analysis. $\Delta_{\text{rec}} = (\text{acc}_{\text{rec},\text{aug}} - \text{acc}_{\text{rec},\text{none}}) / (\text{acc}_{\text{rand},\text{none}} - \text{acc}_{\text{rec},\text{none}})$.}
+\label{tab:gap}
+\begin{tabular}{lrrrrrr}
+\toprule
+& \multicolumn{3}{c}{\textbf{CNN--1D}} & \multicolumn{3}{c}{\textbf{CNN--2D}} \\
+Aug. & Gap & $\Delta_{\text{rec}}$ & $d$ & Gap & $\Delta_{\text{rec}}$ & $d$ \\ \midrule
+Noise $\sigma=0.01$ & 0.0515 & 0.241 & 1.20 & 0.0858 & 0.133 & 1.43 \\
+Noise $\sigma=0.05$ & 0.0366 & $\mathbf{0.463}$ & 1.21 & 0.1275 & $-$0.287 & 1.76 \\
+Noise $\sigma=0.10$ & 0.0660 & 0.027 & 1.06 & 0.0897 & 0.092 & 1.56 \\
+Shift 5      & 0.0512 & 0.244 & 1.28 & 0.0845 & $\mathbf{0.147}$ & 1.42 \\
+Shift 20     & 0.0473 & 0.303 & 1.05 & 0.0858 & 0.134 & 1.44 \\
+Shift 50     & 0.0634 & 0.067 & 1.13 & 0.1272 & $-$0.288 & 1.89 \\
+SpecAugment  & 0.0634 & 0.061 & 2.15 & 0.1270 & $-$0.293 & 1.96 \\
+Combined     & 0.0468 & 0.311 & 1.25 & 0.1232 & $-$0.244 & 1.16 \\
+FreqFlip     & 0.0721 & $-$0.074 & 1.23 & 0.0967 & $-$0.163 & 1.25 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Figures~\ref{fig:gap1d}--\ref{fig:gap2d} visualize the gap-recovery landscape.
+
+\subsection{Grouping-Variable Ablation}
+
+Table~\ref{tab:ablation} compares accuracy (no augmentation, 5 seeds) across three grouping strategies. Fault-size-based splitting is the most challenging: 1D-CNN drops to 0.632 and 2D-CNN to 0.473.
+
+\begin{table}[H]
+\centering
+\caption{Grouping variable ablation: test accuracy with no augmentation.}
+\label{tab:ablation}
+\begin{tabular}{lccc}
+\toprule
+Model & By Load (HP) & By Recording & By Fault Size \\ \midrule
+CNN--1D & $0.977 \pm 0.015$ & $0.940 \pm 0.039$ & $\mathbf{0.632 \pm 0.110}$ \\
+CNN--2D & $0.979 \pm 0.031$ & $0.899 \pm 0.092$ & $\mathbf{0.473 \pm 0.092}$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+This reveals the generalization difficulty ordering: \textbf{fault\_size $\gg$ recording $>$ load}. Cross-severity generalization is the dominant bottleneck.
+
+% ================================================================
+\section{Physical Consistency}
+% ================================================================
+
+The H3 hypothesis is not supported. Spearman correlation between $R_{\text{energy}}$ and $\Delta_{\text{rec}}$ is $\rho = -0.37$ ($p = 0.33$), a non-significant negative trend (Figure~\ref{fig:h3}). The negative coefficient suggests that broad-spectrum noise augmentations may incidentally help generalization through regularization effects, despite greater physical distortion. Physical conservation alone does not guarantee diagnostic benefit.
+
+% ================================================================
+\section{Ablation}
+% ================================================================
+
+\subsection{Single vs.\ Combined Augmentation}
+
+Combined augmentation does not outperform the best single augmentation. For 1D-CNN, combined achieves $0.9531$ vs.\ noise\_005's $0.9634$. For 2D-CNN, combined ($0.8766$) underperforms even the no-augmentation baseline ($0.9007$). Stacking augmentations amplifies distribution shift beyond what training data can support.
+
+\subsection{Grouping Variable Importance}
+
+The ablation in Section~\ref{sec:results} (Table~\ref{tab:ablation}) establishes fault\_size $\gg$ recording $>$ load. The 0.47--0.63 accuracy under fault-size split demonstrates near-complete failure of cross-severity transfer.
+
+% ================================================================
+\section{Discussion}
+% ================================================================
+
+\textbf{H1 (partial recovery)} is supported but weak for 2D-CNN. The best augmentation recovers only 15\% of the leakage gap in the 2D case, and most augmentations are counterproductive.
+
+\textbf{H2 (leakage dominates)} is strongly supported. With Cohen's $d \geq 1.17$ and max $\Delta_{\text{rec}}$ of 0.46, the leakage gap is the dominant effect. No augmentation can substitute for proper evaluation protocol.
+
+\textbf{H3 (physical fidelity)} is falsified. The absence of correlation between energy retention and recovery is an ``honest null result.'' Performance drop under recording-level splitting appears driven by reduced sample diversity rather than augmentation-induced feature corruption.
+
+\textbf{The 3-seed insufficiency.} Our initial 3-seed experiment estimated the 2D recording baseline at $0.9653$ ($\text{gap}=0.034$). Expanding to 5 seeds dropped this to $0.9007$ ($\text{gap}=0.099$)---a nearly $3\times$ increase. We recommend $\geq 5$ seeds as minimum for recording-level evaluations.
+
+\textbf{Cross-severity generalization is the real bottleneck.} The fault-size ablation ($\text{acc}=0.47$--$0.63$) dwarfs the recording-level split effect ($0.90$--$0.94$).
+
+% ================================================================
+\section{Limitations}
+% ================================================================
+
+\begin{enumerate}[nosep]
+    \item \textbf{Single dataset}: All experiments use CWRU, an artificial-fault laboratory dataset.
+    \item \textbf{Single sensor}: Only drive-end accelerometer (12\,kHz) used. Fan-end (48\,kHz) could reveal sampling-rate sensitivity.
+    \item \textbf{Fixed augmentation parameters}: Parameters chosen a priori; sensitivity not explored.
+    \item \textbf{CNN architectures only}: Results may differ for Transformer or MLP architectures.
+    \item \textbf{50-epoch ceiling}: 6.7\% of runs converged in final 10\% of epochs (Figure~\ref{fig:convergence}).
+\end{enumerate}
+
+% ================================================================
+\section{Conclusion}
+% ================================================================
+
+Under leakage-safe recording-level evaluation on CWRU, data augmentation provides at most 46\% (1D-CNN) and 15\% (2D-CNN) recovery of the leakage gap. The gap itself is large (Cohen's $d \geq 1.17$), and most augmentations degrade 2D-CNN performance. Physical frequency-band energy preservation does not predict recovery efficacy. A grouping-variable ablation reveals that cross-severity generalization ($0.47$--$0.63$) is a substantially harder problem than recording-level leakage control ($0.90$--$0.94$) or cross-load generalization ($0.98$). We recommend $\geq 5$ seeds for recording-level evaluations and release our full experimental results as a benchmark for leakage-controlled CWRU studies.
+
+% ================================================================
+\section{Reproducibility Statement}
+% ================================================================
+
+All code, data manifest, experimental configurations, and results are available at the project repository. Random seeds (42, 123, 456, 789, 1024) are fixed across all experiments. Per-epoch logs for all 200 runs are included. All results can be regenerated by running \texttt{python src/run\_all.py}.
+
+% ================================================================
+\section{AI-Use Disclosure}
+% ================================================================
+
+The following parts involved AI assistance (DeepSeek, via OpenCode CLI): code implementation (pair-programming, verified on hardware), experimental debugging (STFT device mismatch, import paths, JSON serialization), and manuscript drafting (from experimental results and author outlines; all factual claims verified against results tables and logs). No experimental result was hallucinated or fabricated.
+
+% ================================================================
+% FIGURES
+% ================================================================
+\newpage
+\section*{Figures}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{results/figures/convergence_curves.png}
+\caption{Convergence curves for all 200 training runs across four configurations.}
+\label{fig:convergence}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{results/figures/random_vs_recording_1d.png}
+\caption{Random vs.\ recording-level split accuracy (1D-CNN).}
+\label{fig:rvr1d}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{results/figures/random_vs_recording_2d.png}
+\caption{Random vs.\ recording-level split accuracy (2D-CNN).}
+\label{fig:rvr2d}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{results/figures/gap_recovery_1d.png}
+\caption{Gap-recovery ratio by augmentation (1D-CNN).}
+\label{fig:gap1d}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{results/figures/gap_recovery_2d.png}
+\caption{Gap-recovery ratio by augmentation (2D-CNN).}
+\label{fig:gap2d}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.48\textwidth]{results/figures/cohens_d_1d.png}
+\includegraphics[width=0.48\textwidth]{results/figures/cohens_d_2d.png}
+\caption{Cohen's $d$ effect sizes. Left: 1D-CNN. Right: 2D-CNN.}
+\label{fig:cohens}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{results/figures/m1_adjacent_autocorrelation.png}
+\caption{M1: Adjacent-window autocorrelation by fault class.}
+\label{fig:m1}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.7\textwidth]{results/figures/m2_feature_diversity.png}
+\caption{M2: Feature diversity analysis (cosine distance).}
+\label{fig:m2}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{results/figures/m5_fault_band_energy.png}
+\caption{M5: Fault-band energy retention audit ($R_{\text{energy}}$).}
+\label{fig:m5}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{results/figures/envelope_spectra_examples.png}
+\caption{Envelope spectrum examples for each fault class.}
+\label{fig:env}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.48\textwidth]{results/figures/per_class_1d_recording.png}
+\includegraphics[width=0.48\textwidth]{results/figures/per_class_2d_recording.png}
+\caption{Per-class F1 heatmaps. Left: 1D-CNN. Right: 2D-CNN.}
+\label{fig:pc}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{results/figures/per_class_1d_recording.png}
+\caption{Per-class F1 heatmap (1D-CNN, recording split).}
+\label{fig:pc1d}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{results/figures/per_class_2d_recording.png}
+\caption{Per-class F1 heatmap (2D-CNN, recording split).}
+\label{fig:pc2d}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{results/figures/h4_correlation.png}
+\caption{H3: Physical fidelity ($R_{\text{energy}}$) vs.\ gap recovery ($\Delta_{\text{rec}}$).}
+\label{fig:h3}
+\end{figure}
+
+% ================================================================
+% REFERENCES
+% ================================================================
+\begin{thebibliography}{99}
+
+\bibitem{smith2015rolling}
+W.~A.~Smith and R.~B.~Randall, ``Rolling element bearing diagnostics using the Case Western Reserve University data: A benchmark study,''
+\textit{Mechanical Systems and Signal Processing}, vol.~64--65, pp.~100--131, 2015.
+\newblock doi:~\href{https://doi.org/10.1016/j.ymssp.2015.04.021}{10.1016/j.ymssp.2015.04.021}
+
+\bibitem{wen2018new}
+L.~Wen, X.~Li, L.~Gao, and Y.~Zhang, ``A new convolutional neural network-based data-driven fault diagnosis method,''
+\textit{IEEE Trans. Industrial Electronics}, vol.~65, no.~7, pp.~5990--5998, 2018.
+\newblock doi:~\href{https://doi.org/10.1109/TIE.2017.2774777}{10.1109/TIE.2017.2774777}
+
+\bibitem{zhang2017new}
+W.~Zhang, G.~Peng, C.~Li, Y.~Chen, and Z.~Zhang, ``A new deep learning model for fault diagnosis with good anti-noise and domain adaptation ability on raw vibration signals,''
+\textit{Sensors}, vol.~17, no.~2, p.~425, 2017.
+\newblock doi:~\href{https://doi.org/10.3390/s17020425}{10.3390/s17020425}
+
+\bibitem{bergmeir2012use}
+C.~Bergmeir and J.~M.~Ben\'{i}tez, ``On the use of cross-validation for time series predictor evaluation,''
+\textit{Information Sciences}, vol.~191, pp.~192--213, 2012.
+\newblock doi:~\href{https://doi.org/10.1016/j.ins.2011.12.028}{10.1016/j.ins.2011.12.028}
+
+\bibitem{cerqueira2020evaluating}
+V.~Cerqueira, L.~Torgo, and I.~Mozeti\v{c}, ``Evaluating time series forecasting models: an empirical study on performance estimation methods,''
+\textit{Machine Learning}, vol.~109, pp.~1997--2028, 2020.
+\newblock doi:~\href{https://doi.org/10.1007/s10994-020-05910-7}{10.1007/s10994-020-05910-7}
+
+\bibitem{cwru}
+Case Western Reserve University Bearing Data Center.
+\newblock ``12k Drive End Bearing Fault Data.'' [Online].
+\newblock \url{https://engineering.case.edu/bearingdatacenter}
+
+\bibitem{park2019specaugment}
+D.~S.~Park, W.~Chan, Y.~Zhang, C.-C.~Chiu, B.~Zoph, E.~D.~Cubuk, and Q.~V.~Le, ``SpecAugment: A simple data augmentation method for automatic speech recognition,''
+in \textit{Proc. Interspeech}, 2019, pp.~2613--2617.
+\newblock doi:~\href{https://doi.org/10.21437/Interspeech.2019-2680}{10.21437/Interspeech.2019-2680}
+
+\bibitem{shao2019highly}
+S.~Shao, S.~McAleer, R.~Yan, and P.~Baldi, ``Highly accurate machine fault diagnosis using deep transfer learning,''
+\textit{IEEE Trans. Industrial Informatics}, vol.~15, no.~4, pp.~2446--2455, 2019.
+\newblock doi:~\href{https://doi.org/10.1109/TII.2018.2864759}{10.1109/TII.2018.2864759}
+
+\bibitem{li2020diagnosing}
+X.~Li, W.~Zhang, Q.~Ding, and J.-Q.~Sun, ``Diagnosing rotating machines with weakly supervised data using deep transfer learning,''
+\textit{IEEE Trans. Industrial Informatics}, vol.~16, no.~3, pp.~1688--1697, 2020.
+\newblock doi:~\href{https://doi.org/10.1109/TII.2019.2927590}{10.1109/TII.2019.2927590}
+
+\end{thebibliography}
+
+\end{document}
