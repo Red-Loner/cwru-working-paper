@@ -10,10 +10,7 @@
 \usepackage{caption}
 \usepackage{float}
 \usepackage{cite}
-\usepackage{todonotes}
-\setlength{\marginparwidth}{3.5cm}
-\newcommand{\cn}[1]{\todo[color=blue!5,size=\footnotesize]{\textsf{[AI注释]} #1}}
-
+\usepackage{enumitem}
 \hypersetup{colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue}
 
 \title{\textbf{How Much Can Data Augmentation Compensate\\for Leakage-Safe Splitting?}\\[4pt]
@@ -29,7 +26,6 @@
 \maketitle
 
 \begin{abstract}
-\cn{摘要定调：先点出滑动窗口预处理的泄漏问题（高相关性相邻段），再用"recording identification"概念让审稿人理解泄漏本质；接着抛出核心问题（数据增强能否补偿泄漏安全划分的性能损失），最后以完整因子实验的数据摘要收尾，给出5条核心发现，让摘要本身即可独立传达论文贡献。}
 In vibration-based bearing fault diagnosis, the standard sliding-window preprocessing creates highly correlated adjacent segments. Random train/test splitting of these windows introduces data leakage: models may learn window identity rather than fault signatures, inflating reported accuracy. Recording-level splitting eliminates this leakage but reduces training diversity, often degrading test performance. We investigate whether data augmentation can compensate for this performance drop under leakage-safe evaluation. Through a $2\times2\times10\times5$ factorial experiment (2 models $\times$ 2 split protocols $\times$ 10 augmentation conditions $\times$ 5 random seeds, 200 independent training runs) on the CWRU bearing dataset, we find: (1) recording-level splitting reduces accuracy by 6.8pp (1D-CNN) and 9.9pp (2D-CNN), both large effects (Cohen's $d=1.17$, $1.80$); (2) augmentation recovers at most 46\% of this gap for 1D-CNN but only 15\% for 2D-CNN; (3) seven of nine augmentations \emph{degrade} 2D recording-split performance below the no-augmentation baseline; (4) physical frequency-band energy retention under augmentation (H3: Spearman $\rho=-0.37$, $p=0.33$) does not predict recovery; and (5) a grouping-variable ablation reveals that fault-size domain shift ($\text{acc}=0.47$) dominates recording-level leakage ($\text{acc}=0.90$) and load variation ($\text{acc}=0.98$) as the hardest generalization challenge. We recommend a minimum of five random seeds for recording-level evaluation and provide a reproducible benchmark for leakage-controlled CWRU studies.
 \end{abstract}
 
@@ -37,13 +33,10 @@ In vibration-based bearing fault diagnosis, the standard sliding-window preproce
 \section{Introduction}
 % ================================================================
 
-\cn{背景痛点：以"near-perfect accuracy"先承认领域进展，然后用"subtle but critical flaw"转折，指出滑动窗口随机切分的根本问题——相邻窗口共享大量信号内容，导致分类器在做"recording identification"而非故障诊断。这种先扬后抑的写法能迅速引起审稿人对泄漏问题的重视。}
 Vibration-based deep learning for bearing fault diagnosis has achieved near-perfect accuracy on benchmark datasets~\cite{smith2015rolling,wen2018new,zhang2017new}. However, the standard preprocessing pipeline---fixed-length sliding windows extracted from continuous vibration recordings---introduces a subtle but critical flaw. Adjacent windows from the same recording share a large fraction of signal content. When all windows are pooled and randomly split into train/validation/test sets, windows from the same original recording appear in multiple splits. A classifier can exploit this temporal adjacency to achieve high accuracy without learning fault-specific features, effectively performing a ``recording identification'' task rather than fault diagnosis~\cite{bergmeir2012use,cerqueira2020evaluating}.
 
-\cn{问题定位与研究空白：承认数据泄漏已为人知，但指出其与数据增强的交互未被系统研究——这是本文的核心贡献定位。用"in principle"和"but"的对立句式制造张力，让读者理解增强可能是一把双刃剑。}
 This data leakage is a known problem in time-series evaluation~\cite{bergmeir2012use,cerqueira2020evaluating}, yet its interaction with data augmentation---a standard regularization technique---has not been systematically studied. Augmentation increases training diversity and could, in principle, compensate for the reduced diversity under leakage-safe splitting. But augmentation may also distort physically diagnostic frequency bands, undermining the very features a classifier should learn.
 
-\cn{假设陈述：直接列出三个假设（H1部分恢复、H2泄漏主导、H3物理保真度），结构清晰，为后文的结果讨论做铺垫。用nosep选项压缩列表间距，适合篇幅受限的会议/期刊论文。}
 We pose three hypotheses:
 \begin{itemize}[nosep]
     \item \textbf{H1}: Data augmentation partially recovers the performance gap between leakage-prone (random window) and leakage-safe (recording-level) splits.
@@ -51,26 +44,20 @@ We pose three hypotheses:
     \item \textbf{H3}: Augmentations that better preserve fault-frequency-band energy yield greater recovery (physical fidelity hypothesis).
 \end{itemize}
 
-\cn{实验概览：一句说清实验设计的完整维度（2×2×10×5 = 200次独立训练），让审稿人立刻把握实验规模。这种精确的数学表述是因子实验论文的标志性写法。}
 To test these hypotheses, we conduct a fully factorial experiment on the Case Western Reserve University (CWRU) bearing dataset: 2 model architectures (1D-CNN on raw waveform, 2D-CNN on STFT spectrograms) $\times$ 2 split protocols $\times$ 10 augmentation conditions $\times$ 5 random seeds, totaling 200 independent training runs. We further ablate three grouping variables---recording identity, motor load, and fault size---to identify which domain shift most challenges generalization.
 
-\cn{数据集与训练细节：在引言末尾交代实际数据集规模和训练配置，为实验的可重复性提供早期保证。注意这里不是Method章节的完整细节，而是让读者在引言阶段就能判断实验规模是否可信。}
 The dataset comprises 40 recording files yielding 11,832 windows (1,024 samples per window, 50\% overlap). Each configuration trains for 50 epochs on an NVIDIA A10 GPU (Adam optimizer, $\text{lr}=0.001$, batch size 128).
 
 % ================================================================
 \section{Related Work}
 % ================================================================
 
-\cn{CWRU基准线：先确立CWRU作为领域标准基准的地位，引用Smith和Randall的经典基准研究作为评价标准的基础。注意这种写法意味着后文将用这些基准线对照自己的发现。}
 \textbf{CWRU benchmark.} The Case Western Reserve University bearing dataset~\cite{cwru} is the most widely used benchmark in vibration-based fault diagnosis. Smith and Randall~\cite{smith2015rolling} provided a comprehensive benchmark study establishing standard evaluation protocols. Subsequent work has achieved near-ceiling accuracy under random window splitting using 1D-CNN~\cite{wen2018new} and 2D-CNN~\cite{zhang2017new} architectures.
 
-\cn{数据增强现有工作：列举时间域和频率域的增强技术，并点出SpecAugment从语音到振动的跨域迁移。最后一句"remain under-explored"精准指出审稿人关心的研究空白。}
 \textbf{Data augmentation for fault diagnosis.} Data augmentation techniques adapted from computer vision and speech processing have been applied to vibration signals, including additive noise injection, time-domain transformations (shifting, scaling), and frequency-domain masking. SpecAugment~\cite{park2019specaugment}, originally proposed for speech recognition, applies time and frequency masking to spectrogram inputs. However, the physical implications of these operations on vibration spectrograms---where the frequency axis carries diagnostic meaning---remain under-explored.
 
-\cn{时间序列评估中的泄漏问题：从时间序列角度建立泄漏问题的理论基础，引用Bergmeir和Cerqueira等人的经典工作，最后自然地过渡到故障诊断领域的类比。这种跨领域引用增强了论证的学术说服力。}
 \textbf{Data leakage in time-series evaluation.} Random train/test splitting of temporally dependent observations inflates performance estimates~\cite{bergmeir2012use}. Bergmeir and Ben\'{i}tez~\cite{bergmeir2012use} established that standard cross-validation is invalid for time-series prediction. Cerqueira et al.~\cite{cerqueira2020evaluating} empirically compared estimation methods and confirmed that out-of-sample (temporal) evaluation is necessary. In fault diagnosis, the sliding-window preprocessing creates an analogous dependence structure that standard random splitting fails to respect.
 
-\cn{物理约束：强调频谱图的轴具有物理意义（频率轴对应故障特征频率），这一点是振动诊断区别于计算机视觉的关键。最后一句"has not systematically tested the relationship"进一步收紧论文的贡献空间。}
 \textbf{Physical constraints on spectrogram augmentation.} Unlike natural images, spectrogram axes carry physical meaning: the frequency axis maps to specific fault characteristic frequencies, and the time axis maps to shaft rotation periods. Naively applying image-domain augmentations to spectrograms can destroy diagnostically relevant features. Prior work has proposed physically constrained augmentation strategies~\cite{shao2019highly,li2020diagnosing} but has not systematically tested the relationship between physical fidelity and downstream performance.
 
 % ================================================================
@@ -79,24 +66,18 @@ The dataset comprises 40 recording files yielding 11,832 windows (1,024 samples 
 
 \subsection{CWRU Bearing Dataset}
 
-\cn{数据描述：具体说明使用12kHz驱动端数据、40个.mat文件、4种故障类别及具体亚类（故障尺寸、负载级别）。数字越具体，实验的可重复性越高，审稿人也越容易复现验证。}
 We use the CWRU 12\,kHz Drive End bearing dataset, comprising 40 .mat recording files across four fault classes: Normal (4 recordings), Inner Race fault (12), Outer Race fault @6 o'clock (12), and Ball fault (12). Fault diameters include 0.007, 0.014, and 0.021\,inches. Motor loads range from 0 to 3\,HP.
 
-\cn{分段细节：交代窗口长度、重叠率和最终样本量及类别分布。50%重叠率是造成泄漏的关键参数，在后续leakage audit中有呼应。类别不均衡（Normal仅952 vs IR 3624）是实际评估中需要注意的因素。}
 Each recording is segmented into fixed-length windows of 1,024 points with 50\% overlap, yielding 11,832 windows total. The fault-class distribution is: Normal 952, IR 3,624, OR 3,582, Ball 3,674.
 
 \subsection{Leakage Audit}
 
-\cn{泄漏来源机制：用粗体标签"Leakage source"做视觉锚点，然后精确量化共享点数（512 points = 50% overlap），最后用"recording identity via temporal proximity"点明泄漏的认知捷径——这三个要素（标签、量化、机制解释）构成完整的泄漏论证链。}
 \textbf{Leakage source}: Sliding-window overlap. Adjacent windows from the same recording share up to 512 points (50\% overlap). Random splitting distributes these correlated windows across train/val/test, enabling a classifier to recognize recording identity via temporal proximity.
 
-\cn{泄漏控制方法：同样用粗体标签引出，明确三条规则（全部窗口归入同一划分、按故障类别分层、6:2:2比例），提供了清晰可复现的操作定义。}
 \textbf{Leakage control}: Recording-level split. All windows from a given .mat file are assigned entirely to train, validation, or test, stratified by fault class. Train/val/test ratio is 60/20/20. No recording appears in more than one split.
 
-\cn{验证手段：向前引用Section~6的机制验证实验，建立论文内部的因果链。这种跨节引用的写法有助于审稿人理解论文的逻辑结构。}
 We verify the leakage structure through adjacent-window autocorrelation analysis (Section~\ref{sec:mechanism}, Figure~\ref{fig:m1}), which confirms that window pairs from the same recording carry redundant information exploitable under random splitting.
 
-\cn{安全实践：列举三条防泄漏实践（Z-score在训练集计算、增强仅在训练集应用、超参数预先固定）。这些细节虽然琐碎，但能显著提升实验可信度，避免审稿人质疑"是否存在其他泄漏路径"。}
 \textbf{Safe practices}: Z-score normalization statistics are computed on the training set only and applied to val/test. Data augmentation is applied after splitting, exclusively to the training set. All hyperparameters and augmentation parameters are fixed prior to experimentation.
 
 % ================================================================
@@ -105,7 +86,6 @@ We verify the leakage structure through adjacent-window autocorrelation analysis
 
 \subsection{Experimental Design}
 
-\cn{因子设计说明：用itemize结构清晰列出4个因子及其水平，每个因子用一个粗体标签引出。因子D（5个随机种子）的数量选择来自前期的3-seed不足教训，在Discussion中有呼应。}
 We employ a fully crossed factorial design:
 
 \begin{itemize}[nosep]
@@ -117,7 +97,6 @@ We employ a fully crossed factorial design:
 
 \subsection{Grouping-Variable Ablation}
 
-\cn{分组消融说明：额外引入三种分组划分策略（按录制、按负载、按故障尺寸），每种都是一个独立的域迁移挑战维度。这里隐含的假设是：哪个维度的精度最低，哪个就是泛化的主要瓶颈。}
 We additionally compare three grouping strategies for train/val/test splitting (no augmentation, 5 seeds each):
 
 \begin{itemize}[nosep]
@@ -126,7 +105,6 @@ We additionally compare three grouping strategies for train/val/test splitting (
     \item \textbf{By Fault Size}: groups defined by fault diameter (0.007, 0.014, 0.021\,inches)
 \end{itemize}
 
-\cn{消融目的：一句话总结消融实验的目标——识别哪个域迁移轴最影响跨组泛化。简洁有力，适合放在subsection末尾做过渡。}
 This isolates which domain-shift axis most affects cross-group generalization.
 
 % ================================================================
@@ -134,29 +112,24 @@ This isolates which domain-shift axis most affects cross-group generalization.
 \label{sec:mechanism}
 % ================================================================
 
-\cn{机制验证引言：明确引用"evidence hierarchy"表明实验设计的理论基础，强调"before classification evaluation"说明这些验证并非事后分析，而是实验前的前置检查。这种写法符合严谨的实验科学方法论。}
 Following the evidence hierarchy outlined in the course manual, we conduct three mechanism-validation experiments \emph{before} classification evaluation:
 
 \subsection{Adjacent-Window Autocorrelation (M1)}
 
-\cn{M1自相关分析：交代具体操作（计算窗口i与i+offset的Pearson相关系数，offset 1~10），然后给出结论——存在因录制和类别而异的自相关，建立了泄漏的机制基础。结尾句"classifiers can exploit even weak but consistent temporal signatures"是关键洞察。}
 We compute the Pearson correlation between window $i$ and window $i+\text{offset}$ from the same recording, for offsets 1--10. The results (Figure~\ref{fig:m1}) confirm that specific recording- and class-dependent correlations exist, providing the mechanistic basis for leakage concern: classifiers can exploit even weak but consistent temporal signatures.
 
 \subsection{Fault-Band Energy Audit (M5)}
 
-\cn{M5能量审计：定义能量保持率R_energy作为物理保真度指标，给出所有增强的阈值结果（R≥1.0），这直接支持后文H3的检验。注意这里用的是"catastrophically destroys"的保守论断，为后文H3被证伪做了铺垫。}
 For each augmentation, we compute the energy retention ratio $R_{\text{energy}} = E_{\text{augmented}}(\text{fault\_band}) / E_{\text{original}}(\text{fault\_band})$ in the spectral neighborhood of theoretical bearing fault frequencies (BPFO, BPFI, BSF). All nine augmentations yield $R_{\text{energy}} \geq 1.0$ (Figure~\ref{fig:m5}), indicating no augmentation catastrophically destroys fault-frequency content.
 
 \subsection{Feature Diversity Analysis (M2)}
 
-\cn{M2特征多样性：提取倒数第二层特征，计算余弦距离和SVD有效秩比率。最后一句"All augmentations increase feature diversity"是增强有效性的必要条件（但非充分条件），后文将揭示多样性增加反而可能导致性能下降。}
 We extract penultimate-layer features from a 2D-CNN for original and augmented versions of 200 training samples, computing pairwise cosine distances and SVD effective rank ratios (Figure~\ref{fig:m2}). All augmentations increase feature diversity beyond the no-augmentation baseline.
 
 % ================================================================
 \section{Experimental Setup}
 % ================================================================
 
-\cn{实验配置清单：用itemize一次性列出硬件、训练超参数、归一化、评估指标、统计方法和收敛信息。这种清单式写法适合"方法"和"实验设置"混合的短论文格式，让审稿人快速核验可重复性。}
 \begin{itemize}[nosep]
     \item \textbf{Hardware}: Baidu Cloud BCC, NVIDIA A10 (24\,GB), Ubuntu 22.04, PyTorch 2.5.1+cu121
     \item \textbf{Training}: Adam ($\text{lr}=0.001$), CrossEntropy loss, batch\_size=128, 50 epochs
@@ -172,10 +145,8 @@ We extract penultimate-layer features from a 2D-CNN for original and augmented v
 
 \subsection{Main Factorial Results}
 
-\cn{主结果综述：引用Table~1说明在随机切分下两个模型都接近天花板精度，而在录制级切分下大幅下降。给出泄漏差距的精确数值和Cohen's d效应量，这些是全文最核心的量化结果。}
 Table~\ref{tab:main} reports test accuracy for all 40 combinations. Under random splitting, both models achieve near-ceiling accuracy (0.999--1.000). Under recording-level splitting, accuracy drops substantially. The no-augmentation baseline records a leakage gap of 0.0676 (1D, Cohen's $d=1.17$) and 0.0988 (2D, Cohen's $d=1.80$)---both large effect sizes (Figure~\ref{fig:cohens}).
 
-\cn{主结果表格：四列（1D随机、1D录制、2D随机、2D录制）× 10种增强条件。注意录制级切分的标准差远大于随机切分，这表明跨种子的变异性是泄漏安全评估的重要特征。}
 \begin{table}[H]
 \centering
 \caption{Test accuracy (mean $\pm$ std) over 5 random seeds.}
@@ -198,15 +169,12 @@ FreqFlip (neg.) & $0.9992 \pm 0.001$ & $0.9271 \pm 0.074$ & $0.9813 \pm 0.009$ &
 \end{tabular}
 \end{table}
 
-\cn{反直觉发现：2D-CNN下7/9的增强反而降低了性能——这个发现是该成果具有发表价值的重要支撑。注意在结果描述中直接给出具体数值，不加入"figure shows"式的笼统表述。}
 For 2D-CNN under recording-level split, 7 of 9 augmentation conditions perform \emph{worse} than no augmentation. Only shift\_5 ($0.9152$) and shift\_20 ($0.9139$) surpass the $0.9007$ baseline. Figures~\ref{fig:rvr1d}--\ref{fig:rvr2d} visualize the random-vs-recording contrast.
 
 \subsection{Per-Class Analysis}
 
-\cn{逐类别分析引言：聚焦最具挑战的配置（2D-CNN+录制级切分），给出三类故障的相对难度排序。Normal类普遍被完美识别是预期中的（因为正常信号与故障信号差异大）。}
 Table~\ref{tab:perclass} reports per-class F1 scores for the most challenging configuration (2D-CNN, recording-level split). The Normal class is universally recognized ($F1=0.947$--$1.000$). Inner Race ($0.761$--$0.860$) and Ball ($0.812$--$0.945$) faults show the widest variance.
 
-\cn{逐类别F1表格：五列（Normal/IR/OR/B + 10种增强）。注意IR和Ball的标准差非常大（如IR 0.761±0.228），说明跨种子性能极度不稳定，这是录制级切分下的典型现象。}
 \begin{table}[H]
 \centering
 \caption{Per-class F1 scores (CNN--2D, recording-level split, 5 seeds).}
@@ -228,15 +196,12 @@ FreqFlip      & $1.000 \pm 0.000$ & $0.775 \pm 0.251$ & $0.900 \pm 0.126$ & $0.8
 \end{tabular}
 \end{table}
 
-\cn{热力图引用：简单指向补充材料，避免正文过于冗长。常用写法，审稿人可自己查阅图表验证。}
 Per-class heatmaps for both models are provided in Figures~\ref{fig:pc1d}--\ref{fig:pc2d}.
 
 \subsection{Gap-Recovery Analysis}
 
-\cn{差距恢复分析引言：定义核心指标Δ_rec——增强恢复的泄漏差距比例。这个指标的分子分母定义很关键，审稿人会仔细检查这个归一化是否合理。}
 Table~\ref{tab:gap} reports $\Delta_{\text{rec}}$---the proportion of the leakage gap recovered by each augmentation.
 
-\cn{差距恢复表格：六列（1D的Gap/Δ_rec/d + 2D的Gap/Δ_rec/d）。负数表示增强反而不如无增强。注意2D-CNN多列出现负Δ_rec，这直接支持H2（泄漏差距主导）。}
 \begin{table}[H]
 \centering
 \caption{Gap-recovery analysis. $\Delta_{\text{rec}} = (\text{acc}_{\text{rec},\text{aug}} - \text{acc}_{\text{rec},\text{none}}) / (\text{acc}_{\text{rand},\text{none}} - \text{acc}_{\text{rec},\text{none}})$.}
@@ -258,15 +223,12 @@ FreqFlip     & 0.0721 & $-$0.074 & 1.23 & 0.0967 & $-$0.163 & 1.25 \\
 \end{tabular}
 \end{table}
 
-\cn{可视化引用：简短指向图表的过渡句。}
 Figures~\ref{fig:gap1d}--\ref{fig:gap2d} visualize the gap-recovery landscape.
 
 \subsection{Grouping-Variable Ablation}
 
-\cn{分组消融引言：比较三种分组策略下的无增强精度，重点强调故障尺寸切分导致1D降到0.632、2D降到0.473——这些数字非常震撼，直接说明跨严重性泛化才是真正的难题。}
 Table~\ref{tab:ablation} compares accuracy (no augmentation, 5 seeds) across three grouping strategies. Fault-size-based splitting is the most challenging: 1D-CNN drops to 0.632 and 2D-CNN to 0.473.
 
-\cn{分组消融表格：三列（按负载/按录制/按故障尺寸）× 两模型。简洁的二维表，一目了然展示难度梯度。}
 \begin{table}[H]
 \centering
 \caption{Grouping variable ablation: test accuracy with no augmentation.}
@@ -280,14 +242,12 @@ CNN--2D & $0.979 \pm 0.031$ & $0.899 \pm 0.092$ & $\mathbf{0.473 \pm 0.092}$ \\
 \end{tabular}
 \end{table}
 
-\cn{泛化难度排序：用粗体公式化总结——fault_size >> recording > load。这是全文最重要的高阶结论之一，浓缩为一个不等式。}
 This reveals the generalization difficulty ordering: \textbf{fault\_size $\gg$ recording $>$ load}. Cross-severity generalization is the dominant bottleneck.
 
 % ================================================================
 \section{Physical Consistency}
 % ================================================================
 
-\cn{H3被证伪：直接报告"not supported"，给出具体统计量（ρ=-0.37, p=0.33），然后解释负相关意味着什么——宽带噪声增强的随机正则化效应可能比保留物理信息更有用。末尾一句凝练为结论：物理守恒不等于诊断收益。}
 The H3 hypothesis is not supported. Spearman correlation between $R_{\text{energy}}$ and $\Delta_{\text{rec}}$ is $\rho = -0.37$ ($p = 0.33$), a non-significant negative trend (Figure~\ref{fig:h3}). The negative coefficient suggests that broad-spectrum noise augmentations may incidentally help generalization through regularization effects, despite greater physical distortion. Physical conservation alone does not guarantee diagnostic benefit.
 
 % ================================================================
@@ -296,38 +256,30 @@ The H3 hypothesis is not supported. Spearman correlation between $R_{\text{energ
 
 \subsection{Single vs.\ Combined Augmentation}
 
-\cn{组合增强不如单一增强：给出具体对比数字，用总结句解释原因——组合增强引入的分布偏移超出训练数据可支撑的范围。这个发现对实际工程部署有指导意义：不要盲目叠加增强。}
 Combined augmentation does not outperform the best single augmentation. For 1D-CNN, combined achieves $0.9531$ vs.\ noise\_005's $0.9634$. For 2D-CNN, combined ($0.8766$) underperforms even the no-augmentation baseline ($0.9007$). Stacking augmentations amplifies distribution shift beyond what training data can support.
 
 \subsection{Grouping Variable Importance}
 
-\cn{分组变量重要性的再次强调：只引用前文的结论并重述数字，不加新分析。这种写法适合Ablation小节——快速总结、交叉验证、不过度展开。}
 The ablation in Section~\ref{sec:results} (Table~\ref{tab:ablation}) establishes fault\_size $\gg$ recording $>$ load. The 0.47--0.63 accuracy under fault-size split demonstrates near-complete failure of cross-severity transfer.
 
 % ================================================================
 \section{Discussion}
 % ================================================================
 
-\cn{H1讨论：承认H1部分成立但强调2D-CNN下最多恢复15%。"at most 46%"和"only 15%"的对比制造层次感，让读者理解增强效果有显著的结构依赖性。}
 \textbf{H1 (partial recovery)} is supported but weak for 2D-CNN. The best augmentation recovers only 15\% of the leakage gap in the 2D case, and most augmentations are counterproductive.
 
-\cn{H2讨论：强调Cohen's d≥1.17和max Δ_rec=0.46，给出明确的结论——没有任何增强能替代正确的评估协议。这句话是该论文对领域的最重要警告。}
 \textbf{H2 (leakage dominates)} is strongly supported. With Cohen's $d \geq 1.17$ and max $\Delta_{\text{rec}}$ of 0.46, the leakage gap is the dominant effect. No augmentation can substitute for proper evaluation protocol.
 
-\cn{H3讨论："honest null result"是一个学术期刊认可的表述，表明作者没有为了p-hacking而修改分析。最后一句将性能下降归因于样本多样性不足而非特征破坏，这是对结果的深度解读。}
 \textbf{H3 (physical fidelity)} is falsified. The absence of correlation between energy retention and recovery is an ``honest null result.'' Performance drop under recording-level splitting appears driven by reduced sample diversity rather than augmentation-induced feature corruption.
 
-\cn{3-seed到5-seed的教训：用自身的实验经历说明种子数对估计稳定性的巨大影响（从gap=0.034到0.099，几乎3倍增长）。这种第一人称的诚实实验记录能有效说服审稿人接受"≥5 seeds"的建议。}
 \textbf{The 3-seed insufficiency.} Our initial 3-seed experiment estimated the 2D recording baseline at $0.9653$ ($\text{gap}=0.034$). Expanding to 5 seeds dropped this to $0.9007$ ($\text{gap}=0.099$)---a nearly $3\times$ increase. We recommend $\geq 5$ seeds as minimum for recording-level evaluations.
 
-\cn{跨严重性泛化的瓶颈：回到分组消融的结果，强调0.47~0.63的精度远低于录制级切分的0.90~0.94。这句话的实际含义是：解决跨故障尺寸泛化比解决数据泄漏更紧迫。}
 \textbf{Cross-severity generalization is the real bottleneck.} The fault-size ablation ($\text{acc}=0.47$--$0.63$) dwarfs the recording-level split effect ($0.90$--$0.94$).
 
 % ================================================================
 \section{Limitations}
 % ================================================================
 
-\cn{局限性清单：五个局限性按重要性排列——单数据集、单传感器、固定增强参数、仅CNN架构、50-epoch上限。每个局限用一句话精确表述，克制而诚实，不给审稿人抓住借口说"这些局限太严重"。}
 \begin{enumerate}[nosep]
     \item \textbf{Single dataset}: All experiments use CWRU, an artificial-fault laboratory dataset.
     \item \textbf{Single sensor}: Only drive-end accelerometer (12\,kHz) used. Fan-end (48\,kHz) could reveal sampling-rate sensitivity.
@@ -340,21 +292,18 @@ The ablation in Section~\ref{sec:results} (Table~\ref{tab:ablation}) establishes
 \section{Conclusion}
 % ================================================================
 
-\cn{结论段：将全文五条核心发现压缩为一个自然段，从增强恢复上限（46%/15%）到H3被证伪，再到跨严重性泛化的更高挑战，最后以推荐（≥5 seeds）和开源承诺收尾。这种"发现→解释→建议"的递进结构是标准学术结论写法。}
 Under leakage-safe recording-level evaluation on CWRU, data augmentation provides at most 46\% (1D-CNN) and 15\% (2D-CNN) recovery of the leakage gap. The gap itself is large (Cohen's $d \geq 1.17$), and most augmentations degrade 2D-CNN performance. Physical frequency-band energy preservation does not predict recovery efficacy. A grouping-variable ablation reveals that cross-severity generalization ($0.47$--$0.63$) is a substantially harder problem than recording-level leakage control ($0.90$--$0.94$) or cross-load generalization ($0.98$). We recommend $\geq 5$ seeds for recording-level evaluations and release our full experimental results as a benchmark for leakage-controlled CWRU studies.
 
 % ================================================================
 \section{Reproducibility Statement}
 % ================================================================
 
-\cn{可复现声明：交代代码、数据清单、配置文件和结果均公开，固定种子可复现运行。给出具体命令run_all.py让审稿人知道一键复现是可行的。这是现代ML论文的标准要求。}
 All code, data manifest, experimental configurations, and results are available at the project repository. Random seeds (42, 123, 456, 789, 1024) are fixed across all experiments. Per-epoch logs for all 200 runs are included. All results can be regenerated by running \texttt{python src/run\_all.py}.
 
 % ================================================================
 \section{AI-Use Disclosure}
 % ================================================================
 
-\cn{AI使用声明：明确列出AI参与的三个环节（代码实现、实验调试、手稿起草），并强调所有实验结果均在硬件上验证、无虚构。这种透明的声明方式是学术诚信的示范。}
 The following parts involved AI assistance (DeepSeek, via OpenCode CLI): code implementation (pair-programming, verified on hardware), experimental debugging (STFT device mismatch, import paths, JSON serialization), and manuscript drafting (from experimental results and author outlines; all factual claims verified against results tables and logs). No experimental result was hallucinated or fabricated.
 
 % ================================================================
@@ -363,7 +312,6 @@ The following parts involved AI assistance (DeepSeek, via OpenCode CLI): code im
 \newpage
 \section*{Figures}
 
-\cn{收敛曲线图：展示200次训练运行的收敛趋势，印证文中"93.3% of runs converge by epoch 45"的声明。审稿人会检查是否有提前停止的迹象。}
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{results/figures/convergence_curves.png}
@@ -371,7 +319,6 @@ The following parts involved AI assistance (DeepSeek, via OpenCode CLI): code im
 \label{fig:convergence}
 \end{figure}
 
-\cn{随机vs录制切分对比（1D）：点阵图展示10种增强条件在两个切分协议下的精度分布，直观展示录制切分下精度的大幅下滑和高方差。审稿人应能看到随机切分下所有点都挤在天花板附近。}
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{results/figures/random_vs_recording_1d.png}
@@ -379,7 +326,6 @@ The following parts involved AI assistance (DeepSeek, via OpenCode CLI): code im
 \label{fig:rvr1d}
 \end{figure}
 
-\cn{随机vs录制切分对比（2D）：与上图同理但针对2D-CNN，重点展示7/9增强反而不如无增强的反直觉现象。对比上下两图可以直观感受到1D和2D对增强的耐受性差异。}
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{results/figures/random_vs_recording_2d.png}
@@ -387,7 +333,6 @@ The following parts involved AI assistance (DeepSeek, via OpenCode CLI): code im
 \label{fig:rvr2d}
 \end{figure}
 
-\cn{差距恢复率（1D）：柱状图展示9种增强的Δ_rec，正值表示恢复、负值表示退化。1D下噪声σ=0.05恢复最多（46%），是全文最佳单一增强。}
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{results/figures/gap_recovery_1d.png}
@@ -395,7 +340,6 @@ The following parts involved AI assistance (DeepSeek, via OpenCode CLI): code im
 \label{fig:gap1d}
 \end{figure}
 
-\cn{差距恢复率（2D）：柱状图展示9种增强几乎全部为负或极低正值，Shift 5恢复15%已是最高。这张图是支持H2的最可视化证据。}
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{results/figures/gap_recovery_2d.png}
@@ -403,7 +347,6 @@ The following parts involved AI assistance (DeepSeek, via OpenCode CLI): code im
 \label{fig:gap2d}
 \end{figure}
 
-\cn{Cohen's d效应量：左右并列展示两个模型的效应量，全部为大效应（d>0.8）。高d值说明泄漏差距并非噪声，而是系统性的、稳定的大效应。}
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.48\textwidth]{results/figures/cohens_d_1d.png}
@@ -412,7 +355,6 @@ The following parts involved AI assistance (DeepSeek, via OpenCode CLI): code im
 \label{fig:cohens}
 \end{figure}
 
-\cn{M1相邻窗口自相关：按故障类别展示窗口间自相关系数随offset的衰减趋势。正常类衰减迅速，故障类有持续性结构——这是泄漏的物理证据。}
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{results/figures/m1_adjacent_autocorrelation.png}
@@ -420,7 +362,6 @@ The following parts involved AI assistance (DeepSeek, via OpenCode CLI): code im
 \label{fig:m1}
 \end{figure}
 
-\cn{M2特征多样性：展示增强前后的特征空间余弦距离分布或SVD有效秩，证明增强确实增加了多样性（但后文表明多样性≠更好的泛化）。}
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.7\textwidth]{results/figures/m2_feature_diversity.png}
@@ -428,7 +369,6 @@ The following parts involved AI assistance (DeepSeek, via OpenCode CLI): code im
 \label{fig:m2}
 \end{figure}
 
-\cn{M5故障频带能量审计：展示R_energy≥1.0的审计结果，支撑"增强未灾难性破坏频谱"的声明。与后文H3的散点图形成对照——保留能量≠更好的恢复。}
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{results/figures/m5_fault_band_energy.png}
@@ -436,7 +376,6 @@ The following parts involved AI assistance (DeepSeek, via OpenCode CLI): code im
 \label{fig:m5}
 \end{figure}
 
-\cn{包络谱示例：展示各故障类别的典型包络谱，标注BPFO/BPFI/BSF频率位置。这幅图帮助审稿人理解物理一致性的评价基础。}
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{results/figures/envelope_spectra_examples.png}
@@ -444,7 +383,6 @@ The following parts involved AI assistance (DeepSeek, via OpenCode CLI): code im
 \label{fig:env}
 \end{figure}
 
-\cn{逐类别F1热力图（组合）：左右并列两个模型的热力图，颜色深浅表示F1高低，方便快速比较1D和2D在不同故障类别上的表现。}
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.48\textwidth]{results/figures/per_class_1d_recording.png}
@@ -453,7 +391,6 @@ The following parts involved AI assistance (DeepSeek, via OpenCode CLI): code im
 \label{fig:pc}
 \end{figure}
 
-\cn{逐类别F1热力图（1D单独）：1D-CNN在录制切分下的逐类别增强热力图，单独出图方便论文排版引用。}
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{results/figures/per_class_1d_recording.png}
@@ -461,7 +398,6 @@ The following parts involved AI assistance (DeepSeek, via OpenCode CLI): code im
 \label{fig:pc1d}
 \end{figure}
 
-\cn{逐类别F1热力图（2D单独）：2D-CNN在录制切分下的逐类别增强热力图，用于支撑"IR和B类别差异最大"的文本声明。}
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{results/figures/per_class_2d_recording.png}
@@ -469,7 +405,6 @@ The following parts involved AI assistance (DeepSeek, via OpenCode CLI): code im
 \label{fig:pc2d}
 \end{figure}
 
-\cn{H3散点图：横轴R_energy、纵轴Δ_rec，每个点是一种增强，Spearman ρ=-0.37标注在图上。散点无显著趋势，p=0.33，直接否定物理保真度假说。}
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.8\textwidth]{results/figures/h4_correlation.png}
@@ -480,62 +415,7 @@ The following parts involved AI assistance (DeepSeek, via OpenCode CLI): code im
 % ================================================================
 % REFERENCES
 % ================================================================
-\begin{thebibliography}{99}
-
-\cn{经典基准文献：Smith & Randall 2015是CWRU数据集的基准研究，提供标准评估协议，是论文展开的文献起点。}
-\bibitem{smith2015rolling}
-W.~A.~Smith and R.~B.~Randall, ``Rolling element bearing diagnostics using the Case Western Reserve University data: A benchmark study,''
-\textit{Mechanical Systems and Signal Processing}, vol.~64--65, pp.~100--131, 2015.
-\newblock doi:~\href{https://doi.org/10.1016/j.ymssp.2015.04.021}{10.1016/j.ymssp.2015.04.021}
-
-\cn{1D-CNN基准：Wen et al. 2018是1D-CNN在故障诊断中的代表性工作，用于对比本文1D-CNN的基线表现。}
-\bibitem{wen2018new}
-L.~Wen, X.~Li, L.~Gao, and Y.~Zhang, ``A new convolutional neural network-based data-driven fault diagnosis method,''
-\textit{IEEE Trans. Industrial Electronics}, vol.~65, no.~7, pp.~5990--5998, 2018.
-\newblock doi:~\href{https://doi.org/10.1109/TIE.2017.2774777}{10.1109/TIE.2017.2774777}
-
-\cn{2D-CNN基准：Zhang et al. 2017是2D-CNN方法在故障诊断中的经典引用，为本文2D-CNN架构选择提供文献背书。}
-\bibitem{zhang2017new}
-W.~Zhang, G.~Peng, C.~Li, Y.~Chen, and Z.~Zhang, ``A new deep learning model for fault diagnosis with good anti-noise and domain adaptation ability on raw vibration signals,''
-\textit{Sensors}, vol.~17, no.~2, p.~425, 2017.
-\newblock doi:~\href{https://doi.org/10.3390/s17020425}{10.3390/s17020425}
-
-\cn{交叉验证泄漏理论基础：Bergmeir & Benítez 2012建立了时间序列交叉验证无效性的理论基础，是本文泄漏论证的核心引用。}
-\bibitem{bergmeir2012use}
-C.~Bergmeir and J.~M.~Ben\'{i}tez, ``On the use of cross-validation for time series predictor evaluation,''
-\textit{Information Sciences}, vol.~191, pp.~192--213, 2012.
-\newblock doi:~\href{https://doi.org/10.1016/j.ins.2011.12.028}{10.1016/j.ins.2011.12.028}
-
-\cn{时间序列评估方法比较：Cerqueira et al. 2020是对时间序列评估方法的经验比较，强化了"out-of-sample evaluation is necessary"的论证。}
-\bibitem{cerqueira2020evaluating}
-V.~Cerqueira, L.~Torgo, and I.~Mozeti\v{c}, ``Evaluating time series forecasting models: an empirical study on performance estimation methods,''
-\textit{Machine Learning}, vol.~109, pp.~1997--2028, 2020.
-\newblock doi:~\href{https://doi.org/10.1007/s10994-020-05910-7}{10.1007/s10994-020-05910-7}
-
-\cn{CWRU数据源：原始数据来源引用，是论文实验的唯一数据集。}
-\bibitem{cwru}
-Case Western Reserve University Bearing Data Center.
-\newblock ``12k Drive End Bearing Fault Data.'' [Online].
-\newblock \url{https://engineering.case.edu/bearingdatacenter}
-
-\cn{SpecAugment原始文献：Park et al. 2019是SpecAugment的提出论文，本文将其从语音迁移到振动分析并评估其物理影响。}
-\bibitem{park2019specaugment}
-D.~S.~Park, W.~Chan, Y.~Zhang, C.-C.~Chiu, B.~Zoph, E.~D.~Cubuk, and Q.~V.~Le, ``SpecAugment: A simple data augmentation method for automatic speech recognition,''
-in \textit{Proc. Interspeech}, 2019, pp.~2613--2617.
-\newblock doi:~\href{https://doi.org/10.21437/Interspeech.2019-2680}{10.21437/Interspeech.2019-2680}
-
-\cn{物理约束增强：Shao et al. 2019提出深度迁移学习用于故障诊断，涉及物理约束的数据增强策略。}
-\bibitem{shao2019highly}
-S.~Shao, S.~McAleer, R.~Yan, and P.~Baldi, ``Highly accurate machine fault diagnosis using deep transfer learning,''
-\textit{IEEE Trans. Industrial Informatics}, vol.~15, no.~4, pp.~2446--2455, 2019.
-\newblock doi:~\href{https://doi.org/10.1109/TII.2018.2864759}{10.1109/TII.2018.2864759}
-
-\cn{弱监督诊断：Li et al. 2020提出弱监督深度学习用于旋转机械诊断，是物理约束增强方向的另一代表性工作。}
-\bibitem{li2020diagnosing}
-X.~Li, W.~Zhang, Q.~Ding, and J.-Q.~Sun, ``Diagnosing rotating machines with weakly supervised data using deep transfer learning,''
-\textit{IEEE Trans. Industrial Informatics}, vol.~16, no.~3, pp.~1688--1697, 2020.
-\newblock doi:~\href{https://doi.org/10.1109/TII.2019.2927590}{10.1109/TII.2019.2927590}
-
-\end{thebibliography}
+\bibliographystyle{ieeetr}
+\bibliography{references}
 
 \end{document}
