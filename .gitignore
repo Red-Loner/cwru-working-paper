@@ -26,6 +26,19 @@ venv/
 .DS_Store
 Thumbs.db
 
+# LaTeX build artifacts
+*.aux
+*.log
+*.bbl
+*.blg
+*.out
+*.fdb_latexmk
+*.fls
+*.synctex*
+*.toc
+*.lof
+*.lot
+
 # Results (generated)
 results/logs/training_logs/*.log
 results/tables/*.csv
