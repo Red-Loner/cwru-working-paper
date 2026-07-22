@@ -21,7 +21,7 @@ We pose three hypotheses:
 
 To test these hypotheses, we conduct a fully factorial experiment on the Case Western Reserve University (CWRU) bearing dataset: 2 model architectures (1D-CNN on raw waveform, 2D-CNN on STFT spectrograms) × 2 split protocols × 10 augmentation conditions × 5 random seeds, totaling 200 independent training runs. We further ablate three grouping variables — recording identity, motor load, and fault size — to identify which domain shift most challenges generalization.
 
-The dataset comprises 40 recording files yielding 11,832 windows (1,024 samples per window, 50% overlap). Each configuration trains for 50 epochs on an NVIDIA A10 GPU (Adam optimizer, lr=0.001, batch size 128).
+The dataset comprises 40 recording files yielding 11,832 windows (1,024 samples per window, 50% overlap). Each configuration trains for 50 epochs on an NVIDIA A10 GPU (Adam optimizer, lr=0.001, batch size 64).
 
 
 ## 2. Related Work
@@ -60,9 +60,9 @@ We verify the leakage structure through adjacent-window autocorrelation analysis
 
 We employ a fully crossed factorial design:
 
-- **Factor A — Model**: 1D-CNN (3 conv layers, raw waveform input 1×1024) and 2D-CNN (4 conv layers, STFT spectrogram input 1×32×32, n_fft=128, hop_length=64)
+- **Factor A — Model**: 1D-CNN (4 conv layers, raw waveform input 1×1024) and 2D-CNN (4 conv layers, STFT spectrogram input 1×32×32, n_fft=128, hop_length=64)
 - **Factor B — Split Protocol**: Random window split (leakage baseline) and Recording-level split (leakage-safe)
-- **Factor C — Augmentation**: 10 conditions — none, additive Gaussian noise (σ=0.01, 0.05, 0.10), time shift (5, 20, 50 samples), SpecAugment (frequency + time masking), combined (noise σ=0.05 + shift 20 + SpecAugment), and frequency-axis flip (negative control — destroys physical meaning)
+- **Factor C — Augmentation**: 10 conditions — none, additive Gaussian noise (σ=0.01, 0.05, 0.10), time shift (5, 20, 50 samples), SpecAugment (frequency + time masking), combined (noise σ=0.05 + shift 20), and frequency-axis flip (negative control — destroys physical meaning)
 - **Factor D — Random Seed**: 5 seeds (42, 123, 456, 789, 1024)
 
 ### 4.2 Grouping-Variable Ablation
@@ -96,7 +96,7 @@ We extract penultimate-layer features from a 2D-CNN for original and augmented v
 ## 6. Experimental Setup
 
 - **Hardware**: Baidu Cloud BCC instance, NVIDIA A10 (24GB), Ubuntu 22.04, PyTorch 2.5.1+cu121
-- **Training**: Adam optimizer, lr=0.001, CrossEntropy loss, batch_size=128, 50 epochs
+- **Training**: Adam optimizer, lr=0.001, CrossEntropy loss, batch_size=64, 50 epochs
 - **Normalization**: Z-score normalization computed on training set only
 - **Metrics**: Accuracy, macro-F1, per-class precision/recall/F1, confusion matrix
 - **Statistical reporting**: Mean ± standard deviation across 5 seeds; Cohen's d for effect size
@@ -199,7 +199,7 @@ The negative coefficient suggests that broad-spectrum noise augmentations may in
 
 ### 9.1 Single vs. Combined Augmentation
 
-Combined augmentation (noise + shift + SpecAugment) does not outperform the best single augmentation. For 1D-CNN recording split, combined achieves 0.9531 vs. noise_005's 0.9634. For 2D-CNN, combined (0.8766) underperforms even the no-augmentation baseline (0.9007). Stacking augmentations amplifies distribution shift beyond what the training data can support.
+Combined augmentation (noise + shift) does not outperform the best single augmentation. For 1D-CNN recording split, combined achieves 0.9531 vs. noise_005's 0.9634. For 2D-CNN, combined (0.8766) underperforms even the no-augmentation baseline (0.9007). Stacking augmentations amplifies distribution shift beyond what the training data can support.
 
 ### 9.2 Grouping Variable Importance
 

@@ -104,8 +104,11 @@ def evaluate(model, loader, device, model_type="1d"):
 
 
 def run_experiment(model_type, split_type, aug_type, seed, log_dir=None):
+    torch.manual_seed(seed)
+    np.random.seed(seed)
     device = torch.device(config.DEVICE if torch.cuda.is_available() else "cpu")
-    windows, labels, rec_ids, records = build_datasets(random_seed=seed)
+    overlap = config.OVERLAP_RECORDING if split_type == "recording" else config.OVERLAP_RANDOM
+    windows, labels, rec_ids, records = build_datasets(random_seed=seed, overlap_ratio=overlap)
 
     if split_type == "random":
         (tr_x, tr_y), (va_x, va_y), (te_x, te_y) = random_split(

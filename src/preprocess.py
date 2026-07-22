@@ -74,7 +74,9 @@ def load_and_segment(data_root, fault_diameters=None):
 
     return records
 
-def build_datasets(random_seed=42, fault_diameters=None):
+def build_datasets(random_seed=42, fault_diameters=None, overlap_ratio=None):
+    if overlap_ratio is None:
+        overlap_ratio = OVERLAP_RANDOM
     records = load_and_segment(DATA_ROOT, fault_diameters)
 
     all_windows = []
@@ -87,7 +89,7 @@ def build_datasets(random_seed=42, fault_diameters=None):
         except Exception as e:
             print(f"  [WARN] Skipping {rec['recording_id']}: {e}")
             continue
-        windows = sliding_windows(signal, WINDOW_LENGTH, OVERLAP_RANDOM)
+        windows = sliding_windows(signal, WINDOW_LENGTH, overlap_ratio)
         all_windows.append(windows)
         window_labels.extend([LABEL_MAP[rec["fault_type"]]] * len(windows))
         window_recording_ids.extend([rec["recording_id"]] * len(windows))

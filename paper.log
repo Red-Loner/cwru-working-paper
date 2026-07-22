@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2025.1.8)  22 JUL 2026 14:21
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2025.1.8)  22 JUL 2026 15:14
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -529,7 +529,7 @@ LaTeX2e <2024-11-01> patch level 1
 L3 programming layer <2024-11-02>
  ***********
 Package rerunfilecheck Info: File `paper.out' has not changed.
-(rerunfilecheck)             Checksum: E08FBB88F224E93443BE634A1D6D8726;4095.
+(rerunfilecheck)             Checksum: 84C125EF09187DA9BDEC914FC6A132FF;4237.
  ) 
 Here is how much of TeX's memory you used:
  12611 strings out of 473650
@@ -540,9 +540,9 @@ Here is how much of TeX's memory you used:
  1141 hyphenation exceptions out of 8191
  75i,13n,79p,1662b,575s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\FF\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ectt1095.pk> <C:\Users\FF\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecti1095.pk> <C:\Users\FF\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm0800.pk> <C:\Users\FF\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1200.pk> <C:\Users\FF\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1095.pk> <C:\Users\FF\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1095.pk> <C:\Users\FF\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1095.pk> <C:\Users\FF\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1440.pk> <C:\Users\FF\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecti1000.pk> <C:\Users\FF\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1000.pk> <C:\Users\FF\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ectt1000.pk> <C:\Users\FF\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1000.pk> <C:\Users\FF\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1200.pk> <C:\Users\FF\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1728.pk><E:/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx10.pfb><E:/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><E:/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb><E:/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><E:/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
-Output written on paper.pdf (14 pages, 1937648 bytes).
+Output written on paper.pdf (14 pages, 1938527 bytes).
 PDF statistics:
- 812 PDF objects out of 1000 (max. 8388607)
+ 814 PDF objects out of 1000 (max. 8388607)
  74 named destinations out of 1000 (max. 500000)
  287 words of extra memory for PDF output out of 10000 (max. 10000000)
 

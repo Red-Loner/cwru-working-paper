@@ -52,7 +52,7 @@ We pose three hypotheses:
 To test these hypotheses, we conduct a fully factorial experiment on the Case Western Reserve University (CWRU) bearing dataset: 2 model architectures (1D-CNN on raw waveform, 2D-CNN on STFT spectrograms) $\times$ 2 split protocols $\times$ 10 augmentation conditions $\times$ 5 random seeds, totaling 200 independent training runs. We further ablate three grouping variables---recording identity, motor load, and fault size---to identify which domain shift most challenges generalization.
 
 % [数据集与训练细节]：在引言末尾交代数据集规模和训练配置，为可重复性提供早期保证。不是Method的完整细节，而是让读者在引言阶段就能判断实验规模是否可信。
-The dataset comprises 40 recording files yielding 11,832 windows (1,024 samples per window, 50\% overlap). Each configuration trains for 50 epochs on an NVIDIA A10 GPU (Adam optimizer, $\text{lr}=0.001$, batch size 128).
+The dataset comprises 40 recording files yielding 11,832 windows (1,024 samples per window, 50\% overlap). Each configuration trains for 50 epochs on an NVIDIA A10 GPU (Adam optimizer, $\text{lr}=0.001$, batch size 64).
 
 % ================================================================
 \section{Related Work}
@@ -106,9 +106,9 @@ We verify the leakage structure through adjacent-window autocorrelation analysis
 We employ a fully crossed factorial design:
 
 \begin{itemize}[nosep]
-    \item \textbf{Factor A---Model}: 1D-CNN (3 conv layers, raw waveform input $1\times1024$) and 2D-CNN (4 conv layers, STFT spectrogram input $1\times32\times32$, $n_{\text{fft}}=128$, $\text{hop}=64$)
+    \item \textbf{Factor A---Model}: 1D-CNN (4 conv layers, raw waveform input $1\times1024$) and 2D-CNN (4 conv layers, STFT spectrogram input $1\times32\times32$, $n_{\text{fft}}=128$, $\text{hop}=64$)
     \item \textbf{Factor B---Split Protocol}: Random window split (leakage baseline) and Recording-level split (leakage-safe)
-    \item \textbf{Factor C---Augmentation}: 10 conditions---none, additive Gaussian noise ($\sigma=0.01,0.05,0.10$), time shift (5, 20, 50 samples), SpecAugment (frequency\,+\ time masking), combined (noise $\sigma=0.05$ + shift 20 + SpecAugment), and frequency-axis flip (negative control)
+    \item \textbf{Factor C---Augmentation}: 10 conditions---none, additive Gaussian noise ($\sigma=0.01,0.05,0.10$), time shift (5, 20, 50 samples), SpecAugment (frequency\,+\ time masking), combined (noise $\sigma=0.05$ + shift 20), and frequency-axis flip (negative control)
     \item \textbf{Factor D---Random Seed}: 5 seeds (42, 123, 456, 789, 1024)
 \end{itemize}
 
@@ -155,7 +155,7 @@ We extract penultimate-layer features from a 2D-CNN for original and augmented v
 % [实验设置]：使用itemize列表统一收敛性报告，方便审稿人快速定位超参数。收敛分析的结果（中位数epoch=9）是对50epoch选择的事后辩护。
 \begin{itemize}[nosep]
     \item \textbf{Hardware}: Baidu Cloud BCC, NVIDIA A10 (24\,GB), Ubuntu 22.04, PyTorch 2.5.1+cu121
-    \item \textbf{Training}: Adam ($\text{lr}=0.001$), CrossEntropy loss, batch\_size=128, 50 epochs
+    \item \textbf{Training}: Adam ($\text{lr}=0.001$), CrossEntropy loss, batch\_size=64, 50 epochs
     \item \textbf{Normalization}: Z-score computed on training set only
     \item \textbf{Metrics}: Accuracy, macro-F1, per-class precision/recall/F1
     \item \textbf{Statistics}: Mean $\pm$ std across 5 seeds; Cohen's $d$ for effect size
@@ -278,7 +278,7 @@ This reveals the generalization difficulty ordering: \textbf{fault\_size $\gg$ r
 % ================================================================
 
 % [H3被证伪]：诚实报告null result需要框架——这里将negative Spearman解释为noise-as-regularizer假说，把不显著的发现转化为建设性讨论。
-The H3 hypothesis is not supported. Spearman correlation between $R_{\text{energy}}$ and $\Delta_{\text{rec}}$ is $\rho = -0.37$ ($p = 0.33$), a non-significant negative trend (Figure~\ref{fig:h3}). The negative coefficient suggests that broad-spectrum noise augmentations may incidentally help generalization through regularization effects, despite greater physical distortion. Physical conservation alone does not guarantee diagnostic benefit.
+The H3 hypothesis is not supported. Spearman correlation between $R_{\text{energy}}$ and $\Delta_{\text{rec}}$ is $\rho = -0.37$ ($p = 0.33$), a non-significant negative trend (Figure~\ref{fig:h3}). We note that $R_{\text{energy}}$ conflates physical fidelity with noise injection level: broadband Gaussian noise increases energy in all frequency bands (including fault bands), yielding $R_{\text{energy}}\geq1.0$ for all augmentation conditions. This limits the metric's ability to isolate physical feature preservation from simple broadband energy injection. The negative coefficient suggests that broad-spectrum noise augmentations may incidentally help generalization through regularization effects, despite greater physical distortion. Per-band signal-to-noise ratio may provide a more diagnostic metric for future studies.
 
 % ================================================================
 \section{Ablation}
@@ -324,6 +324,7 @@ The ablation in Section~\ref{sec:results} (Table~\ref{tab:ablation}) establishes
     \item \textbf{Fixed augmentation parameters}: Parameters chosen a priori; sensitivity not explored.
     \item \textbf{CNN architectures only}: Results may differ for Transformer or MLP architectures.
     \item \textbf{50-epoch ceiling}: 6.7\% of runs converged in final 10\% of epochs (Figure~\ref{fig:convergence}).
+    \item \textbf{$R_{\text{energy}}$ metric confound}: All augmentations increase broadband energy within fault bands ($R_{\text{energy}}\geq1.0$ for all conditions), confounding physical fidelity with noise injection level. A per-band signal-to-noise ratio may be more diagnostic.
 \end{enumerate}
 
 % ================================================================
