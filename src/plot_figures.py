@@ -61,9 +61,9 @@ def plot_random_vs_recording(results, model_type="2d", output_dir=None):
     rc_vals = [recording_accs.get(a, 0) for a in augs]
     r_errs = [random_stds.get(a, 0) for a in augs]
     rc_errs = [recording_stds.get(a, 0) for a in augs]
-    ax.bar(x - width / 2, r_vals, width, yerr=r_errs, label="Random Split (leakage)", color="coral", alpha=0.8,
+    ax.bar(x - width / 2, r_vals, width, yerr=r_errs, label="Random Split (leakage-prone)", color="coral", alpha=0.8,
            capsize=2, error_kw={"linewidth": 0.8})
-    ax.bar(x + width / 2, rc_vals, width, yerr=rc_errs, label="Recording-Level Split (safe)", color="steelblue", alpha=0.8,
+    ax.bar(x + width / 2, rc_vals, width, yerr=rc_errs, label="Recording-Level Split (recording-disjoint)", color="steelblue", alpha=0.8,
            capsize=2, error_kw={"linewidth": 0.8})
     ax.set_xlabel("Augmentation Condition")
     ax.set_ylabel("Accuracy")
@@ -72,7 +72,11 @@ def plot_random_vs_recording(results, model_type="2d", output_dir=None):
     ax.set_xticklabels(augs, rotation=45, ha="right", fontsize=8)
     ax.legend()
     ax.grid(True, alpha=0.3, axis="y")
-    ax.set_ylim(0.85, 1.02)
+    lower_candidates = [
+        value - error
+        for value, error in zip(r_vals + rc_vals, r_errs + rc_errs)
+    ]
+    ax.set_ylim(max(0.0, min(lower_candidates) - 0.03), 1.02)
     plt.tight_layout()
     path = os.path.join(output_dir, f"random_vs_recording_{model_type}.png")
     plt.savefig(path, dpi=150, bbox_inches="tight")
@@ -80,44 +84,61 @@ def plot_random_vs_recording(results, model_type="2d", output_dir=None):
     print(f"Saved {path}")
 
 
-def plot_h4_correlation(h4_data, output_dir=None):
+def plot_physical_fidelity_correlation(correlation_data, output_dir=None):
     if output_dir is None:
         output_dir = os.path.join(RESULTS_DIR, "figures")
     os.makedirs(output_dir, exist_ok=True)
-    if not h4_data.get("augmentations"):
+    by_model = correlation_data.get("by_model", {})
+    if not by_model:
         return
-    energies = h4_data["energy_retention"]
-    deltas = h4_data["delta_recovery"]
-    augs = h4_data["augmentations"]
-    rho = h4_data.get("spearman_rho")
-    p = h4_data.get("p_value")
-    fig, ax = plt.subplots(figsize=(10, 7))
-    for i, a in enumerate(augs):
-        color = "green" if deltas[i] > 0 else "red"
-        ax.scatter(energies[i], deltas[i], s=140, alpha=0.7, color=color, edgecolors="black", linewidth=0.5)
-        offset_y = 0.03 if i % 2 == 0 else -0.06
-        ax.annotate(a, (energies[i], deltas[i]), textcoords="offset points",
-                    xytext=(8, 8 + int(offset_y * 50)), fontsize=9)
-    if rho is not None and len(energies) >= 3:
-        z = np.polyfit(energies, deltas, 1)
-        x_line = np.linspace(min(energies) - 0.02, max(energies) + 0.02, 50)
-        y_line = np.polyval(z, x_line)
-        ax.plot(x_line, y_line, color="gray", linestyle="--", linewidth=1, alpha=0.6,
-                label=f"Linear fit (ρ={rho:.3f})")
-    ax.axhline(y=0, color="red", linestyle="--", linewidth=0.8, alpha=0.5, label="No recovery")
-    ax.set_xlabel("Fault-Band Energy Retention (R_energy)")
-    ax.set_ylabel("Gap-Recovery Ratio (Δ_recovery)")
-    title = "H4: Physical Preservation vs Gap Recovery"
-    if rho is not None:
-        significance = "significant" if p is not None and p < 0.05 else "not significant"
-        title += f"\nSpearman ρ = {rho:.3f}, p = {p:.3f} ({significance})"
-    ax.set_title(title)
-    ax.legend(fontsize=8)
-    ax.grid(True, alpha=0.3)
-    plt.tight_layout()
-    path = os.path.join(output_dir, "h4_correlation.png")
-    plt.savefig(path, dpi=150, bbox_inches="tight")
-    plt.close()
+    fig, axes = plt.subplots(1, 2, figsize=(14, 6), sharex=True)
+    for ax, model in zip(axes, ("1d", "2d")):
+        model_data = by_model.get(model, {})
+        fidelities = model_data.get("energy_fidelity", [])
+        deltas = model_data.get("delta_recovery", [])
+        augmentations = model_data.get("augmentations", [])
+        rho = model_data.get("spearman_rho")
+        p_value = model_data.get("p_value")
+        for index, augmentation in enumerate(augmentations):
+            color = "green" if deltas[index] > 0 else "red"
+            ax.scatter(
+                fidelities[index],
+                deltas[index],
+                s=90,
+                alpha=0.75,
+                color=color,
+                edgecolors="black",
+                linewidth=0.5,
+            )
+            ax.annotate(
+                augmentation,
+                (fidelities[index], deltas[index]),
+                textcoords="offset points",
+                xytext=(5, 5 if index % 2 == 0 else -10),
+                fontsize=7,
+            )
+        ax.axhline(
+            y=0,
+            color="black",
+            linestyle="--",
+            linewidth=0.8,
+            alpha=0.5,
+        )
+        ax.set_xlabel("Symmetric fault-band energy fidelity")
+        ax.set_ylabel("Gap-recovery ratio")
+        if rho is None:
+            subtitle = "correlation unavailable"
+        else:
+            subtitle = f"Spearman ρ={rho:.3f}, p={p_value:.3f}"
+        ax.set_title(f"{model.upper()} model\n{subtitle}")
+        ax.grid(True, alpha=0.3)
+    fig.suptitle("H3: Physical Fidelity vs Gap Recovery")
+    fig.tight_layout()
+    path = os.path.join(
+        output_dir, "h3_physical_fidelity_correlation.png"
+    )
+    fig.savefig(path, dpi=150, bbox_inches="tight")
+    plt.close(fig)
     print(f"Saved {path}")
 
 
@@ -137,7 +158,14 @@ def plot_per_class_heatmap(results, model_type="2d", split_type="recording", out
             if cls in row["per_class"]:
                 f1_matrix[i, j] = row["per_class"][cls]["f1_mean"]
     fig, ax = plt.subplots(figsize=(max(8, len(classes) * 1.5), max(6, len(augs) * 0.5)))
-    im = ax.imshow(f1_matrix, cmap="RdYlGn", vmin=0.7, vmax=1.0, aspect="auto")
+    color_min = max(0.0, float(np.min(f1_matrix)) - 0.05)
+    im = ax.imshow(
+        f1_matrix,
+        cmap="RdYlGn",
+        vmin=color_min,
+        vmax=1.0,
+        aspect="auto",
+    )
     ax.set_xticks(np.arange(len(classes)))
     ax.set_xticklabels(classes)
     ax.set_yticks(np.arange(len(augs)))
@@ -184,6 +212,88 @@ def plot_cohens_d(recovery_rows, output_dir=None):
         print(f"Saved {path}")
 
 
+def plot_confusion_matrices(results, output_dir=None):
+    if output_dir is None:
+        output_dir = os.path.join(RESULTS_DIR, "figures")
+    os.makedirs(output_dir, exist_ok=True)
+    selections = []
+    for model in ("1d", "2d"):
+        candidates = [
+            row
+            for row in results
+            if row["model"] == model
+            and row["split"] == "recording"
+            and row["augmentation"] != "none"
+        ]
+        best = max(candidates, key=lambda row: row["accuracy_mean"])
+        selections.extend(
+            [
+                (model, "none", f"{model.upper()} / no augmentation"),
+                (
+                    model,
+                    best["augmentation"],
+                    f"{model.upper()} / best: {best['augmentation']}",
+                ),
+            ]
+        )
+    class_names = ["Normal", "IR", "OR", "B"]
+    fig, axes = plt.subplots(2, 2, figsize=(10, 9))
+    plotted = 0
+    for ax, (model, augmentation, title) in zip(axes.flat, selections):
+        row = next(
+            (
+                item
+                for item in results
+                if item["model"] == model
+                and item["split"] == "recording"
+                and item["augmentation"] == augmentation
+            ),
+            None,
+        )
+        if row is None or "confusion_matrix_sum" not in row:
+            ax.axis("off")
+            continue
+        matrix = np.asarray(row["confusion_matrix_sum"], dtype=float)
+        row_totals = matrix.sum(axis=1, keepdims=True)
+        normalized = np.divide(
+            matrix,
+            row_totals,
+            out=np.zeros_like(matrix),
+            where=row_totals != 0,
+        )
+        image = ax.imshow(normalized, cmap="Blues", vmin=0, vmax=1)
+        ax.set_title(title)
+        ax.set_xticks(np.arange(len(class_names)))
+        ax.set_yticks(np.arange(len(class_names)))
+        ax.set_xticklabels(class_names)
+        ax.set_yticklabels(class_names)
+        ax.set_xlabel("Predicted class")
+        ax.set_ylabel("True class")
+        for row_idx in range(normalized.shape[0]):
+            for col_idx in range(normalized.shape[1]):
+                value = normalized[row_idx, col_idx]
+                ax.text(
+                    col_idx,
+                    row_idx,
+                    f"{value:.2f}\n(n={int(matrix[row_idx, col_idx])})",
+                    ha="center",
+                    va="center",
+                    fontsize=8,
+                    color="white" if value > 0.55 else "black",
+                )
+        plotted += 1
+    if plotted == 0:
+        plt.close(fig)
+        return
+    fig.suptitle("Recording-Level Test Confusion Matrices (5 Seeds Aggregated)")
+    fig.colorbar(image, ax=axes.ravel().tolist(), fraction=0.025, pad=0.02)
+    fig.subplots_adjust(top=0.92, right=0.9, wspace=0.3, hspace=0.3)
+    path = os.path.join(output_dir, "confusion_matrices_recording.png")
+    plt.savefig(path, dpi=150, bbox_inches="tight")
+    plt.close(fig)
+    print(f"Saved {path}")
+
+
 def main():
     output_dir = os.path.join(RESULTS_DIR, "figures")
     os.makedirs(output_dir, exist_ok=True)
@@ -201,13 +311,20 @@ def main():
         plot_cohens_d(recovery, output_dir)
     plot_random_vs_recording(results, "1d", output_dir)
     plot_random_vs_recording(results, "2d", output_dir)
-    h4_path = os.path.join(RESULTS_DIR, "tables", "h4_correlation.json")
-    if os.path.exists(h4_path):
-        with open(h4_path, "r") as f:
-            h4_data = json.load(f)
-        plot_h4_correlation(h4_data, output_dir)
+    correlation_path = os.path.join(
+        RESULTS_DIR,
+        "tables",
+        "physical_fidelity_correlation.json",
+    )
+    if os.path.exists(correlation_path):
+        with open(correlation_path, "r") as f:
+            correlation_data = json.load(f)
+        plot_physical_fidelity_correlation(
+            correlation_data, output_dir
+        )
     plot_per_class_heatmap(results, "1d", "recording", output_dir)
     plot_per_class_heatmap(results, "2d", "recording", output_dir)
+    plot_confusion_matrices(results, output_dir)
     print("All figures generated.")
 
 

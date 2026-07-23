@@ -3,105 +3,105 @@
     "none": [
       {
         "noise_sigma": 0,
-        "accuracy": 0.9886
+        "accuracy": 0.9961
       },
       {
         "noise_sigma": 0.01,
-        "accuracy": 0.9877
+        "accuracy": 0.9961
       },
       {
         "noise_sigma": 0.02,
-        "accuracy": 0.9883
+        "accuracy": 0.9958
       },
       {
         "noise_sigma": 0.05,
-        "accuracy": 0.9883
+        "accuracy": 0.9964
       },
       {
         "noise_sigma": 0.08,
-        "accuracy": 0.9906
+        "accuracy": 0.9955
       },
       {
         "noise_sigma": 0.1,
-        "accuracy": 0.9929
+        "accuracy": 0.9955
       }
     ],
     "noise_005": [
       {
         "noise_sigma": 0,
-        "accuracy": 0.9714
+        "accuracy": 0.9958
       },
       {
         "noise_sigma": 0.01,
-        "accuracy": 0.9721
+        "accuracy": 0.9958
       },
       {
         "noise_sigma": 0.02,
-        "accuracy": 0.9747
+        "accuracy": 0.9964
       },
       {
         "noise_sigma": 0.05,
-        "accuracy": 0.9779
+        "accuracy": 0.9961
       },
       {
         "noise_sigma": 0.08,
-        "accuracy": 0.9834
+        "accuracy": 0.9948
       },
       {
         "noise_sigma": 0.1,
-        "accuracy": 0.9899
+        "accuracy": 0.9955
       }
     ],
     "shift_20": [
       {
         "noise_sigma": 0,
-        "accuracy": 0.9899
+        "accuracy": 0.9938
       },
       {
         "noise_sigma": 0.01,
-        "accuracy": 0.9906
+        "accuracy": 0.9938
       },
       {
         "noise_sigma": 0.02,
-        "accuracy": 0.9899
+        "accuracy": 0.9942
       },
       {
         "noise_sigma": 0.05,
-        "accuracy": 0.9893
+        "accuracy": 0.9942
       },
       {
         "noise_sigma": 0.08,
-        "accuracy": 0.9896
+        "accuracy": 0.9935
       },
       {
         "noise_sigma": 0.1,
-        "accuracy": 0.9873
+        "accuracy": 0.9938
       }
     ],
     "combined": [
       {
         "noise_sigma": 0,
-        "accuracy": 0.9945
+        "accuracy": 0.9974
       },
       {
         "noise_sigma": 0.01,
-        "accuracy": 0.9955
+        "accuracy": 0.9974
       },
       {
         "noise_sigma": 0.02,
-        "accuracy": 0.9948
+        "accuracy": 0.9977
       },
       {
         "noise_sigma": 0.05,
-        "accuracy": 0.9958
+        "accuracy": 0.9977
       },
       {
         "noise_sigma": 0.08,
-        "accuracy": 0.9961
+        "accuracy": 0.9981
       },
       {
         "noise_sigma": 0.1,
-        "accuracy": 0.9974
+        "accuracy": 0.9981
       }
     ]
   },
@@ -121,33 +121,33 @@
       },
       {
         "noise_sigma": 0.05,
-        "accuracy": 0.9996
+        "accuracy": 1.0
       },
       {
         "noise_sigma": 0.08,
-        "accuracy": 0.9996
+        "accuracy": 1.0
       },
       {
         "noise_sigma": 0.1,
-        "accuracy": 0.9987
+        "accuracy": 1.0
       }
     ],
     "noise_005": [
       {
         "noise_sigma": 0,
-        "accuracy": 0.9996
+        "accuracy": 1.0
       },
       {
         "noise_sigma": 0.01,
-        "accuracy": 0.9996
+        "accuracy": 1.0
       },
       {
         "noise_sigma": 0.02,
-        "accuracy": 0.9996
+        "accuracy": 1.0
       },
       {
         "noise_sigma": 0.05,
-        "accuracy": 0.9996
+        "accuracy": 1.0
       },
       {
         "noise_sigma": 0.08,
@@ -155,33 +155,33 @@
       },
       {
         "noise_sigma": 0.1,
-        "accuracy": 0.9987
+        "accuracy": 0.9996
       }
     ],
     "shift_20": [
       {
         "noise_sigma": 0,
-        "accuracy": 0.9987
+        "accuracy": 1.0
       },
       {
         "noise_sigma": 0.01,
-        "accuracy": 0.9983
+        "accuracy": 1.0
       },
       {
         "noise_sigma": 0.02,
-        "accuracy": 0.9987
+        "accuracy": 1.0
       },
       {
         "noise_sigma": 0.05,
-        "accuracy": 0.9992
+        "accuracy": 1.0
       },
       {
         "noise_sigma": 0.08,
-        "accuracy": 0.9975
+        "accuracy": 0.9996
       },
       {
         "noise_sigma": 0.1,
-        "accuracy": 0.9975
+        "accuracy": 0.9992
       }
     ],
     "combined": [
@@ -203,7 +203,7 @@
       },
       {
         "noise_sigma": 0.08,
-        "accuracy": 0.9996
+        "accuracy": 1.0
       },
       {
         "noise_sigma": 0.1,

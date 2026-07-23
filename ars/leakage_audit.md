@@ -4,7 +4,7 @@
 
 This audit evaluates leakage risks for the factorial experiment comparing:
 - Factor A: Random adjacent-window split (A1) vs. Recording-level split (A2)
-- Factor B: 9 augmentation conditions (none, Gaussian noise ×3, time shift ×3, SpecAugment, combined, frequency-axis flip)
+- Factor B: 10 augmentation conditions (none, Gaussian noise ×3, time shift ×3, waveform-compatible spectral/time mask, combined, FFT-magnitude frequency-axis flip)
 - Factor C: 2 model families (1D CNN, STFT + 2D CNN)
 
 ## Leakage Risk Assessment
@@ -16,9 +16,9 @@ This audit evaluates leakage risks for the factorial experiment comparing:
 | **Risk level** | **HIGH** |
 | **Path** | Windows cut from the same continuous vibration recording with overlap (A1: 50% overlap). Adjacent windows share near-identical waveforms. When randomly assigned to train and test sets, the model sees test-time signal shapes nearly identical to training examples. |
 | **Effect** | Model learns recording identity (motor speed, sensor transfer function, ambient noise floor) rather than fault signature. Estimated accuracy inflation: 10–30 percentage points. |
-| **Detection** | Per-class accuracy gap between A1 and A2; M1 adjacent-window autocorrelation analysis; training curve divergence (M3). |
+| **Detection** | Per-class accuracy gap between A1 and A2; M1 exact shared-sample and aligned-overlap audit; training-curve diagnostic (M3). |
 | **Correction** | Use recording-level split (A2) as primary evaluation protocol. A1 retained only as a leakage baseline. |
-| **Paper reporting** | Report both A1 and A2 results for every experimental condition. Compute gap-recovery ratio Δ_recovery using A2 as denominator, A1 difference as numerator. Explicitly warn that A1 results are leakage-biased. |
+| **Paper reporting** | Report both A1 and A2 results for every condition. Compute Δ_recovery as the recording-level augmentation gain divided by the no-augmentation random-to-recording gap. Explicitly identify A1 as leakage-prone. |
 
 ### Leakage Path 2: Normalization Using Test Data
 
@@ -47,7 +47,7 @@ This audit evaluates leakage risks for the factorial experiment comparing:
 | Attribute | Assessment |
 |-----------|------------|
 | **Risk level** | **LOW** |
-| **Path** | SpecAugment or frequency-axis manipulation using test-set statistics to set augmentation parameters. |
+| **Path** | Spectral/time masking or frequency-axis manipulation using test-set statistics to set augmentation parameters. |
 | **Effect** | Uncertain — low probability in this setup because augmentation parameters are fixed a priori (σ values, shift magnitudes, mask counts). |
 | **Detection** | Parameter sweep design inherently prevents this — all augmentation strengths are predetermined. |
 | **Correction** | N/A — already prevented by design. |
@@ -90,7 +90,7 @@ This audit evaluates leakage risks for the factorial experiment comparing:
 
 1. **Load** all .mat files; identify unique recording IDs.
 2. **Split recordings** into train/val/test (60/20/20) by recording, stratified by fault class. Save assignment.
-3. **Segment** windows within each split independently (A2: 0% overlap, A1: 50% overlap for baseline comparison).
+3. **Segment** every recording with the fixed 50% overlap, then keep all windows from a recording in its assigned partition. Only the split unit changes between A1 and A2.
 4. **Compute normalization statistics** on training-set windows only. Apply to all three splits.
 5. **Augment** training-set windows only (9 augmentation conditions, each applied to copies of training windows).
 6. **Train** models on augmented training set; validate on unaugmented val set; test on unaugmented test set.

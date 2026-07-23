@@ -1,52 +1,82 @@
 {
   "none": {
+    "metric": "min(E_aug/E_orig, E_orig/E_aug) on envelope-spectrum fault bands",
     "energy_retention_mean": 1.0,
     "energy_retention_std": 0.0,
+    "raw_energy_ratio_mean": 1.0,
+    "raw_energy_ratio_median": 1.0,
     "shifted_band_mean": 1.0
   },
   "noise_001": {
-    "energy_retention_mean": 531.9875972835183,
-    "energy_retention_std": 17416.7582987015,
-    "shifted_band_mean": 1.014842059932373
+    "metric": "min(E_aug/E_orig, E_orig/E_aug) on envelope-spectrum fault bands",
+    "energy_retention_mean": 0.9973200344356613,
+    "energy_retention_std": 0.0030418215724760077,
+    "raw_energy_ratio_mean": 0.9997974746511501,
+    "raw_energy_ratio_median": 0.9998271875228473,
+    "shifted_band_mean": 0.9968317913908882
   },
   "noise_005": {
-    "energy_retention_mean": 17345.118858376933,
-    "energy_retention_std": 568440.7593685938,
-    "shifted_band_mean": 1.3563649394721897
+    "metric": "min(E_aug/E_orig, E_orig/E_aug) on envelope-spectrum fault bands",
+    "energy_retention_mean": 0.9865141492490794,
+    "energy_retention_std": 0.015234789672937375,
+    "raw_energy_ratio_mean": 0.9981460528917199,
+    "raw_energy_ratio_median": 0.9962822024861276,
+    "shifted_band_mean": 0.983824405991141
   },
   "noise_01": {
-    "energy_retention_mean": 52925.83104686625,
-    "energy_retention_std": 1736608.1269667544,
-    "shifted_band_mean": 2.4372424841754965
+    "metric": "min(E_aug/E_orig, E_orig/E_aug) on envelope-spectrum fault bands",
+    "energy_retention_mean": 0.9709475600038732,
+    "energy_retention_std": 0.030556567369589345,
+    "raw_energy_ratio_mean": 0.9917730186727357,
+    "raw_energy_ratio_median": 0.9887095995911066,
+    "shifted_band_mean": 0.9682871580155721
   },
   "shift_5": {
-    "energy_retention_mean": 73.43778371414238,
-    "energy_retention_std": 2375.373994891666,
-    "shifted_band_mean": 1.0053490005985455
+    "metric": "min(E_aug/E_orig, E_orig/E_aug) on envelope-spectrum fault bands",
+    "energy_retention_mean": 0.9855080483020621,
+    "energy_retention_std": 0.028848441681084504,
+    "raw_energy_ratio_mean": 1.0001927487939426,
+    "raw_energy_ratio_median": 1.0000310025042771,
+    "shifted_band_mean": 0.9833475521493146
   },
   "shift_20": {
-    "energy_retention_mean": 101.40587889830348,
-    "energy_retention_std": 3281.4111261590715,
-    "shifted_band_mean": 1.003701387538954
+    "metric": "min(E_aug/E_orig, E_orig/E_aug) on envelope-spectrum fault bands",
+    "energy_retention_mean": 0.9433607707429301,
+    "energy_retention_std": 0.08311107724141792,
+    "raw_energy_ratio_mean": 1.0117099531900458,
+    "raw_energy_ratio_median": 1.0017413620009128,
+    "shifted_band_mean": 0.946417701486356
   },
   "shift_50": {
-    "energy_retention_mean": 115.48771167994494,
-    "energy_retention_std": 3742.0198261211417,
-    "shifted_band_mean": 1.0088219042177553
+    "metric": "min(E_aug/E_orig, E_orig/E_aug) on envelope-spectrum fault bands",
+    "energy_retention_mean": 0.891088499038108,
+    "energy_retention_std": 0.13455862563581675,
+    "raw_energy_ratio_mean": 1.049355904017516,
+    "raw_energy_ratio_median": 1.0067349775892853,
+    "shifted_band_mean": 0.9191648670289948
   },
   "specaugment": {
-    "energy_retention_mean": 2181.5680340785066,
-    "energy_retention_std": 71218.45942863799,
-    "shifted_band_mean": 1.1421123739400947
+    "metric": "min(E_aug/E_orig, E_orig/E_aug) on envelope-spectrum fault bands",
+    "energy_retention_mean": 0.7911009399012808,
+    "energy_retention_std": 0.17671096688895266,
+    "raw_energy_ratio_mean": 1.031816481884701,
+    "raw_energy_ratio_median": 0.9585368582626115,
+    "shifted_band_mean": 0.8559879916327812
   },
   "combined": {
-    "energy_retention_mean": 5417.1602311979295,
-    "energy_retention_std": 177344.32994025407,
-    "shifted_band_mean": 1.3668076107347453
+    "metric": "min(E_aug/E_orig, E_orig/E_aug) on envelope-spectrum fault bands",
+    "energy_retention_mean": 0.9394296622764792,
+    "energy_retention_std": 0.0899893467518431,
+    "raw_energy_ratio_mean": 1.0176490595164334,
+    "raw_energy_ratio_median": 0.9991775189644541,
+    "shifted_band_mean": 0.942677536558181
   },
   "freq_flip": {
-    "energy_retention_mean": 8735.487101496914,
-    "energy_retention_std": 286315.61615712126,
-    "shifted_band_mean": 2.995986973228692
+    "metric": "min(E_aug/E_orig, E_orig/E_aug) on envelope-spectrum fault bands",
+    "energy_retention_mean": 0.5474984523841526,
+    "energy_retention_std": 0.21334696292346814,
+    "raw_energy_ratio_mean": 0.7667138271221106,
+    "raw_energy_ratio_median": 0.5780620833011683,
+    "shifted_band_mean": 0.6653992626388497
   }
 }

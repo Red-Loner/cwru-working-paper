@@ -1,0 +1,177 @@
+{
+  "protocol": "random-window, class-stratified, 60/20/20",
+  "window_length": 1024,
+  "overlap": 0.5,
+  "seeds": [
+    {
+      "seed": 42,
+      "class_stratified": true,
+      "all_windows_assigned_once": true,
+      "splits": {
+        "train": {
+          "windows": 7098,
+          "class_windows": {
+            "Normal": 1986,
+            "IR": 1702,
+            "OR": 1706,
+            "B": 1704
+          }
+        },
+        "validation": {
+          "windows": 2367,
+          "class_windows": {
+            "Normal": 662,
+            "IR": 568,
+            "OR": 569,
+            "B": 568
+          }
+        },
+        "test": {
+          "windows": 2367,
+          "class_windows": {
+            "Normal": 662,
+            "IR": 568,
+            "OR": 569,
+            "B": 568
+          }
+        }
+      }
+    },
+    {
+      "seed": 123,
+      "class_stratified": true,
+      "all_windows_assigned_once": true,
+      "splits": {
+        "train": {
+          "windows": 7098,
+          "class_windows": {
+            "Normal": 1986,
+            "IR": 1702,
+            "OR": 1706,
+            "B": 1704
+          }
+        },
+        "validation": {
+          "windows": 2367,
+          "class_windows": {
+            "Normal": 662,
+            "IR": 568,
+            "OR": 569,
+            "B": 568
+          }
+        },
+        "test": {
+          "windows": 2367,
+          "class_windows": {
+            "Normal": 662,
+            "IR": 568,
+            "OR": 569,
+            "B": 568
+          }
+        }
+      }
+    },
+    {
+      "seed": 456,
+      "class_stratified": true,
+      "all_windows_assigned_once": true,
+      "splits": {
+        "train": {
+          "windows": 7098,
+          "class_windows": {
+            "Normal": 1986,
+            "IR": 1702,
+            "OR": 1706,
+            "B": 1704
+          }
+        },
+        "validation": {
+          "windows": 2367,
+          "class_windows": {
+            "Normal": 662,
+            "IR": 568,
+            "OR": 569,
+            "B": 568
+          }
+        },
+        "test": {
+          "windows": 2367,
+          "class_windows": {
+            "Normal": 662,
+            "IR": 568,
+            "OR": 569,
+            "B": 568
+          }
+        }
+      }
+    },
+    {
+      "seed": 789,
+      "class_stratified": true,
+      "all_windows_assigned_once": true,
+      "splits": {
+        "train": {
+          "windows": 7098,
+          "class_windows": {
+            "Normal": 1986,
+            "IR": 1702,
+            "OR": 1706,
+            "B": 1704
+          }
+        },
+        "validation": {
+          "windows": 2367,
+          "class_windows": {
+            "Normal": 662,
+            "IR": 568,
+            "OR": 569,
+            "B": 568
+          }
+        },
+        "test": {
+          "windows": 2367,
+          "class_windows": {
+            "Normal": 662,
+            "IR": 568,
+            "OR": 569,
+            "B": 568
+          }
+        }
+      }
+    },
+    {
+      "seed": 1024,
+      "class_stratified": true,
+      "all_windows_assigned_once": true,
+      "splits": {
+        "train": {
+          "windows": 7098,
+          "class_windows": {
+            "Normal": 1986,
+            "IR": 1702,
+            "OR": 1706,
+            "B": 1704
+          }
+        },
+        "validation": {
+          "windows": 2367,
+          "class_windows": {
+            "Normal": 662,
+            "IR": 568,
+            "OR": 569,
+            "B": 568
+          }
+        },
+        "test": {
+          "windows": 2367,
+          "class_windows": {
+            "Normal": 662,
+            "IR": 568,
+            "OR": 569,
+            "B": 568
+          }
+        }
+      }
+    }
+  ]
+}

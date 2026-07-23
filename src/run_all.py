@@ -27,12 +27,16 @@ def run_step(script_path, step_name):
 
 
 def main():
-    os.makedirs(os.path.join(RESULTS_DIR, "tables"), exist_ok=True)
-    os.makedirs(os.path.join(RESULTS_DIR, "figures"), exist_ok=True)
-    os.makedirs(os.path.join(RESULTS_DIR, "logs"), exist_ok=True)
+    results_dir = os.path.abspath(os.path.join(BASE_DIR, RESULTS_DIR))
+    os.makedirs(os.path.join(results_dir, "tables"), exist_ok=True)
+    os.makedirs(os.path.join(results_dir, "figures"), exist_ok=True)
+    os.makedirs(os.path.join(results_dir, "logs"), exist_ok=True)
 
     pipeline = [
+        ("protocol_smoke_test.py", "Protocol Unit Checks"),
+        ("audit_dataset.py", "Dataset Integrity + Recording Split Manifests"),
         ("train.py", "Full Factorial Training (2M x 2S x 10A x 5 seeds = 200 runs)"),
+        ("grouping_ablation.py", "Grouping Ablation (2M x 3 grouping rules x 5 seeds = 30 runs)"),
         ("mechanism_validation/adjacent_autocorr.py", "M1: Adjacent-Window Autocorrelation"),
         ("mechanism_validation/fault_band_energy.py", "M5: Fault-Frequency Energy Audit"),
         ("mechanism_validation/feature_diversity.py", "M2: Feature Diversity Analysis"),
@@ -40,6 +44,7 @@ def main():
         ("mechanism_validation/convergence_analysis.py", "Convergence Analysis"),
         ("contamination_test.py", "Robustness Contamination Test"),
         ("analyze_results.py", "Gap-Recovery Analysis + Hypothesis Testing"),
+        ("summarize_results.py", "Canonical Release Summary + LaTeX Tables"),
         ("plot_figures.py", "Generate All Paper Figures"),
     ]
 
@@ -65,6 +70,8 @@ def main():
     print(f"\nOutput artifacts ({len(output_artifacts)}):")
     for a in sorted(output_artifacts):
         print(f"  {a}")
+    if failed:
+        raise SystemExit(1)
 
 
 if __name__ == "__main__":

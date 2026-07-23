@@ -14,21 +14,27 @@
   - Outer race fault (OR, OR007@6/OR014@6/OR021@6 for 0.007"/0.014"/0.021" diameter at 6 o'clock position)
   - Ball fault (B, B007/B014/B021 for 0.007"/0.014"/0.021" diameter)
 - **Operating conditions**: Motor loads: 0 HP / 1 HP / 2 HP / 3 HP, corresponding to approximate shaft speeds 1797/1772/1750/1730 RPM
-- **File organization**: `.mat` files, one per load × fault condition. Each file contains DE and FE time series. Filename encodes fault location, diameter, and load.
-- **Preprocessing**: Raw accelerometer time series. Requires: loading from `.mat`, selecting DE channel, normalization (e.g., z-score per file or per channel), segmentation into fixed-length windows.
-- **Segmentation**: Fixed-length windows (e.g., 1024 or 2048 samples from 12 kHz signal → ~85 ms or ~170 ms per window). Overlap TBD (e.g., 50% for random split, 0% for recording-level — to be decided during leakage audit).
+- **Selected subset**: 40 recordings: 4 Normal, 12 IR, 12 OR at 6 o'clock, and 12 Ball. Each fault class contains three diameters × four loads. The exact files and SHA-256 hashes are recorded in `dataset_file_manifest.json`.
+- **File organization**: `.mat` files, one per load × fault condition. Each selected file contains a DE time series; the filename encodes fault location, diameter, and load.
+- **Preprocessing**: Select the DE channel, segment into fixed-length windows, split, then fit scalar z-score normalization on training windows only.
+- **Segmentation**: 1024 samples per window (~85 ms at 12 kHz) with 50% overlap in both protocols. Keeping segmentation identical isolates the split unit; recording-level safety comes from assigning each source recording to exactly one partition.
 - **Train/validation/test split**: Two variants per experimental design:
   1. **Random adjacent-window split** (leakage baseline): All windows from all recordings pooled, randomly split 60/20/20.
   2. **Recording-level split** (leakage-safe): Each original `.mat` recording assigned entirely to one split. Train/val/test = 60/20/20 by number of recordings, stratified by fault class.
+- **Reproducibility manifests**:
+  - `dataset_file_manifest.json` and `.csv`: selected files, SHA-256, byte size, metadata, sample and window counts.
+  - `recording_split_assignments.json`: exact train/validation/test assignment for every seed.
+  - `split_verification.json`: disjointness, coverage, recording counts, window counts, and per-class counts.
+  - `random_split_verification.json`: class-stratified random-window counts and exhaustive assignment checks for every seed.
 - **Leakage risks**:
-  - **Adjacent-window leakage (HIGH)**: Windows cut from the same continuous recording with overlap share near-identical waveforms. Model learns recording identity, not fault signature. Estimated inflation: 10–30% accuracy.
+  - **Adjacent-window leakage (HIGH)**: With 50% overlap, adjacent 1,024-sample windows share exactly 512 samples. If windows from one source recording cross partitions, the model can exploit recording-specific information. The accuracy inflation is measured by this study rather than assumed.
   - **Normalization leakage (MEDIUM)**: Normalizing before splitting leaks test-set statistics into training.
   - **Augmentation leakage (LOW-MEDIUM)**: Augmenting before splitting, or augmenting with label-dependent transformations.
 - **Mitigation**:
   - Recording-level split as the primary (safe) protocol.
   - Normalize per-training-set statistics only.
   - Apply augmentation only to training split after splitting.
-- **Reason for inclusion**: Primary dataset. CWRU is the most widely used benchmark in bearing fault diagnosis literature, enabling comparison with published baselines. The multiple loads and fault diameters support the factorial design (split × augmentation × load × contamination).
+- **Reason for inclusion**: Primary benchmark for the selected course project. Its multiple loads and fault diameters support the main split × augmentation experiment plus separate grouping and robustness checks.
 - **Known limitations**:
   - Artificial seeded faults (EDM machining) differ from naturally evolving fatigue faults.
   - Only 4 motor loads (0–3 HP) — limited operating condition diversity.

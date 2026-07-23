@@ -1,44 +1,70 @@
 # Final Integrity Report
 
-Date: 2026-07-22
+Date: 2026-07-23
 
-## Verification Checklist
+## Release verdict
 
-Per `manual.md` §16.1, the following 8 questions are verified against all artifacts.
+**PASS.** The audited A10 run, generated
+tables, logs, split manifests, figures, manuscript source, and compiled PDF are
+mutually consistent. The release verifier passes all machine-checkable
+requirements. The 16-page PDF was rendered page by page and inspected; no
+clipping, blank pages, unreadable tables, or missing figures were found.
+
+The five supplied author names are included in standard pinyin form.
+Affiliation and email are intentionally omitted because none were supplied.
+No Git commit, push, tag, or public release was performed.
+
+## Manual §16.1 checklist
 
 | # | Question | Status | Evidence |
-|---|----------|--------|----------|
-| 1 | Does every result in the paper exist in logs, tables, or figures? | PASS | All accuracy numbers verified against `results/tables/main_results.json`. All figures traced to `results/figures/*.png`. All gap-recovery numbers in `results/tables/gap_recovery.json`. All per-class values in `results/tables/per_class_analysis.json`. |
-| 2 | Does every citation exist and support the sentence? | PASS | All 9 references in `paper/refs.bib` verified by DOI. Each citation used in paper.tex traced to supporting literature. No hallucinated citations (M2). |
-| 3 | Are all dataset claims traceable to source documentation? | PASS | CWRU dataset facts (40 files, 12 kHz, bearing 6205, fault diameters 0.007"/0.014"/0.021") documented in `data_manifest/dataset_card_cwru.md` and `ars/material_passport.md`. |
-| 4 | Are all AI-generated claims verified? | PASS | All factual claims cross-checked against JSON result files. "5 of 9 degrade" → corrected to "6 of 9" after re-run verification. No unsupported claim remaining. |
-| 5 | Are limitations explicit? | PASS | 6 limitations listed in paper §Limitations: single dataset, single sensor, fixed augmentation parameters, CNN-only architectures, 50-epoch ceiling, R_energy metric confound. |
-| 6 | Is the split design described clearly? | PASS | Recording-level split documented in `data_manifest/split_design.md` and paper §Dataset. Window parameters (1024 samples, 0%/50% overlap) specified. Train/val/test 60/20/20, class-stratified. |
-| 7 | Are failed or negative results honestly reported? | PASS | H3 falsification (ρ=-0.37, p=0.33) honestly reported. Six of nine augmentations degrade 2D-CNN — reported without sugar-coating. Grouping ablation shows near-complete failure of cross-severity transfer (0.47-0.63). |
-| 8 | Is the AI-use disclosure complete? | PASS | Paper §AI-Use Disclosure specifies: DeepSeek via OpenCode CLI, code implementation (verified on hardware), experimental debugging, manuscript drafting (all claims verified against results). Universal denial of hallucinated results. |
+|---|---|---|---|
+| 1 | Does every reported result exist in logs, tables, or figures? | PASS | `release_summary.json` reconciles 200 main runs, 30 grouping runs, 200 complete epoch logs, confusion matrices, mechanism audits, H3 sensitivity results, and generated paper tables. |
+| 2 | Does every citation exist and support the adjacent claim? | PASS | `paper/refs.bib` contains eight DOI-backed literature records and one CWRU source URL; the manuscript makes no claim of a DOI for the dataset page. |
+| 3 | Are dataset claims traceable? | PASS | The selected-file manifest fixes the exact 40 CWRU recordings and SHA-256 hashes. Server hashes match the readable D-drive copy. The damaged E-drive copy is explicitly excluded. |
+| 4 | Are AI-assisted claims independently checked? | PASS | Numerical claims are generated from result JSON files, included through generated LaTeX tables where applicable, and checked by `src/verify_release.py`. |
+| 5 | Are limitations explicit? | PASS | The paper lists eleven limitations, including artificial-fault/field-readiness scope, condition dependence, the leakage-prone comparator, fixed and offline augmentation, CNN-only models, the 50-epoch ceiling, limited physical metrics/sample size, unequal grouping coverage, reduced robustness scope, and AI-assisted-workflow risk. |
+| 6 | Is the split design clear and reproducible? | PASS | Both random and recording-level protocols use 1,024-sample windows and 50% overlap. Exact per-seed recording assignments and class-stratification checks are stored in the release. |
+| 7 | Are negative and null results reported honestly? | PASS | The FFT-magnitude-reversal negative control is reported as destructive; H3 is reported unsupported per model and after excluding that control; grouping comparisons are labeled descriptive rather than causal. |
+| 8 | Is AI use disclosed? | PASS | Section 14 distinguishes initial DeepSeek/OpenCode assistance from the later Codex audit and A10 rerun, and states that numerical results came from executed code on selected files. |
 
-## Seven Failure Modes (Lu et al., 2026)
+## Seven failure modes
 
-| Mode | Status | Evidence |
-|------|--------|----------|
-| M1: Buggy self-review | CLEARED | `torch.manual_seed` added; `overlap_ratio` parameter fixed; all code audited in integrity check (2026-07-22) |
-| M2: Hallucinated references | CLEARED | All 9 DOIs verified; 0 hallucinations found |
-| M3: Hallucinated results | CLEARED | All 140+ table cells verified against JSON sources; 0 discrepancies |
-| M4: Shortcut learning | CLEARED | Recording-level split prevents cross-recording leakage; M1 autocorrelation confirms adjacent-window correlation; negative control (freq_flip) validates augmentation framework |
-| M5: Bug-as-discovery | CLEARED | "6 of 9 degrade" verified by per-seed data; fault_size ablation verified; H3 null result honestly reported with metric limitation acknowledged |
-| M6: Methodology fabrication | CLEARED | batch_size, conv layers, combined augmentation description all corrected to match actual code; 200 runs traceable to 200 epoch log files |
-| M7: Framing lock-in | CLEARED | Alternative grouping variables tested (load, fault_size); negative control included; H3 metric limitation acknowledged; limitations section addresses CWRU-specific constraints |
+| Mode | Status | Release evidence |
+|---|---|---|
+| M1: Buggy self-review | CLEARED | Deterministic seeds, fail-fast data loading, protocol smoke tests, exact counts, finite-number checks, and a clean full rerun replace self-attestation. |
+| M2: Hallucinated references | CLEARED | Bibliography entries are present and the CWRU web source is distinguished from DOI records. |
+| M3: Hallucinated results | CLEARED | All headline values trace to generated JSON/CSV artifacts; the verifier checks counts, shapes, seeds, epochs, tables, figures, and PDF freshness. |
+| M4: Shortcut learning | MITIGATED AND DISCLOSED | Recording-disjoint evaluation is the primary conservative protocol; random-window results are retained only as a leakage-prone comparator. |
+| M5: Bug-as-discovery | CLEARED | Split, augmentation, M1, M2, M5, H3, robustness, and convergence defects were repaired before the clean A10 rerun. |
+| M6: Methodology fabrication | CLEARED | Model shapes, batch size, augmentation behavior, seeds, runtime, and grouping assignments are reconciled to code and stored evidence. |
+| M7: Framing lock-in | CLEARED | Alternative grouping stress tests, a destructive negative control, sensitivity analysis, seed diagnostics, and explicit null/limitation language are included. |
 
-## Blocking Issues
+## Final evidence checks
 
-None.
+- Main design: 2 models × 2 split protocols × 10 augmentation conditions × 5
+  seeds = 200 runs.
+- Grouping design: 2 models × 3 grouping strategies × 5 seeds = 30 runs.
+- Main epoch logs: exactly 200 CSV files, each with 50 epochs.
+- Confusion matrices: 40 configuration rows with valid per-seed and aggregate
+  matrix shapes.
+- Recording grouping baseline exactly reproduces the main no-augmentation
+  recording-level result for every model and seed.
+- A10 runtime logs preserve the one convergence-reporting failure and its
+  successful fixed rerun rather than hiding the failure.
+- `paper/main.pdf`: 16 pages, compiled after all source tables and figures.
+- LaTeX log: no overfull/underfull boxes, undefined references, missing figures,
+  or multiply defined labels.
+- Visual inspection: all 16 rendered pages reviewed, including the title page,
+  main table and protocol figures, grouping/H3 pages, limitations, reproducibility
+  statement, AI-use disclosure, and references.
 
-## Non-Blocking Issues
+## Scope and owner actions
 
-1. `reviews/` directory is empty — reviewer reports exist in `ars/` instead.
-2. Paper uses inline LaTeX tables; `paper_tables.tex` exists as standalone reference but is not `\input`'d.
-3. Grouping ablation was not re-run with the fixed `overlap_ratio` code (uses default OVERLAP_RANDOM — results unchanged from prior run).
+This is the course-permitted CWRU-only minimum scope; it does not support a
+cross-dataset generalization claim. A second external dataset remains an
+optional extension. The owner may decide whether to commit, push, tag, or
+publish.
 
-## Overall Verdict
-
-**PASS.** All seven failure modes CLEARED. All manual §16.1 questions PASS. The research package is inspectable, reproducible, and scientifically honest.
+The E-drive CWRU data copy remains untouched because two selected recordings
+there are unreadable. Use the verified D-drive copy or the hash-matched server
+copy for reruns.

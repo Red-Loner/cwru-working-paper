@@ -19,7 +19,7 @@ Based on `ars/method_card.md`. This blueprint documents the complete experimenta
 
 1. Load 40 CWRU Drive-End .mat files (12 kHz sampling rate)
 2. Parse filename to extract fault_type, fault_diameter, motor_load
-3. Segment continuous recordings into sliding windows (1024 samples, 50% overlap for random split, 0% for recording split)
+3. Segment continuous recordings into sliding windows (1024 samples, fixed 50% overlap in both split protocols)
 4. Assign labels: Normal=0, IR=1, OR=2, Ball=3
 5. Split: 60% train / 20% validation / 20% test, stratified by class
 6. Z-score normalization: statistics computed on training set only
@@ -42,9 +42,9 @@ Based on `ars/method_card.md`. This blueprint documents the complete experimenta
 - Conv1: 1→32, kernel=3
 - Conv2: 32→64, kernel=3
 - Conv3: 64→128, kernel=3
-- Conv4: 128→256, kernel=3
+- Conv4: 128→128, kernel=3
 - AdaptiveAvgPool2d(4)
-- FC: 4096→128→4
+- FC: 2048→128→4
 - Dropout 0.5
 
 ## Training Protocol
@@ -52,7 +52,7 @@ Based on `ars/method_card.md`. This blueprint documents the complete experimenta
 - Optimizer: Adam, learning rate 0.001
 - Loss: CrossEntropy
 - Batch size: 128
-- Epochs: 50 (convergence verified: median=9, mean=15.2)
+- Epochs: 50 fixed; best-validation epoch distribution reported descriptively
 - Device: NVIDIA A10 (24 GB)
 - PyTorch 2.5.1+cu121
 
@@ -60,15 +60,15 @@ Based on `ars/method_card.md`. This blueprint documents the complete experimenta
 
 | Test | Method | Metric |
 |------|--------|--------|
-| M1 | Adjacent-window Pearson correlation | r between windows 1-10 apart |
-| M5 | Fault-band energy audit | R_energy (BPFO/BPFI/BSF bands before/after augmentation) |
-| M2 | Feature diversity | Cosine distance between original and augmented features |
+| M1 | Structural adjacent-window audit | Exact shared fraction, aligned overlap correlation/MAE, and zero-lag r |
+| M5 | Envelope fault-band energy audit | Symmetric fidelity `min(E_aug/E_orig, E_orig/E_aug)` in BPFO/BPFI/BSF bands |
+| M2 | Input-representation diversity | Paired cosine distance between standardized STFT representations |
 
 ## Evaluation
 
 - Primary: Accuracy, Macro-F1 (mean ± std over 5 seeds)
 - Secondary: Per-class precision/recall/F1, confusion matrix
-- Gap-recovery: Δ_rec = (Acc_aug - Acc_noaug) / (Acc_random - Acc_noaug)
+- Gap-recovery: Δ_rec = (Acc_recording,aug − Acc_recording,none) / (Acc_random,none − Acc_recording,none)
 - Cohen's d for effect size
 
 ## Ablation
@@ -78,7 +78,7 @@ Based on `ars/method_card.md`. This blueprint documents the complete experimenta
 
 ## Non-Accuracy Dimension
 
-Physical consistency: Spearman correlation between R_energy and Δ_rec (H3 test)
+Physical consistency: model-specific Spearman correlation between symmetric fault-band fidelity and Δ_rec (H3 test)
 
 ## Software Environment
 
@@ -87,6 +87,6 @@ torch==2.5.1+cu121
 numpy==2.2.6
 scipy==1.15.3
 tqdm==4.69.0
-scikit-learn
-matplotlib
+scikit-learn==1.7.2
+matplotlib==3.10.9
 ```

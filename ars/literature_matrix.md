@@ -14,10 +14,10 @@
 
 ## Literature Gaps Identified
 
-1. **No prior study simultaneously evaluates augmentation effectiveness AND split protocol integrity**: Most augmentation evaluations use random splitting. Most leakage studies don't test augmentation interaction.
-2. **No physical fidelity audit of augmentations on vibration spectrograms**: ch45's physical constraint (frequency axis has physical units) has not been empirically tested against diagnostic performance.
-3. **Recording-level split as a methodological requirement**: While Bergmeir (2012) and Cerqueira (2020) establish the principle, no CWRU study has systematically measured how much augmentation can compensate for the resulting performance drop.
+1. **Selected interaction gap**: the reviewed sources do not answer this project's controlled question about augmentation effectiveness under matched random-window and recording-level protocols. This limited matrix does not establish an exhaustive literature-first claim.
+2. **Selected physical-fidelity gap**: this project directly audits the relationship between envelope-spectrum fault-band energy fidelity and diagnostic recovery; it does not claim that no prior physical audit exists.
+3. **Recording-level evaluation need**: Bergmeir (2012) and Cerqueira (2020) motivate dependence-aware evaluation; this project measures the augmentation interaction for its fixed CWRU subset and protocol.
 
 ## Verified Sources
 
-All 9 references verified via DOI resolution. No hallucinated citations.
+The eight scholarly references with DOI fields were checked by DOI resolution. The CWRU dataset citation was checked against its source URL. This verifies identity and accessibility, not every interpretive sentence; claim support is constrained in the paper and claim-evidence table.

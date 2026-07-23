@@ -1,79 +1,79 @@
+import json
 import os
-import torch
-import numpy as np
+
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
-from scipy.spatial.distance import cosine
-from torch.utils.data import DataLoader, TensorDataset
-from preprocess import build_datasets, recording_level_split, normalize_dataset
-from augmentation import apply_augmentation, AUGMENTATION_CONDITIONS
-from models.cnn1d import CNN1D
-from models.cnn2d import CNN2D
+import numpy as np
+
+from augmentation import apply_augmentation
+from config import RANDOM_SEEDS, RESULTS_DIR, TRAIN_RATIO, VAL_RATIO
+from preprocess import (
+    build_datasets,
+    normalize_dataset,
+    recording_level_split,
+)
 from train import to_stft
-from config import DATA_ROOT, RANDOM_SEEDS, TRAIN_RATIO, VAL_RATIO, RESULTS_DIR, DEVICE
 
 
-def extract_features(model, loader):
-    model.eval()
-    features = []
-    with torch.no_grad():
-        for x, _ in loader:
-            x = x.to(DEVICE)
-            feat = model.features(x).cpu().numpy()
-            features.append(feat)
-    return np.concatenate(features, axis=0)
+def representation_diversity(aug_type, seed=42, n_samples=200):
+    """Compare deterministic STFT representations before and after augmentation."""
+    rng = np.random.RandomState(seed)
+    np.random.seed(seed)
+    windows, labels, rec_ids, records = build_datasets(
+        random_seed=seed
+    )
+    (train_x, _), _, _ = recording_level_split(
+        windows,
+        labels,
+        rec_ids,
+        records,
+        train_r=TRAIN_RATIO,
+        val_r=VAL_RATIO,
+        seed=seed,
+    )
+    train_norm, _, _ = normalize_dataset(
+        train_x,
+        np.zeros_like(train_x),
+        np.zeros_like(train_x),
+    )
+    sample_count = min(n_samples, len(train_norm))
+    indices = rng.choice(len(train_norm), sample_count, replace=False)
+    original = train_norm[indices]
+    augmented = apply_augmentation(original, aug_type)
 
+    original_rep = (
+        to_stft(original).detach().cpu().numpy().reshape(sample_count, -1)
+    )
+    augmented_rep = (
+        to_stft(augmented).detach().cpu().numpy().reshape(sample_count, -1)
+    )
 
-def feature_diversity(x_orig, x_aug, model_type="1d", seed=42):
-    device = torch.device(DEVICE if torch.cuda.is_available() else "cpu")
-    windows, labels, rec_ids, records = build_datasets(random_seed=seed)
-    (tr_x, tr_y), _, _ = recording_level_split(
-        windows, labels, rec_ids, records,
-        train_r=TRAIN_RATIO, val_r=VAL_RATIO, seed=seed)
+    numerator = np.sum(original_rep * augmented_rep, axis=1)
+    denominator = (
+        np.linalg.norm(original_rep, axis=1)
+        * np.linalg.norm(augmented_rep, axis=1)
+    )
+    cosine_distance = 1.0 - np.divide(
+        numerator,
+        denominator,
+        out=np.ones_like(numerator),
+        where=denominator > 0,
+    )
 
-    tr_norm, _, _ = normalize_dataset(tr_x, np.zeros_like(tr_x), np.zeros_like(tr_x))
-    tr_aug = apply_augmentation(tr_norm, x_aug)
+    combined = np.concatenate([original_rep, augmented_rep], axis=0)
+    singular_values = np.linalg.svd(combined, compute_uv=False)
+    threshold = 1e-4 * singular_values[0]
+    effective_rank = int(np.sum(singular_values > threshold))
 
-    model = CNN1D() if model_type == "1d" else CNN2D()
-    model.features = lambda x: model.fc1(model.pool4(
-        model.bn4(model.conv4(
-            model.pool3(model.bn3(model.conv3(
-                model.pool2(model.bn2(model.conv2(
-                    model.pool1(model.bn1(model.conv1(
-                        x.unsqueeze(1) if x.dim() == 3 else x)))))))))))).view(x.size(0), -1))
-    model = model.to(device)
-
-    n_samples = min(200, len(tr_norm))
-    indices = np.random.choice(len(tr_norm), n_samples, replace=False)
-    tr_sub = tr_norm[indices]
-    tr_aug_sub = tr_aug[indices]
-
-    if model_type == "2d":
-        tr_sub_t = to_stft(torch.tensor(tr_sub, dtype=torch.float32))
-        tr_aug_sub_t = to_stft(torch.tensor(tr_aug_sub, dtype=torch.float32))
-    else:
-        tr_sub_t = torch.tensor(tr_sub, dtype=torch.float32)
-        tr_aug_sub_t = torch.tensor(tr_aug_sub, dtype=torch.float32)
-
-    ds_orig = TensorDataset(tr_sub_t, torch.zeros(n_samples, dtype=torch.long))
-    ds_aug = TensorDataset(tr_aug_sub_t, torch.zeros(n_samples, dtype=torch.long))
-    loader_orig = DataLoader(ds_orig, batch_size=32)
-    loader_aug = DataLoader(ds_aug, batch_size=32)
-
-    feat_orig = extract_features(model, loader_orig)
-    feat_aug = extract_features(model, loader_aug)
-
-    cos_dists = np.array([cosine(feat_orig[i], feat_aug[i]) for i in range(n_samples)])
-    cos_mean = float(np.mean(cos_dists))
-    cos_std = float(np.std(cos_dists))
-
-    combined = np.concatenate([feat_orig, feat_aug], axis=0)
-    U, S, Vt = np.linalg.svd(combined, full_matrices=False)
-    effective_rank = float(np.sum(S > 1e-4 * S[0]) / len(S))
-
-    return {"cosine_distance_mean": cos_mean, "cosine_distance_std": cos_std,
-            "effective_rank_ratio": effective_rank}
+    return {
+        "representation": "standardized 32x32 STFT magnitude",
+        "sample_count": sample_count,
+        "cosine_distance_mean": float(np.mean(cosine_distance)),
+        "cosine_distance_std": float(np.std(cosine_distance)),
+        "effective_rank": effective_rank,
+        "effective_rank_ratio": float(effective_rank / len(singular_values)),
+    }
 
 
 def plot_feature_diversity(aug_diversity, output_dir=None):
@@ -81,36 +81,65 @@ def plot_feature_diversity(aug_diversity, output_dir=None):
         output_dir = os.path.join(RESULTS_DIR, "figures")
     os.makedirs(output_dir, exist_ok=True)
 
-    augs = list(aug_diversity.keys())
-    cos_means = [aug_diversity[a]["cosine_distance_mean"] for a in augs]
+    augmentations = list(aug_diversity)
+    cosine_means = [
+        aug_diversity[augmentation]["cosine_distance_mean"]
+        for augmentation in augmentations
+    ]
+    cosine_stds = [
+        aug_diversity[augmentation]["cosine_distance_std"]
+        for augmentation in augmentations
+    ]
 
-    plt.figure(figsize=(12, 5))
-    plt.subplot(1, 2, 1)
-    bars = plt.bar(augs, cos_means, color="steelblue")
-    plt.xticks(rotation=45, ha="right", fontsize=8)
-    plt.ylabel("Mean Cosine Distance")
-    plt.title("M2: Feature Diversity (Cosine Distance)")
-    plt.tight_layout()
+    fig, ax = plt.subplots(figsize=(10, 5))
+    ax.bar(
+        augmentations,
+        cosine_means,
+        yerr=cosine_stds,
+        capsize=3,
+        color="steelblue",
+    )
+    ax.set_xticks(np.arange(len(augmentations)))
+    ax.set_xticklabels(augmentations, rotation=45, ha="right", fontsize=8)
+    ax.set_ylabel("Paired STFT cosine distance")
+    ax.set_title("M2: Input-Representation Diversity")
+    ax.grid(True, alpha=0.3, axis="y")
+    fig.tight_layout()
 
     path = os.path.join(output_dir, "m2_feature_diversity.png")
-    plt.savefig(path, dpi=150, bbox_inches="tight")
-    plt.close()
+    fig.savefig(path, dpi=150, bbox_inches="tight")
+    plt.close(fig)
     print(f"Saved {path}")
-    return aug_diversity
 
 
 def main():
-    augs = ["none", "noise_005", "shift_20", "specaugment", "combined", "freq_flip"]
+    augmentations = [
+        "none",
+        "noise_005",
+        "shift_20",
+        "specaugment",
+        "combined",
+        "freq_flip",
+    ]
     results = {}
-    for aug in augs:
-        print(f"Computing feature diversity: {aug}")
-        try:
-            results[aug] = feature_diversity(aug, aug, model_type="2d", seed=RANDOM_SEEDS[0])
-            print(f"  cosine_dist={results[aug]['cosine_distance_mean']:.4f}, "
-                  f"rank_ratio={results[aug]['effective_rank_ratio']:.4f}")
-        except Exception as e:
-            print(f"  ERROR: {e}")
+    for augmentation in augmentations:
+        print(f"Computing representation diversity: {augmentation}")
+        results[augmentation] = representation_diversity(
+            augmentation,
+            seed=RANDOM_SEEDS[0],
+        )
+        print(
+            f"  cosine_dist={results[augmentation]['cosine_distance_mean']:.4f}, "
+            f"rank_ratio={results[augmentation]['effective_rank_ratio']:.4f}"
+        )
+
     plot_feature_diversity(results)
+    output_path = os.path.join(
+        RESULTS_DIR, "tables", "feature_diversity.json"
+    )
+    with open(output_path, "w", encoding="utf-8") as handle:
+        json.dump(results, handle, indent=2, ensure_ascii=False)
+    print(f"Saved {output_path}")
 
 
 if __name__ == "__main__":

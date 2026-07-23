@@ -58,36 +58,90 @@ def compute_gap_recovery(results):
             "acc_random": round(acc_random, 4),
             "acc_recording": round(acc_recording, 4),
             "leakage_gap": round(gap, 4),
+            "protocol_gap": round(gap, 4),
             "delta_recovery": round(delta_recovery, 4),
             "cohens_d": effect_size,
         })
     return rows
 
 
-def compute_h4_correlation(gap_recovery_rows, energy_audit):
-    delta_recovery_map = {}
-    for row in gap_recovery_rows:
-        if row["augmentation"] != "none":
-            delta_recovery_map[row["augmentation"]] = row["delta_recovery"]
-    augs = []
-    deltas = []
-    energies = []
-    for aug in delta_recovery_map:
-        if aug in energy_audit:
-            augs.append(aug)
-            deltas.append(delta_recovery_map[aug])
-            energies.append(energy_audit[aug]["energy_retention_mean"])
-    if len(augs) >= 4:
-        rho, p_value = spearmanr(energies, deltas)
-    else:
-        rho, p_value = float("nan"), float("nan")
+def compute_physical_fidelity_correlation(gap_recovery_rows, energy_audit):
+    def correlation_for(rows, excluded_augmentations=()):
+        excluded = set(excluded_augmentations)
+        augmentations = []
+        deltas = []
+        fidelities = []
+        for row in rows:
+            augmentation = row["augmentation"]
+            if (
+                augmentation == "none"
+                or augmentation in excluded
+                or augmentation not in energy_audit
+            ):
+                continue
+            augmentations.append(augmentation)
+            deltas.append(row["delta_recovery"])
+            fidelities.append(
+                energy_audit[augmentation]["energy_retention_mean"]
+            )
+        if len(augmentations) >= 4:
+            rho, p_value = spearmanr(fidelities, deltas)
+        else:
+            rho, p_value = float("nan"), float("nan")
+        return {
+            "augmentations": augmentations,
+            "energy_fidelity": fidelities,
+            "delta_recovery": deltas,
+            "spearman_rho": (
+                round(float(rho), 4) if not np.isnan(rho) else None
+            ),
+            "p_value": (
+                round(float(p_value), 4)
+                if not np.isnan(p_value)
+                else None
+            ),
+            "supported": (
+                bool(rho > 0 and p_value < 0.05)
+                if not np.isnan(rho)
+                else None
+            ),
+            "excluded_augmentations": sorted(excluded),
+        }
+
+    by_model = {}
+    for model in ("1d", "2d"):
+        by_model[model] = correlation_for(
+            [row for row in gap_recovery_rows if row["model"] == model]
+        )
+    sensitivity_without_negative_control = {}
+    for model in ("1d", "2d"):
+        sensitivity_without_negative_control[model] = correlation_for(
+            [row for row in gap_recovery_rows if row["model"] == model],
+            excluded_augmentations=("freq_flip",),
+        )
+
+    pooled_rows = [
+        row for row in gap_recovery_rows if row["model"] in ("1d", "2d")
+    ]
     return {
-        "augmentations": augs,
-        "energy_retention": energies,
-        "delta_recovery": deltas,
-        "spearman_rho": round(float(rho), 4) if not np.isnan(rho) else None,
-        "p_value": round(float(p_value), 4) if not np.isnan(p_value) else None,
-        "h4_supported": bool(rho > 0.5 and p_value < 0.05) if not bool(np.isnan(rho)) else None,
+        "hypothesis": "H3",
+        "metric": "symmetric envelope-spectrum fault-band energy fidelity",
+        "primary_analysis": (
+            "Separate per-model Spearman correlations across all nine "
+            "augmentation conditions."
+        ),
+        "by_model": by_model,
+        "sensitivity_without_negative_control": (
+            sensitivity_without_negative_control
+        ),
+        "pooled_exploratory": {
+            **correlation_for(pooled_rows),
+            "inferential": False,
+            "reason": (
+                "The two models reuse the same nine physical-fidelity "
+                "values, so pooled points are not independent."
+            ),
+        },
     }
 
 
@@ -105,9 +159,9 @@ def compute_falsification(results):
     gap = noaug_random_acc - noaug_recording_acc
     falsification = {}
     if gap < 0.02:
-        falsification["H2_null"] = "gap too small — leakage effect negligible"
+        falsification["H2_null"] = "protocol gap too small for a dominance claim"
     else:
-        falsification["H2_null"] = f"leakage gap = {gap:.4f} — test H1/H2"
+        falsification["H2_null"] = f"random-to-recording protocol gap = {gap:.4f} — test H1/H2"
     recording_by_aug = {}
     for row in results:
         if row["model"] == "2d" and row["split"] == "recording":
@@ -127,7 +181,7 @@ def compute_falsification(results):
             falsification["H2"] = "FALSIFIED: augmentation fully compensates"
         else:
             falsification["H1"] = "SUPPORTED: partial recovery"
-            falsification["H2"] = "SUPPORTED: leakage dominates"
+            falsification["H2"] = "SUPPORTED: protocol gap dominates augmentation gain"
     else:
         falsification["H1"] = "UNKNOWN"
         falsification["H2"] = "UNKNOWN"
@@ -203,12 +257,26 @@ def main():
     if os.path.exists(energy_path):
         with open(energy_path, "r") as f:
             energy_audit = json.load(f)
-        h4 = compute_h4_correlation(recovery, energy_audit)
-        h4_path = os.path.join(RESULTS_DIR, "tables", "h4_correlation.json")
-        with open(h4_path, "w") as f:
-            json.dump(h4, f, indent=2, ensure_ascii=False)
-        print(f"H4 correlation: rho={h4['spearman_rho']}, p={h4['p_value']}, "
-              f"supported={h4['h4_supported']}")
+        physical_correlation = compute_physical_fidelity_correlation(
+            recovery, energy_audit
+        )
+        correlation_path = os.path.join(
+            RESULTS_DIR,
+            "tables",
+            "physical_fidelity_correlation.json",
+        )
+        with open(correlation_path, "w") as f:
+            json.dump(
+                physical_correlation,
+                f,
+                indent=2,
+                ensure_ascii=False,
+            )
+        for model, row in physical_correlation["by_model"].items():
+            print(
+                f"H3 correlation ({model}): rho={row['spearman_rho']}, "
+                f"p={row['p_value']}, supported={row['supported']}"
+            )
 
 
 if __name__ == "__main__":

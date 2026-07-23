@@ -20,6 +20,17 @@ from models.cnn2d import CNN2D
 
 IDX_TO_LABEL = {v: k for k, v in LABEL_MAP.items()}
 
+
+def set_reproducible_seed(seed):
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+    if torch.cuda.is_available():
+        torch.cuda.manual_seed_all(seed)
+    if hasattr(torch.backends, "cudnn"):
+        torch.backends.cudnn.deterministic = True
+        torch.backends.cudnn.benchmark = False
+
+
 def to_stft(x_batch, n_fft=128):
     b, l = x_batch.shape
     hop_length = n_fft // 2
@@ -83,9 +94,16 @@ def evaluate(model, loader, device, model_type="1d"):
     labels = np.concatenate(all_labels)
     acc = accuracy_score(labels, preds)
     mf1 = f1_score(labels, preds, average="macro")
-    cm = confusion_matrix(labels, preds).tolist()
-    report = classification_report(labels, preds, target_names=list(LABEL_MAP.keys()),
-                                   output_dict=True, zero_division=0)
+    label_ids = list(range(len(LABEL_MAP)))
+    cm = confusion_matrix(labels, preds, labels=label_ids).tolist()
+    report = classification_report(
+        labels,
+        preds,
+        labels=label_ids,
+        target_names=list(LABEL_MAP.keys()),
+        output_dict=True,
+        zero_division=0,
+    )
     per_class = {}
     for k in LABEL_MAP:
         if k in report:
@@ -104,8 +122,7 @@ def evaluate(model, loader, device, model_type="1d"):
 
 
 def run_experiment(model_type, split_type, aug_type, seed, log_dir=None):
-    torch.manual_seed(seed)
-    np.random.seed(seed)
+    set_reproducible_seed(seed)
     device = torch.device(config.DEVICE if torch.cuda.is_available() else "cpu")
     overlap = config.OVERLAP_RECORDING if split_type == "recording" else config.OVERLAP_RANDOM
     windows, labels, rec_ids, records = build_datasets(random_seed=seed, overlap_ratio=overlap)
@@ -161,6 +178,7 @@ def run_experiment(model_type, split_type, aug_type, seed, log_dir=None):
     if best_state is not None:
         model.load_state_dict(best_state)
     te_result = evaluate(model, te_loader, device, model_type)
+    te_result["seed"] = seed
     te_result["best_val_acc"] = round(best_va_acc, 4)
     te_result["final_epoch"] = config.NUM_EPOCHS
     return te_result
@@ -177,6 +195,37 @@ def load_existing_results(results_dir):
         key = (row["model"], row["split"], row["augmentation"])
         existing[key] = row
     return existing
+
+
+def write_result_artifacts(results):
+    tables_dir = os.path.join(config.RESULTS_DIR, "tables")
+    main_path = os.path.join(tables_dir, "main_results.json")
+    with open(main_path, "w", encoding="utf-8") as handle:
+        json.dump(results, handle, indent=2, ensure_ascii=False)
+
+    confusion_rows = []
+    for row in results:
+        if not row.get("per_seed_results"):
+            continue
+        confusion_rows.append(
+            {
+                "model": row["model"],
+                "split": row["split"],
+                "augmentation": row["augmentation"],
+                "class_order": list(LABEL_MAP.keys()),
+                "per_seed": [
+                    {
+                        "seed": seed_row["seed"],
+                        "confusion_matrix": seed_row["confusion_matrix"],
+                    }
+                    for seed_row in row["per_seed_results"]
+                ],
+                "confusion_matrix_sum": row["confusion_matrix_sum"],
+            }
+        )
+    confusion_path = os.path.join(tables_dir, "confusion_matrices.json")
+    with open(confusion_path, "w", encoding="utf-8") as handle:
+        json.dump(confusion_rows, handle, indent=2, ensure_ascii=False)
 
 
 def main():
@@ -202,14 +251,13 @@ def main():
                 key = (model_type, split_type, aug_type)
                 old_entry = existing.get(key, None)
                 old_seed_results = {}
-                if old_entry and "per_seed_accuracy" in old_entry:
-                    if "per_seed_ids" in old_entry and len(old_entry["per_seed_ids"]) == len(old_entry["per_seed_accuracy"]):
-                        seed_ids = old_entry["per_seed_ids"]
-                    else:
-                        seed_ids = [42, 123, 456]
-                    old_seed_results = {s: {"accuracy": old_entry["per_seed_accuracy"][i],
-                                            "macro_f1": old_entry["per_seed_macro_f1"][i]}
-                                        for i, s in enumerate(seed_ids)}
+                if old_entry and old_entry.get("per_seed_results"):
+                    old_seed_results = {
+                        seed_row["seed"]: seed_row
+                        for seed_row in old_entry["per_seed_results"]
+                        if "confusion_matrix" in seed_row
+                        and "per_class" in seed_row
+                    }
 
                 new_runs = []
                 for seed in config.RANDOM_SEEDS:
@@ -260,6 +308,11 @@ def main():
                             "f1_std": round(float(np.std(c_f1s)), 4),
                         }
 
+                confusion_matrices = [
+                    np.asarray(r["confusion_matrix"], dtype=np.int64) for r in valid
+                ]
+                confusion_sum = np.sum(confusion_matrices, axis=0).tolist()
+
                 row = {
                     "model": model_type,
                     "split": split_type,
@@ -272,18 +325,19 @@ def main():
                     "per_seed_macro_f1": [r["macro_f1"] for r in valid],
                     "per_seed_ids": [s for s in config.RANDOM_SEEDS
                                      if new_runs[config.RANDOM_SEEDS.index(s)] is not None],
+                    "per_seed_results": valid,
+                    "per_seed_confusion_matrices": [
+                        r["confusion_matrix"] for r in valid
+                    ],
+                    "confusion_matrix_sum": confusion_sum,
                     "per_class": per_class_agg,
                 }
                 all_results.append(row)
                 print(f"  → Acc: {avg_acc:.4f} ± {std_acc:.4f}  F1: {avg_f1:.4f} ± {std_f1:.4f}")
 
-                partial_path = os.path.join(config.RESULTS_DIR, "tables", "main_results.json")
-                with open(partial_path, "w") as f:
-                    json.dump(all_results, f, indent=2, ensure_ascii=False)
+                write_result_artifacts(all_results)
 
-    final_path = os.path.join(config.RESULTS_DIR, "tables", "main_results.json")
-    with open(final_path, "w") as f:
-        json.dump(all_results, f, indent=2, ensure_ascii=False)
+    write_result_artifacts(all_results)
 
     print(f"\nResults saved to {config.RESULTS_DIR}/tables/main_results.json")
     print(f"Total combinations: {len(all_results)}")

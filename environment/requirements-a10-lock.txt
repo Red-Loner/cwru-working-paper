@@ -1,0 +1,9 @@
+# Exact environment used for the audited 2026-07-23 A10 rerun.
+--extra-index-url https://download.pytorch.org/whl/cu121
+
+torch==2.5.1+cu121
+numpy==2.2.6
+scipy==1.15.3
+scikit-learn==1.7.2
+matplotlib==3.10.9
+tqdm==4.69.0

@@ -2,181 +2,201 @@
   {
     "model": "1d",
     "augmentation": "none",
-    "acc_random": 0.9999,
-    "acc_recording": 0.9462,
-    "leakage_gap": 0.0537,
+    "acc_random": 0.9998,
+    "acc_recording": 0.9429,
+    "leakage_gap": 0.0569,
+    "protocol_gap": 0.0569,
     "delta_recovery": 0.0,
-    "cohens_d": 1.3496
+    "cohens_d": 0.9262
   },
   {
     "model": "1d",
     "augmentation": "noise_001",
-    "acc_random": 0.9997,
-    "acc_recording": 0.96,
-    "leakage_gap": 0.0397,
-    "delta_recovery": 0.257,
-    "cohens_d": 1.0958
+    "acc_random": 0.9999,
+    "acc_recording": 0.9379,
+    "leakage_gap": 0.062,
+    "protocol_gap": 0.062,
+    "delta_recovery": -0.0879,
+    "cohens_d": 1.7729
   },
   {
     "model": "1d",
     "augmentation": "noise_005",
     "acc_random": 0.9999,
-    "acc_recording": 0.9294,
-    "leakage_gap": 0.0705,
-    "delta_recovery": -0.3128,
-    "cohens_d": 1.1821
+    "acc_recording": 0.9628,
+    "leakage_gap": 0.0371,
+    "protocol_gap": 0.0371,
+    "delta_recovery": 0.3497,
+    "cohens_d": 1.5421
   },
   {
     "model": "1d",
     "augmentation": "noise_01",
-    "acc_random": 0.9999,
-    "acc_recording": 0.9648,
-    "leakage_gap": 0.0351,
-    "delta_recovery": 0.3464,
-    "cohens_d": 1.0815
+    "acc_random": 0.9997,
+    "acc_recording": 0.9351,
+    "leakage_gap": 0.0646,
+    "protocol_gap": 0.0646,
+    "delta_recovery": -0.1371,
+    "cohens_d": 0.96
   },
   {
     "model": "1d",
     "augmentation": "shift_5",
-    "acc_random": 0.9998,
-    "acc_recording": 0.9615,
-    "leakage_gap": 0.0383,
-    "delta_recovery": 0.2849,
-    "cohens_d": 1.0946
+    "acc_random": 0.9999,
+    "acc_recording": 0.9728,
+    "leakage_gap": 0.0271,
+    "protocol_gap": 0.0271,
+    "delta_recovery": 0.5255,
+    "cohens_d": 0.8412
   },
   {
     "model": "1d",
     "augmentation": "shift_20",
-    "acc_random": 0.9998,
-    "acc_recording": 0.943,
-    "leakage_gap": 0.0568,
-    "delta_recovery": -0.0596,
-    "cohens_d": 0.8556
+    "acc_random": 0.9997,
+    "acc_recording": 0.9267,
+    "leakage_gap": 0.073,
+    "protocol_gap": 0.073,
+    "delta_recovery": -0.2847,
+    "cohens_d": 1.2076
   },
   {
     "model": "1d",
     "augmentation": "shift_50",
     "acc_random": 0.9999,
-    "acc_recording": 0.9313,
-    "leakage_gap": 0.0686,
-    "delta_recovery": -0.2775,
-    "cohens_d": 2.0423
+    "acc_recording": 0.9396,
+    "leakage_gap": 0.0603,
+    "protocol_gap": 0.0603,
+    "delta_recovery": -0.058,
+    "cohens_d": 0.9596
   },
   {
     "model": "1d",
     "augmentation": "specaugment",
-    "acc_random": 0.9992,
-    "acc_recording": 0.9498,
-    "leakage_gap": 0.0494,
-    "delta_recovery": 0.067,
-    "cohens_d": 1.4747
+    "acc_random": 0.9999,
+    "acc_recording": 0.9439,
+    "leakage_gap": 0.056,
+    "protocol_gap": 0.056,
+    "delta_recovery": 0.0176,
+    "cohens_d": 0.8384
   },
   {
     "model": "1d",
     "augmentation": "combined",
-    "acc_random": 1.0,
-    "acc_recording": 0.9441,
-    "leakage_gap": 0.0559,
-    "delta_recovery": -0.0391,
-    "cohens_d": 1.551
+    "acc_random": 0.9999,
+    "acc_recording": 0.9334,
+    "leakage_gap": 0.0665,
+    "protocol_gap": 0.0665,
+    "delta_recovery": -0.167,
+    "cohens_d": 1.1148
   },
   {
     "model": "1d",
     "augmentation": "freq_flip",
-    "acc_random": 0.9996,
-    "acc_recording": 0.9286,
-    "leakage_gap": 0.071,
-    "delta_recovery": -0.3277,
-    "cohens_d": 1.6494
+    "acc_random": 0.4069,
+    "acc_recording": 0.4026,
+    "leakage_gap": 0.0043,
+    "protocol_gap": 0.0043,
+    "delta_recovery": -9.4956,
+    "cohens_d": 0.0567
   },
   {
     "model": "2d",
     "augmentation": "none",
-    "acc_random": 0.9996,
-    "acc_recording": 0.8979,
-    "leakage_gap": 0.1017,
+    "acc_random": 0.9999,
+    "acc_recording": 0.8856,
+    "leakage_gap": 0.1143,
+    "protocol_gap": 0.1143,
     "delta_recovery": 0.0,
-    "cohens_d": 1.4464
+    "cohens_d": 1.4697
   },
   {
     "model": "2d",
     "augmentation": "noise_001",
-    "acc_random": 0.9994,
-    "acc_recording": 0.8861,
-    "leakage_gap": 0.1133,
-    "delta_recovery": -0.116,
-    "cohens_d": 1.9737
+    "acc_random": 0.9997,
+    "acc_recording": 0.8807,
+    "leakage_gap": 0.119,
+    "protocol_gap": 0.119,
+    "delta_recovery": -0.0429,
+    "cohens_d": 1.8234
   },
   {
     "model": "2d",
     "augmentation": "noise_005",
-    "acc_random": 0.9995,
-    "acc_recording": 0.8934,
-    "leakage_gap": 0.1061,
-    "delta_recovery": -0.0442,
-    "cohens_d": 1.8387
+    "acc_random": 0.9998,
+    "acc_recording": 0.89,
+    "leakage_gap": 0.1098,
+    "protocol_gap": 0.1098,
+    "delta_recovery": 0.0385,
+    "cohens_d": 1.9189
   },
   {
     "model": "2d",
     "augmentation": "noise_01",
-    "acc_random": 0.9995,
-    "acc_recording": 0.902,
-    "leakage_gap": 0.0975,
-    "delta_recovery": 0.0403,
-    "cohens_d": 2.4518
+    "acc_random": 0.9997,
+    "acc_recording": 0.9188,
+    "leakage_gap": 0.0809,
+    "protocol_gap": 0.0809,
+    "delta_recovery": 0.2905,
+    "cohens_d": 1.2869
   },
   {
     "model": "2d",
     "augmentation": "shift_5",
-    "acc_random": 0.9998,
-    "acc_recording": 0.9041,
-    "leakage_gap": 0.0957,
-    "delta_recovery": 0.061,
-    "cohens_d": 1.5268
+    "acc_random": 0.9997,
+    "acc_recording": 0.9229,
+    "leakage_gap": 0.0768,
+    "protocol_gap": 0.0768,
+    "delta_recovery": 0.3263,
+    "cohens_d": 1.4306
   },
   {
     "model": "2d",
     "augmentation": "shift_20",
-    "acc_random": 0.9998,
-    "acc_recording": 0.8728,
-    "leakage_gap": 0.127,
-    "delta_recovery": -0.2468,
-    "cohens_d": 1.7843
+    "acc_random": 0.9997,
+    "acc_recording": 0.9091,
+    "leakage_gap": 0.0906,
+    "protocol_gap": 0.0906,
+    "delta_recovery": 0.2056,
+    "cohens_d": 1.677
   },
   {
     "model": "2d",
     "augmentation": "shift_50",
-    "acc_random": 0.9998,
-    "acc_recording": 0.8858,
-    "leakage_gap": 0.114,
-    "delta_recovery": -0.119,
-    "cohens_d": 1.8374
+    "acc_random": 0.9997,
+    "acc_recording": 0.8477,
+    "leakage_gap": 0.152,
+    "protocol_gap": 0.152,
+    "delta_recovery": -0.3316,
+    "cohens_d": 1.0632
   },
   {
     "model": "2d",
     "augmentation": "specaugment",
-    "acc_random": 0.9987,
-    "acc_recording": 0.9033,
-    "leakage_gap": 0.0954,
-    "delta_recovery": 0.0531,
-    "cohens_d": 1.5985
+    "acc_random": 0.9995,
+    "acc_recording": 0.9009,
+    "leakage_gap": 0.0986,
+    "protocol_gap": 0.0986,
+    "delta_recovery": 0.1339,
+    "cohens_d": 1.4576
   },
   {
     "model": "2d",
     "augmentation": "combined",
-    "acc_random": 0.9994,
-    "acc_recording": 0.8963,
-    "leakage_gap": 0.1031,
-    "delta_recovery": -0.0157,
-    "cohens_d": 1.8463
+    "acc_random": 0.9997,
+    "acc_recording": 0.896,
+    "leakage_gap": 0.1037,
+    "protocol_gap": 0.1037,
+    "delta_recovery": 0.091,
+    "cohens_d": 2.0354
   },
   {
     "model": "2d",
     "augmentation": "freq_flip",
-    "acc_random": 0.992,
-    "acc_recording": 0.8546,
-    "leakage_gap": 0.1374,
-    "delta_recovery": -0.4258,
-    "cohens_d": 1.6506
+    "acc_random": 0.4488,
+    "acc_recording": 0.3919,
+    "leakage_gap": 0.0569,
+    "protocol_gap": 0.0569,
+    "delta_recovery": -4.3193,
+    "cohens_d": 0.664
   }
 ]

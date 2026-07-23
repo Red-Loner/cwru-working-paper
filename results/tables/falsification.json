@@ -1,41 +1,41 @@
 {
-  "H2_null": "leakage gap = 0.1017 — test H1/H2",
-  "H1_result": "max_delta_recovery = 0.0610",
+  "H2_null": "random-to-recording protocol gap = 0.1143 — test H1/H2",
+  "H1_result": "max_delta_recovery = 0.3263",
   "H1": "SUPPORTED: partial recovery",
-  "H2": "SUPPORTED: leakage dominates",
+  "H2": "SUPPORTED: protocol gap dominates augmentation gain",
   "effect_sizes": {
     "1d": {
-      "cohens_d_random_vs_recording": 1.3496,
+      "cohens_d_random_vs_recording": 0.9262,
       "random_seeds": [
-        0.9996,
         1.0,
+        1.0,
+        0.9996,
+        0.9996,
+        1.0
+      ],
+      "recording_seeds": [
+        0.9942,
+        1.0,
+        0.9942,
+        0.7962,
+        0.93
+      ]
+    },
+    "2d": {
+      "cohens_d_random_vs_recording": 1.4697,
+      "random_seeds": [
+        1.0,
+        0.9996,
         1.0,
         1.0,
         1.0
       ],
       "recording_seeds": [
-        0.9767,
-        0.9993,
-        0.977,
-        0.9157,
-        0.8622
-      ]
-    },
-    "2d": {
-      "cohens_d_random_vs_recording": 1.4464,
-      "random_seeds": [
-        0.9987,
-        1.0,
-        1.0,
-        1.0,
-        0.9992
-      ],
-      "recording_seeds": [
-        0.9987,
-        0.9168,
-        0.9702,
-        0.7502,
-        0.8538
+        0.999,
+        0.9186,
+        0.9716,
+        0.7643,
+        0.7745
       ]
     }
   }

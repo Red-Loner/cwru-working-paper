@@ -12,28 +12,47 @@ def time_shift(x, shift_samples):
         return np.concatenate([x[-shift:], np.zeros(-shift, dtype=np.float32)])
     return x.copy()
 
-def specaugment(x, n_freq_masks=2, n_time_masks=2, max_freq_mask=8, max_time_mask=8):
-    x_aug = x.copy()
-    original_length = len(x_aug)
-    freq_bins = 32
-    time_frames = original_length // freq_bins
-    spec = x_aug.reshape(freq_bins, time_frames)
+def specaugment(
+    x,
+    n_freq_masks=2,
+    n_time_masks=2,
+    max_freq_mask=8,
+    max_time_mask=64,
+):
+    """Waveform-compatible spectral and temporal masking.
+
+    Frequency masks are applied to real-FFT bins and transformed back to the
+    time domain. Temporal masks then zero contiguous sample ranges. This is an
+    adaptation of the SpecAugment idea for a common waveform input, not a
+    reshape of time samples masquerading as a spectrogram.
+    """
+    x_aug = np.asarray(x, dtype=np.float32).copy()
+    spectrum = np.fft.rfft(x_aug)
+    freq_bins = len(spectrum)
     for _ in range(n_freq_masks):
-        f = np.random.randint(0, freq_bins)
-        f0 = np.random.randint(0, max(1, freq_bins - max_freq_mask))
-        mask_len = np.random.randint(1, max_freq_mask + 1)
-        spec[f0:f0 + mask_len, :] = 0
+        mask_len = np.random.randint(1, min(max_freq_mask, freq_bins - 1) + 1)
+        start_max = freq_bins - mask_len
+        f0 = np.random.randint(1, start_max + 1)
+        spectrum[f0:f0 + mask_len] = 0
+    x_aug = np.fft.irfft(spectrum, n=len(x_aug)).astype(np.float32)
+
     for _ in range(n_time_masks):
-        t0 = np.random.randint(0, max(1, time_frames - max_time_mask))
-        mask_len = np.random.randint(1, max_time_mask + 1)
-        spec[:, t0:t0 + mask_len] = 0
-    return spec.flatten()
+        mask_len = np.random.randint(1, min(max_time_mask, len(x_aug)) + 1)
+        t0 = np.random.randint(0, len(x_aug) - mask_len + 1)
+        x_aug[t0:t0 + mask_len] = 0
+    return x_aug
 
 def freq_axis_flip(x):
-    freq_bins = 32
-    time_frames = len(x) // freq_bins
-    spec = x.reshape(freq_bins, time_frames)
-    return np.flip(spec, axis=0).flatten()
+    """Negative control that reverses FFT magnitudes across frequency bins."""
+    x = np.asarray(x, dtype=np.float32)
+    spectrum = np.fft.rfft(x)
+    magnitude = np.abs(spectrum)[::-1]
+    phase = np.angle(spectrum)
+    flipped = magnitude * np.exp(1j * phase)
+    flipped[0] = flipped[0].real
+    if len(x) % 2 == 0:
+        flipped[-1] = flipped[-1].real
+    return np.fft.irfft(flipped, n=len(x)).astype(np.float32)
 
 def apply_augmentation(x_batch, aug_type, aug_params=None):
     if aug_type == "none":

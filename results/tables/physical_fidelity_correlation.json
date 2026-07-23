@@ -1,0 +1,231 @@
+{
+  "hypothesis": "H3",
+  "metric": "symmetric envelope-spectrum fault-band energy fidelity",
+  "primary_analysis": "Separate per-model Spearman correlations across all nine augmentation conditions.",
+  "by_model": {
+    "1d": {
+      "augmentations": [
+        "noise_001",
+        "noise_005",
+        "noise_01",
+        "shift_5",
+        "shift_20",
+        "shift_50",
+        "specaugment",
+        "combined",
+        "freq_flip"
+      ],
+      "energy_fidelity": [
+        0.9973200344356613,
+        0.9865141492490794,
+        0.9709475600038732,
+        0.9855080483020621,
+        0.9433607707429301,
+        0.891088499038108,
+        0.7911009399012808,
+        0.9394296622764792,
+        0.5474984523841526
+      ],
+      "delta_recovery": [
+        -0.0879,
+        0.3497,
+        -0.1371,
+        0.5255,
+        -0.2847,
+        -0.058,
+        0.0176,
+        -0.167,
+        -9.4956
+      ],
+      "spearman_rho": 0.4333,
+      "p_value": 0.244,
+      "supported": false,
+      "excluded_augmentations": []
+    },
+    "2d": {
+      "augmentations": [
+        "noise_001",
+        "noise_005",
+        "noise_01",
+        "shift_5",
+        "shift_20",
+        "shift_50",
+        "specaugment",
+        "combined",
+        "freq_flip"
+      ],
+      "energy_fidelity": [
+        0.9973200344356613,
+        0.9865141492490794,
+        0.9709475600038732,
+        0.9855080483020621,
+        0.9433607707429301,
+        0.891088499038108,
+        0.7911009399012808,
+        0.9394296622764792,
+        0.5474984523841526
+      ],
+      "delta_recovery": [
+        -0.0429,
+        0.0385,
+        0.2905,
+        0.3263,
+        0.2056,
+        -0.3316,
+        0.1339,
+        0.091,
+        -4.3193
+      ],
+      "spearman_rho": 0.3167,
+      "p_value": 0.4064,
+      "supported": false,
+      "excluded_augmentations": []
+    }
+  },
+  "sensitivity_without_negative_control": {
+    "1d": {
+      "augmentations": [
+        "noise_001",
+        "noise_005",
+        "noise_01",
+        "shift_5",
+        "shift_20",
+        "shift_50",
+        "specaugment",
+        "combined"
+      ],
+      "energy_fidelity": [
+        0.9973200344356613,
+        0.9865141492490794,
+        0.9709475600038732,
+        0.9855080483020621,
+        0.9433607707429301,
+        0.891088499038108,
+        0.7911009399012808,
+        0.9394296622764792
+      ],
+      "delta_recovery": [
+        -0.0879,
+        0.3497,
+        -0.1371,
+        0.5255,
+        -0.2847,
+        -0.058,
+        0.0176,
+        -0.167
+      ],
+      "spearman_rho": 0.1905,
+      "p_value": 0.6514,
+      "supported": false,
+      "excluded_augmentations": [
+        "freq_flip"
+      ]
+    },
+    "2d": {
+      "augmentations": [
+        "noise_001",
+        "noise_005",
+        "noise_01",
+        "shift_5",
+        "shift_20",
+        "shift_50",
+        "specaugment",
+        "combined"
+      ],
+      "energy_fidelity": [
+        0.9973200344356613,
+        0.9865141492490794,
+        0.9709475600038732,
+        0.9855080483020621,
+        0.9433607707429301,
+        0.891088499038108,
+        0.7911009399012808,
+        0.9394296622764792
+      ],
+      "delta_recovery": [
+        -0.0429,
+        0.0385,
+        0.2905,
+        0.3263,
+        0.2056,
+        -0.3316,
+        0.1339,
+        0.091
+      ],
+      "spearman_rho": 0.0238,
+      "p_value": 0.9554,
+      "supported": false,
+      "excluded_augmentations": [
+        "freq_flip"
+      ]
+    }
+  },
+  "pooled_exploratory": {
+    "augmentations": [
+      "noise_001",
+      "noise_005",
+      "noise_01",
+      "shift_5",
+      "shift_20",
+      "shift_50",
+      "specaugment",
+      "combined",
+      "freq_flip",
+      "noise_001",
+      "noise_005",
+      "noise_01",
+      "shift_5",
+      "shift_20",
+      "shift_50",
+      "specaugment",
+      "combined",
+      "freq_flip"
+    ],
+    "energy_fidelity": [
+      0.9973200344356613,
+      0.9865141492490794,
+      0.9709475600038732,
+      0.9855080483020621,
+      0.9433607707429301,
+      0.891088499038108,
+      0.7911009399012808,
+      0.9394296622764792,
+      0.5474984523841526,
+      0.9973200344356613,
+      0.9865141492490794,
+      0.9709475600038732,
+      0.9855080483020621,
+      0.9433607707429301,
+      0.891088499038108,
+      0.7911009399012808,
+      0.9394296622764792,
+      0.5474984523841526
+    ],
+    "delta_recovery": [
+      -0.0879,
+      0.3497,
+      -0.1371,
+      0.5255,
+      -0.2847,
+      -0.058,
+      0.0176,
+      -0.167,
+      -9.4956,
+      -0.0429,
+      0.0385,
+      0.2905,
+      0.3263,
+      0.2056,
+      -0.3316,
+      0.1339,
+      0.091,
+      -4.3193
+    ],
+    "spearman_rho": 0.4852,
+    "p_value": 0.0412,
+    "supported": true,
+    "excluded_augmentations": [],
+    "inferential": false,
+    "reason": "The two models reuse the same nine physical-fidelity values, so pooled points are not independent."
+  }
+}

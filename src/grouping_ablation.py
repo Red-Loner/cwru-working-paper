@@ -7,11 +7,13 @@ from torch.utils.data import DataLoader, TensorDataset
 import config
 from preprocess import (
     build_datasets, random_split, recording_level_split,
-    load_based_split, fault_size_based_split, normalize_dataset, LABEL_MAP,
+    load_based_assignment, load_based_split,
+    fault_size_based_assignment, fault_size_based_split,
+    recording_level_assignment, normalize_dataset, LABEL_MAP,
 )
 from models.cnn1d import CNN1D
 from models.cnn2d import CNN2D
-from train import train_epoch, evaluate
+from train import train_epoch, evaluate, set_reproducible_seed
 
 
 SPLIT_FUNCTIONS = {
@@ -28,8 +30,36 @@ SPLIT_LABELS = {
 
 
 def run_single(model_type, split_name, split_fn, seed):
+    set_reproducible_seed(seed)
     device = torch.device(config.DEVICE if torch.cuda.is_available() else "cpu")
-    windows, labels, rec_ids, records = build_datasets(random_seed=seed)
+    windows, labels, rec_ids, records = build_datasets(
+        random_seed=seed, overlap_ratio=config.OVERLAP_RECORDING
+    )
+    if split_name == "recording":
+        recording_assignment = recording_level_assignment(
+            records,
+            train_r=config.TRAIN_RATIO,
+            val_r=config.VAL_RATIO,
+            seed=seed,
+        )
+        assignment = {
+            "groups": None,
+            "recordings": recording_assignment,
+        }
+    elif split_name == "load":
+        assignment = load_based_assignment(
+            records,
+            train_r=config.TRAIN_RATIO,
+            val_r=config.VAL_RATIO,
+            seed=seed,
+        )
+    else:
+        assignment = fault_size_based_assignment(
+            records,
+            train_r=config.TRAIN_RATIO,
+            val_r=config.VAL_RATIO,
+            seed=seed,
+        )
 
     (tr_x, tr_y), (va_x, va_y), (te_x, te_y) = split_fn(
         windows, labels, rec_ids, records,
@@ -65,15 +95,18 @@ def run_single(model_type, split_name, split_fn, seed):
     if best_state is not None:
         model.load_state_dict(best_state)
     te_result = evaluate(model, te_loader, device, model_type)
-    return te_result
+    return te_result, assignment
 
 
 def load_existing_ablation(results_dir):
     path = os.path.join(results_dir, "tables", "grouping_ablation.json")
-    if not os.path.exists(path):
+    if not os.path.exists(path) or os.path.getsize(path) == 0:
         return {}
-    with open(path, "r", encoding="utf-8") as f:
-        rows = json.load(f)
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            rows = json.load(f)
+    except json.JSONDecodeError:
+        return {}
     existing = {}
     for row in rows:
         key = (row["model"], row["split"])
@@ -107,14 +140,18 @@ def main():
 
                 print(f"[{model_type} | {split_name} | seed={seed}] RUNNING")
                 try:
-                    result = run_single(model_type, split_name, split_fn, seed)
+                    result, assignment = run_single(
+                        model_type, split_name, split_fn, seed
+                    )
                     row = {
                         "model": model_type,
                         "split": split_name,
                         "seed": seed,
                         "accuracy": result["accuracy"],
                         "macro_f1": result["macro_f1"],
+                        "confusion_matrix": result.get("confusion_matrix"),
                         "per_class": result.get("per_class", {}),
+                        "split_assignment": assignment,
                     }
                     all_results.append(row)
                     print(f"  → Acc: {result['accuracy']:.4f}  F1: {result['macro_f1']:.4f}")

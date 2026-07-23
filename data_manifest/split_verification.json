@@ -1,0 +1,199 @@
+{
+  "protocol": "recording-level, class-stratified, 60/20/20",
+  "window_length": 1024,
+  "overlap": 0.5,
+  "normalization": "fit on training windows only",
+  "augmentation": "training partition only, after splitting",
+  "seeds": [
+    {
+      "seed": 42,
+      "disjoint": true,
+      "all_selected_recordings_assigned": true,
+      "selected_recordings": 40,
+      "splits": {
+        "train": {
+          "recordings": 23,
+          "windows": 6390,
+          "class_recordings": {
+            "B": 7,
+            "IR": 7,
+            "Normal": 2,
+            "OR": 7
+          }
+        },
+        "validation": {
+          "recordings": 7,
+          "windows": 2363,
+          "class_recordings": {
+            "B": 2,
+            "IR": 2,
+            "Normal": 1,
+            "OR": 2
+          }
+        },
+        "test": {
+          "recordings": 10,
+          "windows": 3079,
+          "class_recordings": {
+            "B": 3,
+            "IR": 3,
+            "Normal": 1,
+            "OR": 3
+          }
+        }
+      }
+    },
+    {
+      "seed": 123,
+      "disjoint": true,
+      "all_selected_recordings_assigned": true,
+      "selected_recordings": 40,
+      "splits": {
+        "train": {
+          "recordings": 23,
+          "windows": 6398,
+          "class_recordings": {
+            "B": 7,
+            "IR": 7,
+            "Normal": 2,
+            "OR": 7
+          }
+        },
+        "validation": {
+          "recordings": 7,
+          "windows": 2363,
+          "class_recordings": {
+            "B": 2,
+            "IR": 2,
+            "Normal": 1,
+            "OR": 2
+          }
+        },
+        "test": {
+          "recordings": 10,
+          "windows": 3071,
+          "class_recordings": {
+            "B": 3,
+            "IR": 3,
+            "Normal": 1,
+            "OR": 3
+          }
+        }
+      }
+    },
+    {
+      "seed": 456,
+      "disjoint": true,
+      "all_selected_recordings_assigned": true,
+      "selected_recordings": 40,
+      "splits": {
+        "train": {
+          "recordings": 23,
+          "windows": 6861,
+          "class_recordings": {
+            "B": 7,
+            "IR": 7,
+            "Normal": 2,
+            "OR": 7
+          }
+        },
+        "validation": {
+          "recordings": 7,
+          "windows": 2364,
+          "class_recordings": {
+            "B": 2,
+            "IR": 2,
+            "Normal": 1,
+            "OR": 2
+          }
+        },
+        "test": {
+          "recordings": 10,
+          "windows": 2607,
+          "class_recordings": {
+            "B": 3,
+            "IR": 3,
+            "Normal": 1,
+            "OR": 3
+          }
+        }
+      }
+    },
+    {
+      "seed": 789,
+      "disjoint": true,
+      "all_selected_recordings_assigned": true,
+      "selected_recordings": 40,
+      "splits": {
+        "train": {
+          "recordings": 23,
+          "windows": 6864,
+          "class_recordings": {
+            "B": 7,
+            "IR": 7,
+            "Normal": 2,
+            "OR": 7
+          }
+        },
+        "validation": {
+          "recordings": 7,
+          "windows": 2363,
+          "class_recordings": {
+            "B": 2,
+            "IR": 2,
+            "Normal": 1,
+            "OR": 2
+          }
+        },
+        "test": {
+          "recordings": 10,
+          "windows": 2605,
+          "class_recordings": {
+            "B": 3,
+            "IR": 3,
+            "Normal": 1,
+            "OR": 3
+          }
+        }
+      }
+    },
+    {
+      "seed": 1024,
+      "disjoint": true,
+      "all_selected_recordings_assigned": true,
+      "selected_recordings": 40,
+      "splits": {
+        "train": {
+          "recordings": 23,
+          "windows": 6864,
+          "class_recordings": {
+            "B": 7,
+            "IR": 7,
+            "Normal": 2,
+            "OR": 7
+          }
+        },
+        "validation": {
+          "recordings": 7,
+          "windows": 1895,
+          "class_recordings": {
+            "B": 2,
+            "IR": 2,
+            "Normal": 1,
+            "OR": 2
+          }
+        },
+        "test": {
+          "recordings": 10,
+          "windows": 3073,
+          "class_recordings": {
+            "B": 3,
+            "IR": 3,
+            "Normal": 1,
+            "OR": 3
+          }
+        }
+      }
+    }
+  ]
+}

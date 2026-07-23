@@ -1,0 +1,3392 @@
+[
+  {
+    "model": "1d",
+    "split": "recording",
+    "seed": 42,
+    "accuracy": 0.9942,
+    "macro_f1": 0.9943,
+    "confusion_matrix": [
+      [
+        947,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        710,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        712,
+        0
+      ],
+      [
+        16,
+        2,
+        0,
+        692
+      ]
+    ],
+    "per_class": {
+      "Normal": {
+        "precision": 0.9834,
+        "recall": 1.0,
+        "f1": 0.9916
+      },
+      "IR": {
+        "precision": 0.9972,
+        "recall": 1.0,
+        "f1": 0.9986
+      },
+      "OR": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "B": {
+        "precision": 1.0,
+        "recall": 0.9746,
+        "f1": 0.9872
+      }
+    },
+    "split_assignment": {
+      "groups": null,
+      "recordings": {
+        "train": [
+          "B007_0HP_1797rpm.mat",
+          "B007_1HP_1772rpm.mat",
+          "B007_2HP_1750rpm.mat",
+          "B014_1HP_1772rpm.mat",
+          "B021_0HP_1797rpm.mat",
+          "B021_1HP_1772rpm.mat",
+          "B021_2HP_1750rpm.mat",
+          "IR007_0HP_1797rpm.mat",
+          "IR007_1HP_1772rpm.mat",
+          "IR007_3HP_1730rpm.mat",
+          "IR014_2HP_1750rpm.mat",
+          "IR021_0HP_1797rpm.mat",
+          "IR021_1HP_1772rpm.mat",
+          "IR021_2HP_1750rpm.mat",
+          "Normal_0HP_1797rpm.mat",
+          "Normal_2HP_1750rpm.mat",
+          "OR007@6_1HP_1772rpm.mat",
+          "OR014@6_0HP_1797rpm.mat",
+          "OR014@6_1HP_1772rpm.mat",
+          "OR014@6_2HP_1750rpm.mat",
+          "OR014@6_3HP_1730rpm.mat",
+          "OR021@6_1HP_1772rpm.mat",
+          "OR021@6_2HP_1750rpm.mat"
+        ],
+        "validation": [
+          "B014_0HP_1797rpm.mat",
+          "B021_3HP_1730rpm.mat",
+          "IR014_0HP_1797rpm.mat",
+          "IR014_1HP_1772rpm.mat",
+          "Normal_1HP_1772rpm.mat",
+          "OR007@6_2HP_1750rpm.mat",
+          "OR007@6_3HP_1730rpm.mat"
+        ],
+        "test": [
+          "B007_3HP_1730rpm.mat",
+          "B014_2HP_1750rpm.mat",
+          "B014_3HP_1730rpm.mat",
+          "IR007_2HP_1750rpm.mat",
+          "IR014_3HP_1730rpm.mat",
+          "IR021_3HP_1730rpm.mat",
+          "Normal_3HP_1730rpm.mat",
+          "OR007@6_0HP_1797rpm.mat",
+          "OR021@6_0HP_1797rpm.mat",
+          "OR021@6_3HP_1730rpm.mat"
+        ]
+      }
+    }
+  },
+  {
+    "model": "1d",
+    "split": "recording",
+    "seed": 123,
+    "accuracy": 1.0,
+    "macro_f1": 1.0,
+    "confusion_matrix": [
+      [
+        944,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        708,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        709,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        710
+      ]
+    ],
+    "per_class": {
+      "Normal": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "IR": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "OR": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "B": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      }
+    },
+    "split_assignment": {
+      "groups": null,
+      "recordings": {
+        "train": [
+          "B007_0HP_1797rpm.mat",
+          "B014_0HP_1797rpm.mat",
+          "B014_1HP_1772rpm.mat",
+          "B014_3HP_1730rpm.mat",
+          "B021_0HP_1797rpm.mat",
+          "B021_1HP_1772rpm.mat",
+          "B021_2HP_1750rpm.mat",
+          "IR007_2HP_1750rpm.mat",
+          "IR007_3HP_1730rpm.mat",
+          "IR014_0HP_1797rpm.mat",
+          "IR014_1HP_1772rpm.mat",
+          "IR014_2HP_1750rpm.mat",
+          "IR021_0HP_1797rpm.mat",
+          "IR021_3HP_1730rpm.mat",
+          "Normal_0HP_1797rpm.mat",
+          "Normal_3HP_1730rpm.mat",
+          "OR007@6_0HP_1797rpm.mat",
+          "OR007@6_1HP_1772rpm.mat",
+          "OR007@6_3HP_1730rpm.mat",
+          "OR014@6_2HP_1750rpm.mat",
+          "OR021@6_1HP_1772rpm.mat",
+          "OR021@6_2HP_1750rpm.mat",
+          "OR021@6_3HP_1730rpm.mat"
+        ],
+        "validation": [
+          "B007_1HP_1772rpm.mat",
+          "B007_3HP_1730rpm.mat",
+          "IR014_3HP_1730rpm.mat",
+          "IR021_2HP_1750rpm.mat",
+          "Normal_2HP_1750rpm.mat",
+          "OR014@6_1HP_1772rpm.mat",
+          "OR021@6_0HP_1797rpm.mat"
+        ],
+        "test": [
+          "B007_2HP_1750rpm.mat",
+          "B014_2HP_1750rpm.mat",
+          "B021_3HP_1730rpm.mat",
+          "IR007_0HP_1797rpm.mat",
+          "IR007_1HP_1772rpm.mat",
+          "IR021_1HP_1772rpm.mat",
+          "Normal_1HP_1772rpm.mat",
+          "OR007@6_2HP_1750rpm.mat",
+          "OR014@6_0HP_1797rpm.mat",
+          "OR014@6_3HP_1730rpm.mat"
+        ]
+      }
+    }
+  },
+  {
+    "model": "1d",
+    "split": "recording",
+    "seed": 456,
+    "accuracy": 0.9942,
+    "macro_f1": 0.9947,
+    "confusion_matrix": [
+      [
+        475,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        712,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        710,
+        0
+      ],
+      [
+        0,
+        14,
+        1,
+        695
+      ]
+    ],
+    "per_class": {
+      "Normal": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "IR": {
+        "precision": 0.9807,
+        "recall": 1.0,
+        "f1": 0.9903
+      },
+      "OR": {
+        "precision": 0.9986,
+        "recall": 1.0,
+        "f1": 0.9993
+      },
+      "B": {
+        "precision": 1.0,
+        "recall": 0.9789,
+        "f1": 0.9893
+      }
+    },
+    "split_assignment": {
+      "groups": null,
+      "recordings": {
+        "train": [
+          "B007_0HP_1797rpm.mat",
+          "B007_1HP_1772rpm.mat",
+          "B007_2HP_1750rpm.mat",
+          "B007_3HP_1730rpm.mat",
+          "B014_2HP_1750rpm.mat",
+          "B014_3HP_1730rpm.mat",
+          "B021_0HP_1797rpm.mat",
+          "IR007_0HP_1797rpm.mat",
+          "IR007_1HP_1772rpm.mat",
+          "IR014_0HP_1797rpm.mat",
+          "IR014_3HP_1730rpm.mat",
+          "IR021_1HP_1772rpm.mat",
+          "IR021_2HP_1750rpm.mat",
+          "IR021_3HP_1730rpm.mat",
+          "Normal_2HP_1750rpm.mat",
+          "Normal_3HP_1730rpm.mat",
+          "OR007@6_1HP_1772rpm.mat",
+          "OR007@6_2HP_1750rpm.mat",
+          "OR007@6_3HP_1730rpm.mat",
+          "OR014@6_1HP_1772rpm.mat",
+          "OR014@6_3HP_1730rpm.mat",
+          "OR021@6_2HP_1750rpm.mat",
+          "OR021@6_3HP_1730rpm.mat"
+        ],
+        "validation": [
+          "B014_0HP_1797rpm.mat",
+          "B021_2HP_1750rpm.mat",
+          "IR007_2HP_1750rpm.mat",
+          "IR014_2HP_1750rpm.mat",
+          "Normal_1HP_1772rpm.mat",
+          "OR014@6_0HP_1797rpm.mat",
+          "OR021@6_0HP_1797rpm.mat"
+        ],
+        "test": [
+          "B014_1HP_1772rpm.mat",
+          "B021_1HP_1772rpm.mat",
+          "B021_3HP_1730rpm.mat",
+          "IR007_3HP_1730rpm.mat",
+          "IR014_1HP_1772rpm.mat",
+          "IR021_0HP_1797rpm.mat",
+          "Normal_0HP_1797rpm.mat",
+          "OR007@6_0HP_1797rpm.mat",
+          "OR014@6_2HP_1750rpm.mat",
+          "OR021@6_1HP_1772rpm.mat"
+        ]
+      }
+    }
+  },
+  {
+    "model": "1d",
+    "split": "recording",
+    "seed": 789,
+    "accuracy": 0.7962,
+    "macro_f1": 0.7721,
+    "confusion_matrix": [
+      [
+        475,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        708,
+        2,
+        0
+      ],
+      [
+        0,
+        0,
+        712,
+        0
+      ],
+      [
+        0,
+        230,
+        299,
+        179
+      ]
+    ],
+    "per_class": {
+      "Normal": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "IR": {
+        "precision": 0.7548,
+        "recall": 0.9972,
+        "f1": 0.8592
+      },
+      "OR": {
+        "precision": 0.7029,
+        "recall": 1.0,
+        "f1": 0.8255
+      },
+      "B": {
+        "precision": 1.0,
+        "recall": 0.2528,
+        "f1": 0.4036
+      }
+    },
+    "split_assignment": {
+      "groups": null,
+      "recordings": {
+        "train": [
+          "B007_0HP_1797rpm.mat",
+          "B014_1HP_1772rpm.mat",
+          "B014_2HP_1750rpm.mat",
+          "B014_3HP_1730rpm.mat",
+          "B021_0HP_1797rpm.mat",
+          "B021_1HP_1772rpm.mat",
+          "B021_2HP_1750rpm.mat",
+          "IR007_0HP_1797rpm.mat",
+          "IR007_2HP_1750rpm.mat",
+          "IR007_3HP_1730rpm.mat",
+          "IR014_0HP_1797rpm.mat",
+          "IR014_1HP_1772rpm.mat",
+          "IR014_2HP_1750rpm.mat",
+          "IR014_3HP_1730rpm.mat",
+          "Normal_2HP_1750rpm.mat",
+          "Normal_3HP_1730rpm.mat",
+          "OR007@6_0HP_1797rpm.mat",
+          "OR007@6_1HP_1772rpm.mat",
+          "OR007@6_2HP_1750rpm.mat",
+          "OR014@6_2HP_1750rpm.mat",
+          "OR021@6_0HP_1797rpm.mat",
+          "OR021@6_1HP_1772rpm.mat",
+          "OR021@6_2HP_1750rpm.mat"
+        ],
+        "validation": [
+          "B014_0HP_1797rpm.mat",
+          "B021_3HP_1730rpm.mat",
+          "IR021_0HP_1797rpm.mat",
+          "IR021_2HP_1750rpm.mat",
+          "Normal_1HP_1772rpm.mat",
+          "OR014@6_0HP_1797rpm.mat",
+          "OR014@6_3HP_1730rpm.mat"
+        ],
+        "test": [
+          "B007_1HP_1772rpm.mat",
+          "B007_2HP_1750rpm.mat",
+          "B007_3HP_1730rpm.mat",
+          "IR007_1HP_1772rpm.mat",
+          "IR021_1HP_1772rpm.mat",
+          "IR021_3HP_1730rpm.mat",
+          "Normal_0HP_1797rpm.mat",
+          "OR007@6_3HP_1730rpm.mat",
+          "OR014@6_1HP_1772rpm.mat",
+          "OR021@6_3HP_1730rpm.mat"
+        ]
+      }
+    }
+  },
+  {
+    "model": "1d",
+    "split": "recording",
+    "seed": 1024,
+    "accuracy": 0.93,
+    "macro_f1": 0.9215,
+    "confusion_matrix": [
+      [
+        944,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        494,
+        24,
+        191
+      ],
+      [
+        0,
+        0,
+        710,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        710
+      ]
+    ],
+    "per_class": {
+      "Normal": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "IR": {
+        "precision": 1.0,
+        "recall": 0.6968,
+        "f1": 0.8213
+      },
+      "OR": {
+        "precision": 0.9673,
+        "recall": 1.0,
+        "f1": 0.9834
+      },
+      "B": {
+        "precision": 0.788,
+        "recall": 1.0,
+        "f1": 0.8814
+      }
+    },
+    "split_assignment": {
+      "groups": null,
+      "recordings": {
+        "train": [
+          "B007_0HP_1797rpm.mat",
+          "B007_2HP_1750rpm.mat",
+          "B007_3HP_1730rpm.mat",
+          "B014_0HP_1797rpm.mat",
+          "B014_2HP_1750rpm.mat",
+          "B014_3HP_1730rpm.mat",
+          "B021_0HP_1797rpm.mat",
+          "IR007_0HP_1797rpm.mat",
+          "IR007_2HP_1750rpm.mat",
+          "IR007_3HP_1730rpm.mat",
+          "IR014_0HP_1797rpm.mat",
+          "IR014_1HP_1772rpm.mat",
+          "IR014_2HP_1750rpm.mat",
+          "IR021_2HP_1750rpm.mat",
+          "Normal_2HP_1750rpm.mat",
+          "Normal_3HP_1730rpm.mat",
+          "OR007@6_0HP_1797rpm.mat",
+          "OR007@6_1HP_1772rpm.mat",
+          "OR007@6_2HP_1750rpm.mat",
+          "OR007@6_3HP_1730rpm.mat",
+          "OR014@6_3HP_1730rpm.mat",
+          "OR021@6_0HP_1797rpm.mat",
+          "OR021@6_1HP_1772rpm.mat"
+        ],
+        "validation": [
+          "B014_1HP_1772rpm.mat",
+          "B021_1HP_1772rpm.mat",
+          "IR007_1HP_1772rpm.mat",
+          "IR021_3HP_1730rpm.mat",
+          "Normal_0HP_1797rpm.mat",
+          "OR014@6_0HP_1797rpm.mat",
+          "OR021@6_2HP_1750rpm.mat"
+        ],
+        "test": [
+          "B007_1HP_1772rpm.mat",
+          "B021_2HP_1750rpm.mat",
+          "B021_3HP_1730rpm.mat",
+          "IR014_3HP_1730rpm.mat",
+          "IR021_0HP_1797rpm.mat",
+          "IR021_1HP_1772rpm.mat",
+          "Normal_1HP_1772rpm.mat",
+          "OR014@6_1HP_1772rpm.mat",
+          "OR014@6_2HP_1750rpm.mat",
+          "OR021@6_3HP_1730rpm.mat"
+        ]
+      }
+    }
+  },
+  {
+    "model": "1d",
+    "split": "load",
+    "seed": 42,
+    "accuracy": 0.9997,
+    "macro_f1": 0.9996,
+    "confusion_matrix": [
+      [
+        944,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        708,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        709,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        710
+      ]
+    ],
+    "per_class": {
+      "Normal": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "IR": {
+        "precision": 1.0,
+        "recall": 0.9986,
+        "f1": 0.9993
+      },
+      "OR": {
+        "precision": 0.9986,
+        "recall": 1.0,
+        "f1": 0.9993
+      },
+      "B": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      }
+    },
+    "split_assignment": {
+      "groups": {
+        "train": [
+          1,
+          3
+        ],
+        "validation": [
+          0
+        ],
+        "test": [
+          2
+        ]
+      },
+      "recordings": {
+        "train": [
+          "B007_1HP_1772rpm.mat",
+          "B007_3HP_1730rpm.mat",
+          "B014_1HP_1772rpm.mat",
+          "B014_3HP_1730rpm.mat",
+          "B021_1HP_1772rpm.mat",
+          "B021_3HP_1730rpm.mat",
+          "IR007_1HP_1772rpm.mat",
+          "IR007_3HP_1730rpm.mat",
+          "IR014_1HP_1772rpm.mat",
+          "IR014_3HP_1730rpm.mat",
+          "IR021_1HP_1772rpm.mat",
+          "IR021_3HP_1730rpm.mat",
+          "Normal_1HP_1772rpm.mat",
+          "Normal_3HP_1730rpm.mat",
+          "OR007@6_1HP_1772rpm.mat",
+          "OR007@6_3HP_1730rpm.mat",
+          "OR014@6_1HP_1772rpm.mat",
+          "OR014@6_3HP_1730rpm.mat",
+          "OR021@6_1HP_1772rpm.mat",
+          "OR021@6_3HP_1730rpm.mat"
+        ],
+        "validation": [
+          "B007_0HP_1797rpm.mat",
+          "B014_0HP_1797rpm.mat",
+          "B021_0HP_1797rpm.mat",
+          "IR007_0HP_1797rpm.mat",
+          "IR014_0HP_1797rpm.mat",
+          "IR021_0HP_1797rpm.mat",
+          "Normal_0HP_1797rpm.mat",
+          "OR007@6_0HP_1797rpm.mat",
+          "OR014@6_0HP_1797rpm.mat",
+          "OR021@6_0HP_1797rpm.mat"
+        ],
+        "test": [
+          "B007_2HP_1750rpm.mat",
+          "B014_2HP_1750rpm.mat",
+          "B021_2HP_1750rpm.mat",
+          "IR007_2HP_1750rpm.mat",
+          "IR014_2HP_1750rpm.mat",
+          "IR021_2HP_1750rpm.mat",
+          "Normal_2HP_1750rpm.mat",
+          "OR007@6_2HP_1750rpm.mat",
+          "OR014@6_2HP_1750rpm.mat",
+          "OR021@6_2HP_1750rpm.mat"
+        ]
+      }
+    }
+  },
+  {
+    "model": "1d",
+    "split": "load",
+    "seed": 123,
+    "accuracy": 1.0,
+    "macro_f1": 1.0,
+    "confusion_matrix": [
+      [
+        944,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        709,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        709,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        710
+      ]
+    ],
+    "per_class": {
+      "Normal": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "IR": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "OR": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "B": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      }
+    },
+    "split_assignment": {
+      "groups": {
+        "train": [
+          0,
+          3
+        ],
+        "validation": [
+          1
+        ],
+        "test": [
+          2
+        ]
+      },
+      "recordings": {
+        "train": [
+          "B007_0HP_1797rpm.mat",
+          "B007_3HP_1730rpm.mat",
+          "B014_0HP_1797rpm.mat",
+          "B014_3HP_1730rpm.mat",
+          "B021_0HP_1797rpm.mat",
+          "B021_3HP_1730rpm.mat",
+          "IR007_0HP_1797rpm.mat",
+          "IR007_3HP_1730rpm.mat",
+          "IR014_0HP_1797rpm.mat",
+          "IR014_3HP_1730rpm.mat",
+          "IR021_0HP_1797rpm.mat",
+          "IR021_3HP_1730rpm.mat",
+          "Normal_0HP_1797rpm.mat",
+          "Normal_3HP_1730rpm.mat",
+          "OR007@6_0HP_1797rpm.mat",
+          "OR007@6_3HP_1730rpm.mat",
+          "OR014@6_0HP_1797rpm.mat",
+          "OR014@6_3HP_1730rpm.mat",
+          "OR021@6_0HP_1797rpm.mat",
+          "OR021@6_3HP_1730rpm.mat"
+        ],
+        "validation": [
+          "B007_1HP_1772rpm.mat",
+          "B014_1HP_1772rpm.mat",
+          "B021_1HP_1772rpm.mat",
+          "IR007_1HP_1772rpm.mat",
+          "IR014_1HP_1772rpm.mat",
+          "IR021_1HP_1772rpm.mat",
+          "Normal_1HP_1772rpm.mat",
+          "OR007@6_1HP_1772rpm.mat",
+          "OR014@6_1HP_1772rpm.mat",
+          "OR021@6_1HP_1772rpm.mat"
+        ],
+        "test": [
+          "B007_2HP_1750rpm.mat",
+          "B014_2HP_1750rpm.mat",
+          "B021_2HP_1750rpm.mat",
+          "IR007_2HP_1750rpm.mat",
+          "IR014_2HP_1750rpm.mat",
+          "IR021_2HP_1750rpm.mat",
+          "Normal_2HP_1750rpm.mat",
+          "OR007@6_2HP_1750rpm.mat",
+          "OR014@6_2HP_1750rpm.mat",
+          "OR021@6_2HP_1750rpm.mat"
+        ]
+      }
+    }
+  },
+  {
+    "model": "1d",
+    "split": "load",
+    "seed": 456,
+    "accuracy": 0.9484,
+    "macro_f1": 0.9434,
+    "confusion_matrix": [
+      [
+        947,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        553,
+        0,
+        159
+      ],
+      [
+        0,
+        0,
+        712,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        710
+      ]
+    ],
+    "per_class": {
+      "Normal": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "IR": {
+        "precision": 1.0,
+        "recall": 0.7767,
+        "f1": 0.8743
+      },
+      "OR": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "B": {
+        "precision": 0.817,
+        "recall": 1.0,
+        "f1": 0.8993
+      }
+    },
+    "split_assignment": {
+      "groups": {
+        "train": [
+          0,
+          2
+        ],
+        "validation": [
+          1
+        ],
+        "test": [
+          3
+        ]
+      },
+      "recordings": {
+        "train": [
+          "B007_0HP_1797rpm.mat",
+          "B007_2HP_1750rpm.mat",
+          "B014_0HP_1797rpm.mat",
+          "B014_2HP_1750rpm.mat",
+          "B021_0HP_1797rpm.mat",
+          "B021_2HP_1750rpm.mat",
+          "IR007_0HP_1797rpm.mat",
+          "IR007_2HP_1750rpm.mat",
+          "IR014_0HP_1797rpm.mat",
+          "IR014_2HP_1750rpm.mat",
+          "IR021_0HP_1797rpm.mat",
+          "IR021_2HP_1750rpm.mat",
+          "Normal_0HP_1797rpm.mat",
+          "Normal_2HP_1750rpm.mat",
+          "OR007@6_0HP_1797rpm.mat",
+          "OR007@6_2HP_1750rpm.mat",
+          "OR014@6_0HP_1797rpm.mat",
+          "OR014@6_2HP_1750rpm.mat",
+          "OR021@6_0HP_1797rpm.mat",
+          "OR021@6_2HP_1750rpm.mat"
+        ],
+        "validation": [
+          "B007_1HP_1772rpm.mat",
+          "B014_1HP_1772rpm.mat",
+          "B021_1HP_1772rpm.mat",
+          "IR007_1HP_1772rpm.mat",
+          "IR014_1HP_1772rpm.mat",
+          "IR021_1HP_1772rpm.mat",
+          "Normal_1HP_1772rpm.mat",
+          "OR007@6_1HP_1772rpm.mat",
+          "OR014@6_1HP_1772rpm.mat",
+          "OR021@6_1HP_1772rpm.mat"
+        ],
+        "test": [
+          "B007_3HP_1730rpm.mat",
+          "B014_3HP_1730rpm.mat",
+          "B021_3HP_1730rpm.mat",
+          "IR007_3HP_1730rpm.mat",
+          "IR014_3HP_1730rpm.mat",
+          "IR021_3HP_1730rpm.mat",
+          "Normal_3HP_1730rpm.mat",
+          "OR007@6_3HP_1730rpm.mat",
+          "OR014@6_3HP_1730rpm.mat",
+          "OR021@6_3HP_1730rpm.mat"
+        ]
+      }
+    }
+  },
+  {
+    "model": "1d",
+    "split": "load",
+    "seed": 789,
+    "accuracy": 0.9344,
+    "macro_f1": 0.9275,
+    "confusion_matrix": [
+      [
+        947,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        510,
+        0,
+        202
+      ],
+      [
+        0,
+        0,
+        712,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        710
+      ]
+    ],
+    "per_class": {
+      "Normal": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "IR": {
+        "precision": 1.0,
+        "recall": 0.7163,
+        "f1": 0.8347
+      },
+      "OR": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "B": {
+        "precision": 0.7785,
+        "recall": 1.0,
+        "f1": 0.8755
+      }
+    },
+    "split_assignment": {
+      "groups": {
+        "train": [
+          0,
+          1
+        ],
+        "validation": [
+          2
+        ],
+        "test": [
+          3
+        ]
+      },
+      "recordings": {
+        "train": [
+          "B007_0HP_1797rpm.mat",
+          "B007_1HP_1772rpm.mat",
+          "B014_0HP_1797rpm.mat",
+          "B014_1HP_1772rpm.mat",
+          "B021_0HP_1797rpm.mat",
+          "B021_1HP_1772rpm.mat",
+          "IR007_0HP_1797rpm.mat",
+          "IR007_1HP_1772rpm.mat",
+          "IR014_0HP_1797rpm.mat",
+          "IR014_1HP_1772rpm.mat",
+          "IR021_0HP_1797rpm.mat",
+          "IR021_1HP_1772rpm.mat",
+          "Normal_0HP_1797rpm.mat",
+          "Normal_1HP_1772rpm.mat",
+          "OR007@6_0HP_1797rpm.mat",
+          "OR007@6_1HP_1772rpm.mat",
+          "OR014@6_0HP_1797rpm.mat",
+          "OR014@6_1HP_1772rpm.mat",
+          "OR021@6_0HP_1797rpm.mat",
+          "OR021@6_1HP_1772rpm.mat"
+        ],
+        "validation": [
+          "B007_2HP_1750rpm.mat",
+          "B014_2HP_1750rpm.mat",
+          "B021_2HP_1750rpm.mat",
+          "IR007_2HP_1750rpm.mat",
+          "IR014_2HP_1750rpm.mat",
+          "IR021_2HP_1750rpm.mat",
+          "Normal_2HP_1750rpm.mat",
+          "OR007@6_2HP_1750rpm.mat",
+          "OR014@6_2HP_1750rpm.mat",
+          "OR021@6_2HP_1750rpm.mat"
+        ],
+        "test": [
+          "B007_3HP_1730rpm.mat",
+          "B014_3HP_1730rpm.mat",
+          "B021_3HP_1730rpm.mat",
+          "IR007_3HP_1730rpm.mat",
+          "IR014_3HP_1730rpm.mat",
+          "IR021_3HP_1730rpm.mat",
+          "Normal_3HP_1730rpm.mat",
+          "OR007@6_3HP_1730rpm.mat",
+          "OR014@6_3HP_1730rpm.mat",
+          "OR021@6_3HP_1730rpm.mat"
+        ]
+      }
+    }
+  },
+  {
+    "model": "1d",
+    "split": "load",
+    "seed": 1024,
+    "accuracy": 0.9211,
+    "macro_f1": 0.9123,
+    "confusion_matrix": [
+      [
+        947,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        476,
+        0,
+        236
+      ],
+      [
+        0,
+        7,
+        705,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        710
+      ]
+    ],
+    "per_class": {
+      "Normal": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "IR": {
+        "precision": 0.9855,
+        "recall": 0.6685,
+        "f1": 0.7967
+      },
+      "OR": {
+        "precision": 1.0,
+        "recall": 0.9902,
+        "f1": 0.9951
+      },
+      "B": {
+        "precision": 0.7505,
+        "recall": 1.0,
+        "f1": 0.8575
+      }
+    },
+    "split_assignment": {
+      "groups": {
+        "train": [
+          0,
+          2
+        ],
+        "validation": [
+          1
+        ],
+        "test": [
+          3
+        ]
+      },
+      "recordings": {
+        "train": [
+          "B007_0HP_1797rpm.mat",
+          "B007_2HP_1750rpm.mat",
+          "B014_0HP_1797rpm.mat",
+          "B014_2HP_1750rpm.mat",
+          "B021_0HP_1797rpm.mat",
+          "B021_2HP_1750rpm.mat",
+          "IR007_0HP_1797rpm.mat",
+          "IR007_2HP_1750rpm.mat",
+          "IR014_0HP_1797rpm.mat",
+          "IR014_2HP_1750rpm.mat",
+          "IR021_0HP_1797rpm.mat",
+          "IR021_2HP_1750rpm.mat",
+          "Normal_0HP_1797rpm.mat",
+          "Normal_2HP_1750rpm.mat",
+          "OR007@6_0HP_1797rpm.mat",
+          "OR007@6_2HP_1750rpm.mat",
+          "OR014@6_0HP_1797rpm.mat",
+          "OR014@6_2HP_1750rpm.mat",
+          "OR021@6_0HP_1797rpm.mat",
+          "OR021@6_2HP_1750rpm.mat"
+        ],
+        "validation": [
+          "B007_1HP_1772rpm.mat",
+          "B014_1HP_1772rpm.mat",
+          "B021_1HP_1772rpm.mat",
+          "IR007_1HP_1772rpm.mat",
+          "IR014_1HP_1772rpm.mat",
+          "IR021_1HP_1772rpm.mat",
+          "Normal_1HP_1772rpm.mat",
+          "OR007@6_1HP_1772rpm.mat",
+          "OR014@6_1HP_1772rpm.mat",
+          "OR021@6_1HP_1772rpm.mat"
+        ],
+        "test": [
+          "B007_3HP_1730rpm.mat",
+          "B014_3HP_1730rpm.mat",
+          "B021_3HP_1730rpm.mat",
+          "IR007_3HP_1730rpm.mat",
+          "IR014_3HP_1730rpm.mat",
+          "IR021_3HP_1730rpm.mat",
+          "Normal_3HP_1730rpm.mat",
+          "OR007@6_3HP_1730rpm.mat",
+          "OR014@6_3HP_1730rpm.mat",
+          "OR021@6_3HP_1730rpm.mat"
+        ]
+      }
+    }
+  },
+  {
+    "model": "1d",
+    "split": "fault_size",
+    "seed": 42,
+    "accuracy": 0.743,
+    "macro_f1": 0.6613,
+    "confusion_matrix": [
+      [
+        944,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        946,
+        0
+      ],
+      [
+        0,
+        11,
+        938,
+        0
+      ],
+      [
+        16,
+        0,
+        0,
+        931
+      ]
+    ],
+    "per_class": {
+      "Normal": {
+        "precision": 0.9833,
+        "recall": 1.0,
+        "f1": 0.9916
+      },
+      "IR": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "OR": {
+        "precision": 0.4979,
+        "recall": 0.9884,
+        "f1": 0.6622
+      },
+      "B": {
+        "precision": 1.0,
+        "recall": 0.9831,
+        "f1": 0.9915
+      }
+    },
+    "split_assignment": {
+      "groups": {
+        "train": [
+          "007"
+        ],
+        "validation": [
+          "014"
+        ],
+        "test": [
+          "021"
+        ]
+      },
+      "recordings": {
+        "train": [
+          "B007_0HP_1797rpm.mat",
+          "B007_1HP_1772rpm.mat",
+          "B007_2HP_1750rpm.mat",
+          "B007_3HP_1730rpm.mat",
+          "IR007_0HP_1797rpm.mat",
+          "IR007_1HP_1772rpm.mat",
+          "IR007_2HP_1750rpm.mat",
+          "IR007_3HP_1730rpm.mat",
+          "Normal_1HP_1772rpm.mat",
+          "Normal_3HP_1730rpm.mat",
+          "OR007@6_0HP_1797rpm.mat",
+          "OR007@6_1HP_1772rpm.mat",
+          "OR007@6_2HP_1750rpm.mat",
+          "OR007@6_3HP_1730rpm.mat"
+        ],
+        "validation": [
+          "B014_0HP_1797rpm.mat",
+          "B014_1HP_1772rpm.mat",
+          "B014_2HP_1750rpm.mat",
+          "B014_3HP_1730rpm.mat",
+          "IR014_0HP_1797rpm.mat",
+          "IR014_1HP_1772rpm.mat",
+          "IR014_2HP_1750rpm.mat",
+          "IR014_3HP_1730rpm.mat",
+          "Normal_0HP_1797rpm.mat",
+          "OR014@6_0HP_1797rpm.mat",
+          "OR014@6_1HP_1772rpm.mat",
+          "OR014@6_2HP_1750rpm.mat",
+          "OR014@6_3HP_1730rpm.mat"
+        ],
+        "test": [
+          "B021_0HP_1797rpm.mat",
+          "B021_1HP_1772rpm.mat",
+          "B021_2HP_1750rpm.mat",
+          "B021_3HP_1730rpm.mat",
+          "IR021_0HP_1797rpm.mat",
+          "IR021_1HP_1772rpm.mat",
+          "IR021_2HP_1750rpm.mat",
+          "IR021_3HP_1730rpm.mat",
+          "Normal_2HP_1750rpm.mat",
+          "OR021@6_0HP_1797rpm.mat",
+          "OR021@6_1HP_1772rpm.mat",
+          "OR021@6_2HP_1750rpm.mat",
+          "OR021@6_3HP_1730rpm.mat"
+        ]
+      }
+    }
+  },
+  {
+    "model": "1d",
+    "split": "fault_size",
+    "seed": 123,
+    "accuracy": 0.5417,
+    "macro_f1": 0.4827,
+    "confusion_matrix": [
+      [
+        944,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        288,
+        0,
+        658
+      ],
+      [
+        0,
+        949,
+        0,
+        0
+      ],
+      [
+        0,
+        74,
+        54,
+        819
+      ]
+    ],
+    "per_class": {
+      "Normal": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "IR": {
+        "precision": 0.2197,
+        "recall": 0.3044,
+        "f1": 0.2552
+      },
+      "OR": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "B": {
+        "precision": 0.5545,
+        "recall": 0.8648,
+        "f1": 0.6757
+      }
+    },
+    "split_assignment": {
+      "groups": {
+        "train": [
+          "014"
+        ],
+        "validation": [
+          "007"
+        ],
+        "test": [
+          "021"
+        ]
+      },
+      "recordings": {
+        "train": [
+          "B014_0HP_1797rpm.mat",
+          "B014_1HP_1772rpm.mat",
+          "B014_2HP_1750rpm.mat",
+          "B014_3HP_1730rpm.mat",
+          "IR014_0HP_1797rpm.mat",
+          "IR014_1HP_1772rpm.mat",
+          "IR014_2HP_1750rpm.mat",
+          "IR014_3HP_1730rpm.mat",
+          "Normal_0HP_1797rpm.mat",
+          "Normal_3HP_1730rpm.mat",
+          "OR014@6_0HP_1797rpm.mat",
+          "OR014@6_1HP_1772rpm.mat",
+          "OR014@6_2HP_1750rpm.mat",
+          "OR014@6_3HP_1730rpm.mat"
+        ],
+        "validation": [
+          "B007_0HP_1797rpm.mat",
+          "B007_1HP_1772rpm.mat",
+          "B007_2HP_1750rpm.mat",
+          "B007_3HP_1730rpm.mat",
+          "IR007_0HP_1797rpm.mat",
+          "IR007_1HP_1772rpm.mat",
+          "IR007_2HP_1750rpm.mat",
+          "IR007_3HP_1730rpm.mat",
+          "Normal_1HP_1772rpm.mat",
+          "OR007@6_0HP_1797rpm.mat",
+          "OR007@6_1HP_1772rpm.mat",
+          "OR007@6_2HP_1750rpm.mat",
+          "OR007@6_3HP_1730rpm.mat"
+        ],
+        "test": [
+          "B021_0HP_1797rpm.mat",
+          "B021_1HP_1772rpm.mat",
+          "B021_2HP_1750rpm.mat",
+          "B021_3HP_1730rpm.mat",
+          "IR021_0HP_1797rpm.mat",
+          "IR021_1HP_1772rpm.mat",
+          "IR021_2HP_1750rpm.mat",
+          "IR021_3HP_1730rpm.mat",
+          "Normal_2HP_1750rpm.mat",
+          "OR021@6_0HP_1797rpm.mat",
+          "OR021@6_1HP_1772rpm.mat",
+          "OR021@6_2HP_1750rpm.mat",
+          "OR021@6_3HP_1730rpm.mat"
+        ]
+      }
+    }
+  },
+  {
+    "model": "1d",
+    "split": "fault_size",
+    "seed": 456,
+    "accuracy": 0.4865,
+    "macro_f1": 0.3633,
+    "confusion_matrix": [
+      [
+        947,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        944
+      ],
+      [
+        0,
+        0,
+        0,
+        946
+      ],
+      [
+        51,
+        0,
+        2,
+        894
+      ]
+    ],
+    "per_class": {
+      "Normal": {
+        "precision": 0.9489,
+        "recall": 1.0,
+        "f1": 0.9738
+      },
+      "IR": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "OR": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "B": {
+        "precision": 0.3211,
+        "recall": 0.944,
+        "f1": 0.4792
+      }
+    },
+    "split_assignment": {
+      "groups": {
+        "train": [
+          "021"
+        ],
+        "validation": [
+          "007"
+        ],
+        "test": [
+          "014"
+        ]
+      },
+      "recordings": {
+        "train": [
+          "B021_0HP_1797rpm.mat",
+          "B021_1HP_1772rpm.mat",
+          "B021_2HP_1750rpm.mat",
+          "B021_3HP_1730rpm.mat",
+          "IR021_0HP_1797rpm.mat",
+          "IR021_1HP_1772rpm.mat",
+          "IR021_2HP_1750rpm.mat",
+          "IR021_3HP_1730rpm.mat",
+          "Normal_0HP_1797rpm.mat",
+          "Normal_2HP_1750rpm.mat",
+          "OR021@6_0HP_1797rpm.mat",
+          "OR021@6_1HP_1772rpm.mat",
+          "OR021@6_2HP_1750rpm.mat",
+          "OR021@6_3HP_1730rpm.mat"
+        ],
+        "validation": [
+          "B007_0HP_1797rpm.mat",
+          "B007_1HP_1772rpm.mat",
+          "B007_2HP_1750rpm.mat",
+          "B007_3HP_1730rpm.mat",
+          "IR007_0HP_1797rpm.mat",
+          "IR007_1HP_1772rpm.mat",
+          "IR007_2HP_1750rpm.mat",
+          "IR007_3HP_1730rpm.mat",
+          "Normal_1HP_1772rpm.mat",
+          "OR007@6_0HP_1797rpm.mat",
+          "OR007@6_1HP_1772rpm.mat",
+          "OR007@6_2HP_1750rpm.mat",
+          "OR007@6_3HP_1730rpm.mat"
+        ],
+        "test": [
+          "B014_0HP_1797rpm.mat",
+          "B014_1HP_1772rpm.mat",
+          "B014_2HP_1750rpm.mat",
+          "B014_3HP_1730rpm.mat",
+          "IR014_0HP_1797rpm.mat",
+          "IR014_1HP_1772rpm.mat",
+          "IR014_2HP_1750rpm.mat",
+          "IR014_3HP_1730rpm.mat",
+          "Normal_3HP_1730rpm.mat",
+          "OR014@6_0HP_1797rpm.mat",
+          "OR014@6_1HP_1772rpm.mat",
+          "OR014@6_2HP_1750rpm.mat",
+          "OR014@6_3HP_1730rpm.mat"
+        ]
+      }
+    }
+  },
+  {
+    "model": "1d",
+    "split": "fault_size",
+    "seed": 789,
+    "accuracy": 0.7337,
+    "macro_f1": 0.6587,
+    "confusion_matrix": [
+      [
+        947,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        946,
+        0
+      ],
+      [
+        0,
+        58,
+        891,
+        0
+      ],
+      [
+        4,
+        0,
+        1,
+        942
+      ]
+    ],
+    "per_class": {
+      "Normal": {
+        "precision": 0.9958,
+        "recall": 1.0,
+        "f1": 0.9979
+      },
+      "IR": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "OR": {
+        "precision": 0.4848,
+        "recall": 0.9389,
+        "f1": 0.6394
+      },
+      "B": {
+        "precision": 1.0,
+        "recall": 0.9947,
+        "f1": 0.9974
+      }
+    },
+    "split_assignment": {
+      "groups": {
+        "train": [
+          "007"
+        ],
+        "validation": [
+          "014"
+        ],
+        "test": [
+          "021"
+        ]
+      },
+      "recordings": {
+        "train": [
+          "B007_0HP_1797rpm.mat",
+          "B007_1HP_1772rpm.mat",
+          "B007_2HP_1750rpm.mat",
+          "B007_3HP_1730rpm.mat",
+          "IR007_0HP_1797rpm.mat",
+          "IR007_1HP_1772rpm.mat",
+          "IR007_2HP_1750rpm.mat",
+          "IR007_3HP_1730rpm.mat",
+          "Normal_0HP_1797rpm.mat",
+          "Normal_1HP_1772rpm.mat",
+          "OR007@6_0HP_1797rpm.mat",
+          "OR007@6_1HP_1772rpm.mat",
+          "OR007@6_2HP_1750rpm.mat",
+          "OR007@6_3HP_1730rpm.mat"
+        ],
+        "validation": [
+          "B014_0HP_1797rpm.mat",
+          "B014_1HP_1772rpm.mat",
+          "B014_2HP_1750rpm.mat",
+          "B014_3HP_1730rpm.mat",
+          "IR014_0HP_1797rpm.mat",
+          "IR014_1HP_1772rpm.mat",
+          "IR014_2HP_1750rpm.mat",
+          "IR014_3HP_1730rpm.mat",
+          "Normal_2HP_1750rpm.mat",
+          "OR014@6_0HP_1797rpm.mat",
+          "OR014@6_1HP_1772rpm.mat",
+          "OR014@6_2HP_1750rpm.mat",
+          "OR014@6_3HP_1730rpm.mat"
+        ],
+        "test": [
+          "B021_0HP_1797rpm.mat",
+          "B021_1HP_1772rpm.mat",
+          "B021_2HP_1750rpm.mat",
+          "B021_3HP_1730rpm.mat",
+          "IR021_0HP_1797rpm.mat",
+          "IR021_1HP_1772rpm.mat",
+          "IR021_2HP_1750rpm.mat",
+          "IR021_3HP_1730rpm.mat",
+          "Normal_3HP_1730rpm.mat",
+          "OR021@6_0HP_1797rpm.mat",
+          "OR021@6_1HP_1772rpm.mat",
+          "OR021@6_2HP_1750rpm.mat",
+          "OR021@6_3HP_1730rpm.mat"
+        ]
+      }
+    }
+  },
+  {
+    "model": "1d",
+    "split": "fault_size",
+    "seed": 1024,
+    "accuracy": 0.7493,
+    "macro_f1": 0.6665,
+    "confusion_matrix": [
+      [
+        947,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        948,
+        0
+      ],
+      [
+        0,
+        2,
+        947,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        946
+      ]
+    ],
+    "per_class": {
+      "Normal": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "IR": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "OR": {
+        "precision": 0.4997,
+        "recall": 0.9979,
+        "f1": 0.666
+      },
+      "B": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      }
+    },
+    "split_assignment": {
+      "groups": {
+        "train": [
+          "021"
+        ],
+        "validation": [
+          "014"
+        ],
+        "test": [
+          "007"
+        ]
+      },
+      "recordings": {
+        "train": [
+          "B021_0HP_1797rpm.mat",
+          "B021_1HP_1772rpm.mat",
+          "B021_2HP_1750rpm.mat",
+          "B021_3HP_1730rpm.mat",
+          "IR021_0HP_1797rpm.mat",
+          "IR021_1HP_1772rpm.mat",
+          "IR021_2HP_1750rpm.mat",
+          "IR021_3HP_1730rpm.mat",
+          "Normal_0HP_1797rpm.mat",
+          "Normal_2HP_1750rpm.mat",
+          "OR021@6_0HP_1797rpm.mat",
+          "OR021@6_1HP_1772rpm.mat",
+          "OR021@6_2HP_1750rpm.mat",
+          "OR021@6_3HP_1730rpm.mat"
+        ],
+        "validation": [
+          "B014_0HP_1797rpm.mat",
+          "B014_1HP_1772rpm.mat",
+          "B014_2HP_1750rpm.mat",
+          "B014_3HP_1730rpm.mat",
+          "IR014_0HP_1797rpm.mat",
+          "IR014_1HP_1772rpm.mat",
+          "IR014_2HP_1750rpm.mat",
+          "IR014_3HP_1730rpm.mat",
+          "Normal_1HP_1772rpm.mat",
+          "OR014@6_0HP_1797rpm.mat",
+          "OR014@6_1HP_1772rpm.mat",
+          "OR014@6_2HP_1750rpm.mat",
+          "OR014@6_3HP_1730rpm.mat"
+        ],
+        "test": [
+          "B007_0HP_1797rpm.mat",
+          "B007_1HP_1772rpm.mat",
+          "B007_2HP_1750rpm.mat",
+          "B007_3HP_1730rpm.mat",
+          "IR007_0HP_1797rpm.mat",
+          "IR007_1HP_1772rpm.mat",
+          "IR007_2HP_1750rpm.mat",
+          "IR007_3HP_1730rpm.mat",
+          "Normal_3HP_1730rpm.mat",
+          "OR007@6_0HP_1797rpm.mat",
+          "OR007@6_1HP_1772rpm.mat",
+          "OR007@6_2HP_1750rpm.mat",
+          "OR007@6_3HP_1730rpm.mat"
+        ]
+      }
+    }
+  },
+  {
+    "model": "2d",
+    "split": "recording",
+    "seed": 42,
+    "accuracy": 0.999,
+    "macro_f1": 0.9989,
+    "confusion_matrix": [
+      [
+        947,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        710,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        712,
+        0
+      ],
+      [
+        0,
+        3,
+        0,
+        707
+      ]
+    ],
+    "per_class": {
+      "Normal": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "IR": {
+        "precision": 0.9958,
+        "recall": 1.0,
+        "f1": 0.9979
+      },
+      "OR": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "B": {
+        "precision": 1.0,
+        "recall": 0.9958,
+        "f1": 0.9979
+      }
+    },
+    "split_assignment": {
+      "groups": null,
+      "recordings": {
+        "train": [
+          "B007_0HP_1797rpm.mat",
+          "B007_1HP_1772rpm.mat",
+          "B007_2HP_1750rpm.mat",
+          "B014_1HP_1772rpm.mat",
+          "B021_0HP_1797rpm.mat",
+          "B021_1HP_1772rpm.mat",
+          "B021_2HP_1750rpm.mat",
+          "IR007_0HP_1797rpm.mat",
+          "IR007_1HP_1772rpm.mat",
+          "IR007_3HP_1730rpm.mat",
+          "IR014_2HP_1750rpm.mat",
+          "IR021_0HP_1797rpm.mat",
+          "IR021_1HP_1772rpm.mat",
+          "IR021_2HP_1750rpm.mat",
+          "Normal_0HP_1797rpm.mat",
+          "Normal_2HP_1750rpm.mat",
+          "OR007@6_1HP_1772rpm.mat",
+          "OR014@6_0HP_1797rpm.mat",
+          "OR014@6_1HP_1772rpm.mat",
+          "OR014@6_2HP_1750rpm.mat",
+          "OR014@6_3HP_1730rpm.mat",
+          "OR021@6_1HP_1772rpm.mat",
+          "OR021@6_2HP_1750rpm.mat"
+        ],
+        "validation": [
+          "B014_0HP_1797rpm.mat",
+          "B021_3HP_1730rpm.mat",
+          "IR014_0HP_1797rpm.mat",
+          "IR014_1HP_1772rpm.mat",
+          "Normal_1HP_1772rpm.mat",
+          "OR007@6_2HP_1750rpm.mat",
+          "OR007@6_3HP_1730rpm.mat"
+        ],
+        "test": [
+          "B007_3HP_1730rpm.mat",
+          "B014_2HP_1750rpm.mat",
+          "B014_3HP_1730rpm.mat",
+          "IR007_2HP_1750rpm.mat",
+          "IR014_3HP_1730rpm.mat",
+          "IR021_3HP_1730rpm.mat",
+          "Normal_3HP_1730rpm.mat",
+          "OR007@6_0HP_1797rpm.mat",
+          "OR021@6_0HP_1797rpm.mat",
+          "OR021@6_3HP_1730rpm.mat"
+        ]
+      }
+    }
+  },
+  {
+    "model": "2d",
+    "split": "recording",
+    "seed": 123,
+    "accuracy": 0.9186,
+    "macro_f1": 0.9103,
+    "confusion_matrix": [
+      [
+        944,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        687,
+        21,
+        0
+      ],
+      [
+        0,
+        0,
+        493,
+        216
+      ],
+      [
+        0,
+        7,
+        6,
+        697
+      ]
+    ],
+    "per_class": {
+      "Normal": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "IR": {
+        "precision": 0.9899,
+        "recall": 0.9703,
+        "f1": 0.98
+      },
+      "OR": {
+        "precision": 0.9481,
+        "recall": 0.6953,
+        "f1": 0.8023
+      },
+      "B": {
+        "precision": 0.7634,
+        "recall": 0.9817,
+        "f1": 0.8589
+      }
+    },
+    "split_assignment": {
+      "groups": null,
+      "recordings": {
+        "train": [
+          "B007_0HP_1797rpm.mat",
+          "B014_0HP_1797rpm.mat",
+          "B014_1HP_1772rpm.mat",
+          "B014_3HP_1730rpm.mat",
+          "B021_0HP_1797rpm.mat",
+          "B021_1HP_1772rpm.mat",
+          "B021_2HP_1750rpm.mat",
+          "IR007_2HP_1750rpm.mat",
+          "IR007_3HP_1730rpm.mat",
+          "IR014_0HP_1797rpm.mat",
+          "IR014_1HP_1772rpm.mat",
+          "IR014_2HP_1750rpm.mat",
+          "IR021_0HP_1797rpm.mat",
+          "IR021_3HP_1730rpm.mat",
+          "Normal_0HP_1797rpm.mat",
+          "Normal_3HP_1730rpm.mat",
+          "OR007@6_0HP_1797rpm.mat",
+          "OR007@6_1HP_1772rpm.mat",
+          "OR007@6_3HP_1730rpm.mat",
+          "OR014@6_2HP_1750rpm.mat",
+          "OR021@6_1HP_1772rpm.mat",
+          "OR021@6_2HP_1750rpm.mat",
+          "OR021@6_3HP_1730rpm.mat"
+        ],
+        "validation": [
+          "B007_1HP_1772rpm.mat",
+          "B007_3HP_1730rpm.mat",
+          "IR014_3HP_1730rpm.mat",
+          "IR021_2HP_1750rpm.mat",
+          "Normal_2HP_1750rpm.mat",
+          "OR014@6_1HP_1772rpm.mat",
+          "OR021@6_0HP_1797rpm.mat"
+        ],
+        "test": [
+          "B007_2HP_1750rpm.mat",
+          "B014_2HP_1750rpm.mat",
+          "B021_3HP_1730rpm.mat",
+          "IR007_0HP_1797rpm.mat",
+          "IR007_1HP_1772rpm.mat",
+          "IR021_1HP_1772rpm.mat",
+          "Normal_1HP_1772rpm.mat",
+          "OR007@6_2HP_1750rpm.mat",
+          "OR014@6_0HP_1797rpm.mat",
+          "OR014@6_3HP_1730rpm.mat"
+        ]
+      }
+    }
+  },
+  {
+    "model": "2d",
+    "split": "recording",
+    "seed": 456,
+    "accuracy": 0.9716,
+    "macro_f1": 0.9739,
+    "confusion_matrix": [
+      [
+        475,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        704,
+        0,
+        8
+      ],
+      [
+        0,
+        0,
+        710,
+        0
+      ],
+      [
+        0,
+        62,
+        4,
+        644
+      ]
+    ],
+    "per_class": {
+      "Normal": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "IR": {
+        "precision": 0.9191,
+        "recall": 0.9888,
+        "f1": 0.9526
+      },
+      "OR": {
+        "precision": 0.9944,
+        "recall": 1.0,
+        "f1": 0.9972
+      },
+      "B": {
+        "precision": 0.9877,
+        "recall": 0.907,
+        "f1": 0.9457
+      }
+    },
+    "split_assignment": {
+      "groups": null,
+      "recordings": {
+        "train": [
+          "B007_0HP_1797rpm.mat",
+          "B007_1HP_1772rpm.mat",
+          "B007_2HP_1750rpm.mat",
+          "B007_3HP_1730rpm.mat",
+          "B014_2HP_1750rpm.mat",
+          "B014_3HP_1730rpm.mat",
+          "B021_0HP_1797rpm.mat",
+          "IR007_0HP_1797rpm.mat",
+          "IR007_1HP_1772rpm.mat",
+          "IR014_0HP_1797rpm.mat",
+          "IR014_3HP_1730rpm.mat",
+          "IR021_1HP_1772rpm.mat",
+          "IR021_2HP_1750rpm.mat",
+          "IR021_3HP_1730rpm.mat",
+          "Normal_2HP_1750rpm.mat",
+          "Normal_3HP_1730rpm.mat",
+          "OR007@6_1HP_1772rpm.mat",
+          "OR007@6_2HP_1750rpm.mat",
+          "OR007@6_3HP_1730rpm.mat",
+          "OR014@6_1HP_1772rpm.mat",
+          "OR014@6_3HP_1730rpm.mat",
+          "OR021@6_2HP_1750rpm.mat",
+          "OR021@6_3HP_1730rpm.mat"
+        ],
+        "validation": [
+          "B014_0HP_1797rpm.mat",
+          "B021_2HP_1750rpm.mat",
+          "IR007_2HP_1750rpm.mat",
+          "IR014_2HP_1750rpm.mat",
+          "Normal_1HP_1772rpm.mat",
+          "OR014@6_0HP_1797rpm.mat",
+          "OR021@6_0HP_1797rpm.mat"
+        ],
+        "test": [
+          "B014_1HP_1772rpm.mat",
+          "B021_1HP_1772rpm.mat",
+          "B021_3HP_1730rpm.mat",
+          "IR007_3HP_1730rpm.mat",
+          "IR014_1HP_1772rpm.mat",
+          "IR021_0HP_1797rpm.mat",
+          "Normal_0HP_1797rpm.mat",
+          "OR007@6_0HP_1797rpm.mat",
+          "OR014@6_2HP_1750rpm.mat",
+          "OR021@6_1HP_1772rpm.mat"
+        ]
+      }
+    }
+  },
+  {
+    "model": "2d",
+    "split": "recording",
+    "seed": 789,
+    "accuracy": 0.7643,
+    "macro_f1": 0.7665,
+    "confusion_matrix": [
+      [
+        475,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        243,
+        445,
+        22
+      ],
+      [
+        0,
+        1,
+        626,
+        85
+      ],
+      [
+        0,
+        61,
+        0,
+        647
+      ]
+    ],
+    "per_class": {
+      "Normal": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "IR": {
+        "precision": 0.7967,
+        "recall": 0.3423,
+        "f1": 0.4788
+      },
+      "OR": {
+        "precision": 0.5845,
+        "recall": 0.8792,
+        "f1": 0.7022
+      },
+      "B": {
+        "precision": 0.8581,
+        "recall": 0.9138,
+        "f1": 0.8851
+      }
+    },
+    "split_assignment": {
+      "groups": null,
+      "recordings": {
+        "train": [
+          "B007_0HP_1797rpm.mat",
+          "B014_1HP_1772rpm.mat",
+          "B014_2HP_1750rpm.mat",
+          "B014_3HP_1730rpm.mat",
+          "B021_0HP_1797rpm.mat",
+          "B021_1HP_1772rpm.mat",
+          "B021_2HP_1750rpm.mat",
+          "IR007_0HP_1797rpm.mat",
+          "IR007_2HP_1750rpm.mat",
+          "IR007_3HP_1730rpm.mat",
+          "IR014_0HP_1797rpm.mat",
+          "IR014_1HP_1772rpm.mat",
+          "IR014_2HP_1750rpm.mat",
+          "IR014_3HP_1730rpm.mat",
+          "Normal_2HP_1750rpm.mat",
+          "Normal_3HP_1730rpm.mat",
+          "OR007@6_0HP_1797rpm.mat",
+          "OR007@6_1HP_1772rpm.mat",
+          "OR007@6_2HP_1750rpm.mat",
+          "OR014@6_2HP_1750rpm.mat",
+          "OR021@6_0HP_1797rpm.mat",
+          "OR021@6_1HP_1772rpm.mat",
+          "OR021@6_2HP_1750rpm.mat"
+        ],
+        "validation": [
+          "B014_0HP_1797rpm.mat",
+          "B021_3HP_1730rpm.mat",
+          "IR021_0HP_1797rpm.mat",
+          "IR021_2HP_1750rpm.mat",
+          "Normal_1HP_1772rpm.mat",
+          "OR014@6_0HP_1797rpm.mat",
+          "OR014@6_3HP_1730rpm.mat"
+        ],
+        "test": [
+          "B007_1HP_1772rpm.mat",
+          "B007_2HP_1750rpm.mat",
+          "B007_3HP_1730rpm.mat",
+          "IR007_1HP_1772rpm.mat",
+          "IR021_1HP_1772rpm.mat",
+          "IR021_3HP_1730rpm.mat",
+          "Normal_0HP_1797rpm.mat",
+          "OR007@6_3HP_1730rpm.mat",
+          "OR014@6_1HP_1772rpm.mat",
+          "OR021@6_3HP_1730rpm.mat"
+        ]
+      }
+    }
+  },
+  {
+    "model": "2d",
+    "split": "recording",
+    "seed": 1024,
+    "accuracy": 0.7745,
+    "macro_f1": 0.7088,
+    "confusion_matrix": [
+      [
+        944,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        126,
+        431,
+        152
+      ],
+      [
+        0,
+        0,
+        600,
+        110
+      ],
+      [
+        0,
+        0,
+        0,
+        710
+      ]
+    ],
+    "per_class": {
+      "Normal": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "IR": {
+        "precision": 1.0,
+        "recall": 0.1777,
+        "f1": 0.3018
+      },
+      "OR": {
+        "precision": 0.582,
+        "recall": 0.8451,
+        "f1": 0.6893
+      },
+      "B": {
+        "precision": 0.7305,
+        "recall": 1.0,
+        "f1": 0.8442
+      }
+    },
+    "split_assignment": {
+      "groups": null,
+      "recordings": {
+        "train": [
+          "B007_0HP_1797rpm.mat",
+          "B007_2HP_1750rpm.mat",
+          "B007_3HP_1730rpm.mat",
+          "B014_0HP_1797rpm.mat",
+          "B014_2HP_1750rpm.mat",
+          "B014_3HP_1730rpm.mat",
+          "B021_0HP_1797rpm.mat",
+          "IR007_0HP_1797rpm.mat",
+          "IR007_2HP_1750rpm.mat",
+          "IR007_3HP_1730rpm.mat",
+          "IR014_0HP_1797rpm.mat",
+          "IR014_1HP_1772rpm.mat",
+          "IR014_2HP_1750rpm.mat",
+          "IR021_2HP_1750rpm.mat",
+          "Normal_2HP_1750rpm.mat",
+          "Normal_3HP_1730rpm.mat",
+          "OR007@6_0HP_1797rpm.mat",
+          "OR007@6_1HP_1772rpm.mat",
+          "OR007@6_2HP_1750rpm.mat",
+          "OR007@6_3HP_1730rpm.mat",
+          "OR014@6_3HP_1730rpm.mat",
+          "OR021@6_0HP_1797rpm.mat",
+          "OR021@6_1HP_1772rpm.mat"
+        ],
+        "validation": [
+          "B014_1HP_1772rpm.mat",
+          "B021_1HP_1772rpm.mat",
+          "IR007_1HP_1772rpm.mat",
+          "IR021_3HP_1730rpm.mat",
+          "Normal_0HP_1797rpm.mat",
+          "OR014@6_0HP_1797rpm.mat",
+          "OR021@6_2HP_1750rpm.mat"
+        ],
+        "test": [
+          "B007_1HP_1772rpm.mat",
+          "B021_2HP_1750rpm.mat",
+          "B021_3HP_1730rpm.mat",
+          "IR014_3HP_1730rpm.mat",
+          "IR021_0HP_1797rpm.mat",
+          "IR021_1HP_1772rpm.mat",
+          "Normal_1HP_1772rpm.mat",
+          "OR014@6_1HP_1772rpm.mat",
+          "OR014@6_2HP_1750rpm.mat",
+          "OR021@6_3HP_1730rpm.mat"
+        ]
+      }
+    }
+  },
+  {
+    "model": "2d",
+    "split": "load",
+    "seed": 42,
+    "accuracy": 0.9987,
+    "macro_f1": 0.9986,
+    "confusion_matrix": [
+      [
+        944,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        705,
+        0,
+        4
+      ],
+      [
+        0,
+        0,
+        709,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        710
+      ]
+    ],
+    "per_class": {
+      "Normal": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "IR": {
+        "precision": 1.0,
+        "recall": 0.9944,
+        "f1": 0.9972
+      },
+      "OR": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "B": {
+        "precision": 0.9944,
+        "recall": 1.0,
+        "f1": 0.9972
+      }
+    },
+    "split_assignment": {
+      "groups": {
+        "train": [
+          1,
+          3
+        ],
+        "validation": [
+          0
+        ],
+        "test": [
+          2
+        ]
+      },
+      "recordings": {
+        "train": [
+          "B007_1HP_1772rpm.mat",
+          "B007_3HP_1730rpm.mat",
+          "B014_1HP_1772rpm.mat",
+          "B014_3HP_1730rpm.mat",
+          "B021_1HP_1772rpm.mat",
+          "B021_3HP_1730rpm.mat",
+          "IR007_1HP_1772rpm.mat",
+          "IR007_3HP_1730rpm.mat",
+          "IR014_1HP_1772rpm.mat",
+          "IR014_3HP_1730rpm.mat",
+          "IR021_1HP_1772rpm.mat",
+          "IR021_3HP_1730rpm.mat",
+          "Normal_1HP_1772rpm.mat",
+          "Normal_3HP_1730rpm.mat",
+          "OR007@6_1HP_1772rpm.mat",
+          "OR007@6_3HP_1730rpm.mat",
+          "OR014@6_1HP_1772rpm.mat",
+          "OR014@6_3HP_1730rpm.mat",
+          "OR021@6_1HP_1772rpm.mat",
+          "OR021@6_3HP_1730rpm.mat"
+        ],
+        "validation": [
+          "B007_0HP_1797rpm.mat",
+          "B014_0HP_1797rpm.mat",
+          "B021_0HP_1797rpm.mat",
+          "IR007_0HP_1797rpm.mat",
+          "IR014_0HP_1797rpm.mat",
+          "IR021_0HP_1797rpm.mat",
+          "Normal_0HP_1797rpm.mat",
+          "OR007@6_0HP_1797rpm.mat",
+          "OR014@6_0HP_1797rpm.mat",
+          "OR021@6_0HP_1797rpm.mat"
+        ],
+        "test": [
+          "B007_2HP_1750rpm.mat",
+          "B014_2HP_1750rpm.mat",
+          "B021_2HP_1750rpm.mat",
+          "IR007_2HP_1750rpm.mat",
+          "IR014_2HP_1750rpm.mat",
+          "IR021_2HP_1750rpm.mat",
+          "Normal_2HP_1750rpm.mat",
+          "OR007@6_2HP_1750rpm.mat",
+          "OR014@6_2HP_1750rpm.mat",
+          "OR021@6_2HP_1750rpm.mat"
+        ]
+      }
+    }
+  },
+  {
+    "model": "2d",
+    "split": "load",
+    "seed": 123,
+    "accuracy": 0.9727,
+    "macro_f1": 0.9703,
+    "confusion_matrix": [
+      [
+        944,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        625,
+        1,
+        83
+      ],
+      [
+        0,
+        0,
+        709,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        710
+      ]
+    ],
+    "per_class": {
+      "Normal": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "IR": {
+        "precision": 1.0,
+        "recall": 0.8815,
+        "f1": 0.937
+      },
+      "OR": {
+        "precision": 0.9986,
+        "recall": 1.0,
+        "f1": 0.9993
+      },
+      "B": {
+        "precision": 0.8953,
+        "recall": 1.0,
+        "f1": 0.9448
+      }
+    },
+    "split_assignment": {
+      "groups": {
+        "train": [
+          0,
+          3
+        ],
+        "validation": [
+          1
+        ],
+        "test": [
+          2
+        ]
+      },
+      "recordings": {
+        "train": [
+          "B007_0HP_1797rpm.mat",
+          "B007_3HP_1730rpm.mat",
+          "B014_0HP_1797rpm.mat",
+          "B014_3HP_1730rpm.mat",
+          "B021_0HP_1797rpm.mat",
+          "B021_3HP_1730rpm.mat",
+          "IR007_0HP_1797rpm.mat",
+          "IR007_3HP_1730rpm.mat",
+          "IR014_0HP_1797rpm.mat",
+          "IR014_3HP_1730rpm.mat",
+          "IR021_0HP_1797rpm.mat",
+          "IR021_3HP_1730rpm.mat",
+          "Normal_0HP_1797rpm.mat",
+          "Normal_3HP_1730rpm.mat",
+          "OR007@6_0HP_1797rpm.mat",
+          "OR007@6_3HP_1730rpm.mat",
+          "OR014@6_0HP_1797rpm.mat",
+          "OR014@6_3HP_1730rpm.mat",
+          "OR021@6_0HP_1797rpm.mat",
+          "OR021@6_3HP_1730rpm.mat"
+        ],
+        "validation": [
+          "B007_1HP_1772rpm.mat",
+          "B014_1HP_1772rpm.mat",
+          "B021_1HP_1772rpm.mat",
+          "IR007_1HP_1772rpm.mat",
+          "IR014_1HP_1772rpm.mat",
+          "IR021_1HP_1772rpm.mat",
+          "Normal_1HP_1772rpm.mat",
+          "OR007@6_1HP_1772rpm.mat",
+          "OR014@6_1HP_1772rpm.mat",
+          "OR021@6_1HP_1772rpm.mat"
+        ],
+        "test": [
+          "B007_2HP_1750rpm.mat",
+          "B014_2HP_1750rpm.mat",
+          "B021_2HP_1750rpm.mat",
+          "IR007_2HP_1750rpm.mat",
+          "IR014_2HP_1750rpm.mat",
+          "IR021_2HP_1750rpm.mat",
+          "Normal_2HP_1750rpm.mat",
+          "OR007@6_2HP_1750rpm.mat",
+          "OR014@6_2HP_1750rpm.mat",
+          "OR021@6_2HP_1750rpm.mat"
+        ]
+      }
+    }
+  },
+  {
+    "model": "2d",
+    "split": "load",
+    "seed": 456,
+    "accuracy": 0.9984,
+    "macro_f1": 0.9982,
+    "confusion_matrix": [
+      [
+        947,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        709,
+        0,
+        3
+      ],
+      [
+        0,
+        1,
+        710,
+        1
+      ],
+      [
+        0,
+        0,
+        0,
+        710
+      ]
+    ],
+    "per_class": {
+      "Normal": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "IR": {
+        "precision": 0.9986,
+        "recall": 0.9958,
+        "f1": 0.9972
+      },
+      "OR": {
+        "precision": 1.0,
+        "recall": 0.9972,
+        "f1": 0.9986
+      },
+      "B": {
+        "precision": 0.9944,
+        "recall": 1.0,
+        "f1": 0.9972
+      }
+    },
+    "split_assignment": {
+      "groups": {
+        "train": [
+          0,
+          2
+        ],
+        "validation": [
+          1
+        ],
+        "test": [
+          3
+        ]
+      },
+      "recordings": {
+        "train": [
+          "B007_0HP_1797rpm.mat",
+          "B007_2HP_1750rpm.mat",
+          "B014_0HP_1797rpm.mat",
+          "B014_2HP_1750rpm.mat",
+          "B021_0HP_1797rpm.mat",
+          "B021_2HP_1750rpm.mat",
+          "IR007_0HP_1797rpm.mat",
+          "IR007_2HP_1750rpm.mat",
+          "IR014_0HP_1797rpm.mat",
+          "IR014_2HP_1750rpm.mat",
+          "IR021_0HP_1797rpm.mat",
+          "IR021_2HP_1750rpm.mat",
+          "Normal_0HP_1797rpm.mat",
+          "Normal_2HP_1750rpm.mat",
+          "OR007@6_0HP_1797rpm.mat",
+          "OR007@6_2HP_1750rpm.mat",
+          "OR014@6_0HP_1797rpm.mat",
+          "OR014@6_2HP_1750rpm.mat",
+          "OR021@6_0HP_1797rpm.mat",
+          "OR021@6_2HP_1750rpm.mat"
+        ],
+        "validation": [
+          "B007_1HP_1772rpm.mat",
+          "B014_1HP_1772rpm.mat",
+          "B021_1HP_1772rpm.mat",
+          "IR007_1HP_1772rpm.mat",
+          "IR014_1HP_1772rpm.mat",
+          "IR021_1HP_1772rpm.mat",
+          "Normal_1HP_1772rpm.mat",
+          "OR007@6_1HP_1772rpm.mat",
+          "OR014@6_1HP_1772rpm.mat",
+          "OR021@6_1HP_1772rpm.mat"
+        ],
+        "test": [
+          "B007_3HP_1730rpm.mat",
+          "B014_3HP_1730rpm.mat",
+          "B021_3HP_1730rpm.mat",
+          "IR007_3HP_1730rpm.mat",
+          "IR014_3HP_1730rpm.mat",
+          "IR021_3HP_1730rpm.mat",
+          "Normal_3HP_1730rpm.mat",
+          "OR007@6_3HP_1730rpm.mat",
+          "OR014@6_3HP_1730rpm.mat",
+          "OR021@6_3HP_1730rpm.mat"
+        ]
+      }
+    }
+  },
+  {
+    "model": "2d",
+    "split": "load",
+    "seed": 789,
+    "accuracy": 0.9241,
+    "macro_f1": 0.9155,
+    "confusion_matrix": [
+      [
+        947,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        480,
+        0,
+        232
+      ],
+      [
+        0,
+        0,
+        712,
+        0
+      ],
+      [
+        0,
+        0,
+        2,
+        708
+      ]
+    ],
+    "per_class": {
+      "Normal": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "IR": {
+        "precision": 1.0,
+        "recall": 0.6742,
+        "f1": 0.8054
+      },
+      "OR": {
+        "precision": 0.9972,
+        "recall": 1.0,
+        "f1": 0.9986
+      },
+      "B": {
+        "precision": 0.7532,
+        "recall": 0.9972,
+        "f1": 0.8582
+      }
+    },
+    "split_assignment": {
+      "groups": {
+        "train": [
+          0,
+          1
+        ],
+        "validation": [
+          2
+        ],
+        "test": [
+          3
+        ]
+      },
+      "recordings": {
+        "train": [
+          "B007_0HP_1797rpm.mat",
+          "B007_1HP_1772rpm.mat",
+          "B014_0HP_1797rpm.mat",
+          "B014_1HP_1772rpm.mat",
+          "B021_0HP_1797rpm.mat",
+          "B021_1HP_1772rpm.mat",
+          "IR007_0HP_1797rpm.mat",
+          "IR007_1HP_1772rpm.mat",
+          "IR014_0HP_1797rpm.mat",
+          "IR014_1HP_1772rpm.mat",
+          "IR021_0HP_1797rpm.mat",
+          "IR021_1HP_1772rpm.mat",
+          "Normal_0HP_1797rpm.mat",
+          "Normal_1HP_1772rpm.mat",
+          "OR007@6_0HP_1797rpm.mat",
+          "OR007@6_1HP_1772rpm.mat",
+          "OR014@6_0HP_1797rpm.mat",
+          "OR014@6_1HP_1772rpm.mat",
+          "OR021@6_0HP_1797rpm.mat",
+          "OR021@6_1HP_1772rpm.mat"
+        ],
+        "validation": [
+          "B007_2HP_1750rpm.mat",
+          "B014_2HP_1750rpm.mat",
+          "B021_2HP_1750rpm.mat",
+          "IR007_2HP_1750rpm.mat",
+          "IR014_2HP_1750rpm.mat",
+          "IR021_2HP_1750rpm.mat",
+          "Normal_2HP_1750rpm.mat",
+          "OR007@6_2HP_1750rpm.mat",
+          "OR014@6_2HP_1750rpm.mat",
+          "OR021@6_2HP_1750rpm.mat"
+        ],
+        "test": [
+          "B007_3HP_1730rpm.mat",
+          "B014_3HP_1730rpm.mat",
+          "B021_3HP_1730rpm.mat",
+          "IR007_3HP_1730rpm.mat",
+          "IR014_3HP_1730rpm.mat",
+          "IR021_3HP_1730rpm.mat",
+          "Normal_3HP_1730rpm.mat",
+          "OR007@6_3HP_1730rpm.mat",
+          "OR014@6_3HP_1730rpm.mat",
+          "OR021@6_3HP_1730rpm.mat"
+        ]
+      }
+    }
+  },
+  {
+    "model": "2d",
+    "split": "load",
+    "seed": 1024,
+    "accuracy": 0.9958,
+    "macro_f1": 0.9954,
+    "confusion_matrix": [
+      [
+        947,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        706,
+        0,
+        6
+      ],
+      [
+        0,
+        0,
+        705,
+        7
+      ],
+      [
+        0,
+        0,
+        0,
+        710
+      ]
+    ],
+    "per_class": {
+      "Normal": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "IR": {
+        "precision": 1.0,
+        "recall": 0.9916,
+        "f1": 0.9958
+      },
+      "OR": {
+        "precision": 1.0,
+        "recall": 0.9902,
+        "f1": 0.9951
+      },
+      "B": {
+        "precision": 0.982,
+        "recall": 1.0,
+        "f1": 0.9909
+      }
+    },
+    "split_assignment": {
+      "groups": {
+        "train": [
+          0,
+          2
+        ],
+        "validation": [
+          1
+        ],
+        "test": [
+          3
+        ]
+      },
+      "recordings": {
+        "train": [
+          "B007_0HP_1797rpm.mat",
+          "B007_2HP_1750rpm.mat",
+          "B014_0HP_1797rpm.mat",
+          "B014_2HP_1750rpm.mat",
+          "B021_0HP_1797rpm.mat",
+          "B021_2HP_1750rpm.mat",
+          "IR007_0HP_1797rpm.mat",
+          "IR007_2HP_1750rpm.mat",
+          "IR014_0HP_1797rpm.mat",
+          "IR014_2HP_1750rpm.mat",
+          "IR021_0HP_1797rpm.mat",
+          "IR021_2HP_1750rpm.mat",
+          "Normal_0HP_1797rpm.mat",
+          "Normal_2HP_1750rpm.mat",
+          "OR007@6_0HP_1797rpm.mat",
+          "OR007@6_2HP_1750rpm.mat",
+          "OR014@6_0HP_1797rpm.mat",
+          "OR014@6_2HP_1750rpm.mat",
+          "OR021@6_0HP_1797rpm.mat",
+          "OR021@6_2HP_1750rpm.mat"
+        ],
+        "validation": [
+          "B007_1HP_1772rpm.mat",
+          "B014_1HP_1772rpm.mat",
+          "B021_1HP_1772rpm.mat",
+          "IR007_1HP_1772rpm.mat",
+          "IR014_1HP_1772rpm.mat",
+          "IR021_1HP_1772rpm.mat",
+          "Normal_1HP_1772rpm.mat",
+          "OR007@6_1HP_1772rpm.mat",
+          "OR014@6_1HP_1772rpm.mat",
+          "OR021@6_1HP_1772rpm.mat"
+        ],
+        "test": [
+          "B007_3HP_1730rpm.mat",
+          "B014_3HP_1730rpm.mat",
+          "B021_3HP_1730rpm.mat",
+          "IR007_3HP_1730rpm.mat",
+          "IR014_3HP_1730rpm.mat",
+          "IR021_3HP_1730rpm.mat",
+          "Normal_3HP_1730rpm.mat",
+          "OR007@6_3HP_1730rpm.mat",
+          "OR014@6_3HP_1730rpm.mat",
+          "OR021@6_3HP_1730rpm.mat"
+        ]
+      }
+    }
+  },
+  {
+    "model": "2d",
+    "split": "fault_size",
+    "seed": 42,
+    "accuracy": 0.6094,
+    "macro_f1": 0.5351,
+    "confusion_matrix": [
+      [
+        944,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        908,
+        38
+      ],
+      [
+        0,
+        7,
+        426,
+        516
+      ],
+      [
+        0,
+        0,
+        10,
+        937
+      ]
+    ],
+    "per_class": {
+      "Normal": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "IR": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "OR": {
+        "precision": 0.317,
+        "recall": 0.4489,
+        "f1": 0.3716
+      },
+      "B": {
+        "precision": 0.6284,
+        "recall": 0.9894,
+        "f1": 0.7687
+      }
+    },
+    "split_assignment": {
+      "groups": {
+        "train": [
+          "007"
+        ],
+        "validation": [
+          "014"
+        ],
+        "test": [
+          "021"
+        ]
+      },
+      "recordings": {
+        "train": [
+          "B007_0HP_1797rpm.mat",
+          "B007_1HP_1772rpm.mat",
+          "B007_2HP_1750rpm.mat",
+          "B007_3HP_1730rpm.mat",
+          "IR007_0HP_1797rpm.mat",
+          "IR007_1HP_1772rpm.mat",
+          "IR007_2HP_1750rpm.mat",
+          "IR007_3HP_1730rpm.mat",
+          "Normal_1HP_1772rpm.mat",
+          "Normal_3HP_1730rpm.mat",
+          "OR007@6_0HP_1797rpm.mat",
+          "OR007@6_1HP_1772rpm.mat",
+          "OR007@6_2HP_1750rpm.mat",
+          "OR007@6_3HP_1730rpm.mat"
+        ],
+        "validation": [
+          "B014_0HP_1797rpm.mat",
+          "B014_1HP_1772rpm.mat",
+          "B014_2HP_1750rpm.mat",
+          "B014_3HP_1730rpm.mat",
+          "IR014_0HP_1797rpm.mat",
+          "IR014_1HP_1772rpm.mat",
+          "IR014_2HP_1750rpm.mat",
+          "IR014_3HP_1730rpm.mat",
+          "Normal_0HP_1797rpm.mat",
+          "OR014@6_0HP_1797rpm.mat",
+          "OR014@6_1HP_1772rpm.mat",
+          "OR014@6_2HP_1750rpm.mat",
+          "OR014@6_3HP_1730rpm.mat"
+        ],
+        "test": [
+          "B021_0HP_1797rpm.mat",
+          "B021_1HP_1772rpm.mat",
+          "B021_2HP_1750rpm.mat",
+          "B021_3HP_1730rpm.mat",
+          "IR021_0HP_1797rpm.mat",
+          "IR021_1HP_1772rpm.mat",
+          "IR021_2HP_1750rpm.mat",
+          "IR021_3HP_1730rpm.mat",
+          "Normal_2HP_1750rpm.mat",
+          "OR021@6_0HP_1797rpm.mat",
+          "OR021@6_1HP_1772rpm.mat",
+          "OR021@6_2HP_1750rpm.mat",
+          "OR021@6_3HP_1730rpm.mat"
+        ]
+      }
+    }
+  },
+  {
+    "model": "2d",
+    "split": "fault_size",
+    "seed": 123,
+    "accuracy": 0.2721,
+    "macro_f1": 0.269,
+    "confusion_matrix": [
+      [
+        944,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        16,
+        0,
+        930
+      ],
+      [
+        0,
+        503,
+        0,
+        446
+      ],
+      [
+        0,
+        344,
+        533,
+        70
+      ]
+    ],
+    "per_class": {
+      "Normal": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "IR": {
+        "precision": 0.0185,
+        "recall": 0.0169,
+        "f1": 0.0177
+      },
+      "OR": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "B": {
+        "precision": 0.0484,
+        "recall": 0.0739,
+        "f1": 0.0585
+      }
+    },
+    "split_assignment": {
+      "groups": {
+        "train": [
+          "014"
+        ],
+        "validation": [
+          "007"
+        ],
+        "test": [
+          "021"
+        ]
+      },
+      "recordings": {
+        "train": [
+          "B014_0HP_1797rpm.mat",
+          "B014_1HP_1772rpm.mat",
+          "B014_2HP_1750rpm.mat",
+          "B014_3HP_1730rpm.mat",
+          "IR014_0HP_1797rpm.mat",
+          "IR014_1HP_1772rpm.mat",
+          "IR014_2HP_1750rpm.mat",
+          "IR014_3HP_1730rpm.mat",
+          "Normal_0HP_1797rpm.mat",
+          "Normal_3HP_1730rpm.mat",
+          "OR014@6_0HP_1797rpm.mat",
+          "OR014@6_1HP_1772rpm.mat",
+          "OR014@6_2HP_1750rpm.mat",
+          "OR014@6_3HP_1730rpm.mat"
+        ],
+        "validation": [
+          "B007_0HP_1797rpm.mat",
+          "B007_1HP_1772rpm.mat",
+          "B007_2HP_1750rpm.mat",
+          "B007_3HP_1730rpm.mat",
+          "IR007_0HP_1797rpm.mat",
+          "IR007_1HP_1772rpm.mat",
+          "IR007_2HP_1750rpm.mat",
+          "IR007_3HP_1730rpm.mat",
+          "Normal_1HP_1772rpm.mat",
+          "OR007@6_0HP_1797rpm.mat",
+          "OR007@6_1HP_1772rpm.mat",
+          "OR007@6_2HP_1750rpm.mat",
+          "OR007@6_3HP_1730rpm.mat"
+        ],
+        "test": [
+          "B021_0HP_1797rpm.mat",
+          "B021_1HP_1772rpm.mat",
+          "B021_2HP_1750rpm.mat",
+          "B021_3HP_1730rpm.mat",
+          "IR021_0HP_1797rpm.mat",
+          "IR021_1HP_1772rpm.mat",
+          "IR021_2HP_1750rpm.mat",
+          "IR021_3HP_1730rpm.mat",
+          "Normal_2HP_1750rpm.mat",
+          "OR021@6_0HP_1797rpm.mat",
+          "OR021@6_1HP_1772rpm.mat",
+          "OR021@6_2HP_1750rpm.mat",
+          "OR021@6_3HP_1730rpm.mat"
+        ]
+      }
+    }
+  },
+  {
+    "model": "2d",
+    "split": "fault_size",
+    "seed": 456,
+    "accuracy": 0.5005,
+    "macro_f1": 0.3752,
+    "confusion_matrix": [
+      [
+        947,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        3,
+        941
+      ],
+      [
+        0,
+        0,
+        0,
+        946
+      ],
+      [
+        0,
+        0,
+        0,
+        947
+      ]
+    ],
+    "per_class": {
+      "Normal": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "IR": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "OR": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "B": {
+        "precision": 0.3342,
+        "recall": 1.0,
+        "f1": 0.5009
+      }
+    },
+    "split_assignment": {
+      "groups": {
+        "train": [
+          "021"
+        ],
+        "validation": [
+          "007"
+        ],
+        "test": [
+          "014"
+        ]
+      },
+      "recordings": {
+        "train": [
+          "B021_0HP_1797rpm.mat",
+          "B021_1HP_1772rpm.mat",
+          "B021_2HP_1750rpm.mat",
+          "B021_3HP_1730rpm.mat",
+          "IR021_0HP_1797rpm.mat",
+          "IR021_1HP_1772rpm.mat",
+          "IR021_2HP_1750rpm.mat",
+          "IR021_3HP_1730rpm.mat",
+          "Normal_0HP_1797rpm.mat",
+          "Normal_2HP_1750rpm.mat",
+          "OR021@6_0HP_1797rpm.mat",
+          "OR021@6_1HP_1772rpm.mat",
+          "OR021@6_2HP_1750rpm.mat",
+          "OR021@6_3HP_1730rpm.mat"
+        ],
+        "validation": [
+          "B007_0HP_1797rpm.mat",
+          "B007_1HP_1772rpm.mat",
+          "B007_2HP_1750rpm.mat",
+          "B007_3HP_1730rpm.mat",
+          "IR007_0HP_1797rpm.mat",
+          "IR007_1HP_1772rpm.mat",
+          "IR007_2HP_1750rpm.mat",
+          "IR007_3HP_1730rpm.mat",
+          "Normal_1HP_1772rpm.mat",
+          "OR007@6_0HP_1797rpm.mat",
+          "OR007@6_1HP_1772rpm.mat",
+          "OR007@6_2HP_1750rpm.mat",
+          "OR007@6_3HP_1730rpm.mat"
+        ],
+        "test": [
+          "B014_0HP_1797rpm.mat",
+          "B014_1HP_1772rpm.mat",
+          "B014_2HP_1750rpm.mat",
+          "B014_3HP_1730rpm.mat",
+          "IR014_0HP_1797rpm.mat",
+          "IR014_1HP_1772rpm.mat",
+          "IR014_2HP_1750rpm.mat",
+          "IR014_3HP_1730rpm.mat",
+          "Normal_3HP_1730rpm.mat",
+          "OR014@6_0HP_1797rpm.mat",
+          "OR014@6_1HP_1772rpm.mat",
+          "OR014@6_2HP_1750rpm.mat",
+          "OR014@6_3HP_1730rpm.mat"
+        ]
+      }
+    }
+  },
+  {
+    "model": "2d",
+    "split": "fault_size",
+    "seed": 789,
+    "accuracy": 0.5793,
+    "macro_f1": 0.5443,
+    "confusion_matrix": [
+      [
+        947,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        715,
+        231
+      ],
+      [
+        0,
+        598,
+        301,
+        50
+      ],
+      [
+        0,
+        0,
+        0,
+        947
+      ]
+    ],
+    "per_class": {
+      "Normal": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "IR": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "OR": {
+        "precision": 0.2963,
+        "recall": 0.3172,
+        "f1": 0.3064
+      },
+      "B": {
+        "precision": 0.7712,
+        "recall": 1.0,
+        "f1": 0.8708
+      }
+    },
+    "split_assignment": {
+      "groups": {
+        "train": [
+          "007"
+        ],
+        "validation": [
+          "014"
+        ],
+        "test": [
+          "021"
+        ]
+      },
+      "recordings": {
+        "train": [
+          "B007_0HP_1797rpm.mat",
+          "B007_1HP_1772rpm.mat",
+          "B007_2HP_1750rpm.mat",
+          "B007_3HP_1730rpm.mat",
+          "IR007_0HP_1797rpm.mat",
+          "IR007_1HP_1772rpm.mat",
+          "IR007_2HP_1750rpm.mat",
+          "IR007_3HP_1730rpm.mat",
+          "Normal_0HP_1797rpm.mat",
+          "Normal_1HP_1772rpm.mat",
+          "OR007@6_0HP_1797rpm.mat",
+          "OR007@6_1HP_1772rpm.mat",
+          "OR007@6_2HP_1750rpm.mat",
+          "OR007@6_3HP_1730rpm.mat"
+        ],
+        "validation": [
+          "B014_0HP_1797rpm.mat",
+          "B014_1HP_1772rpm.mat",
+          "B014_2HP_1750rpm.mat",
+          "B014_3HP_1730rpm.mat",
+          "IR014_0HP_1797rpm.mat",
+          "IR014_1HP_1772rpm.mat",
+          "IR014_2HP_1750rpm.mat",
+          "IR014_3HP_1730rpm.mat",
+          "Normal_2HP_1750rpm.mat",
+          "OR014@6_0HP_1797rpm.mat",
+          "OR014@6_1HP_1772rpm.mat",
+          "OR014@6_2HP_1750rpm.mat",
+          "OR014@6_3HP_1730rpm.mat"
+        ],
+        "test": [
+          "B021_0HP_1797rpm.mat",
+          "B021_1HP_1772rpm.mat",
+          "B021_2HP_1750rpm.mat",
+          "B021_3HP_1730rpm.mat",
+          "IR021_0HP_1797rpm.mat",
+          "IR021_1HP_1772rpm.mat",
+          "IR021_2HP_1750rpm.mat",
+          "IR021_3HP_1730rpm.mat",
+          "Normal_3HP_1730rpm.mat",
+          "OR021@6_0HP_1797rpm.mat",
+          "OR021@6_1HP_1772rpm.mat",
+          "OR021@6_2HP_1750rpm.mat",
+          "OR021@6_3HP_1730rpm.mat"
+        ]
+      }
+    }
+  },
+  {
+    "model": "2d",
+    "split": "fault_size",
+    "seed": 1024,
+    "accuracy": 0.4989,
+    "macro_f1": 0.4163,
+    "confusion_matrix": [
+      [
+        947,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        948
+      ],
+      [
+        0,
+        949,
+        0,
+        0
+      ],
+      [
+        0,
+        2,
+        0,
+        944
+      ]
+    ],
+    "per_class": {
+      "Normal": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "IR": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "OR": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "B": {
+        "precision": 0.4989,
+        "recall": 0.9979,
+        "f1": 0.6653
+      }
+    },
+    "split_assignment": {
+      "groups": {
+        "train": [
+          "021"
+        ],
+        "validation": [
+          "014"
+        ],
+        "test": [
+          "007"
+        ]
+      },
+      "recordings": {
+        "train": [
+          "B021_0HP_1797rpm.mat",
+          "B021_1HP_1772rpm.mat",
+          "B021_2HP_1750rpm.mat",
+          "B021_3HP_1730rpm.mat",
+          "IR021_0HP_1797rpm.mat",
+          "IR021_1HP_1772rpm.mat",
+          "IR021_2HP_1750rpm.mat",
+          "IR021_3HP_1730rpm.mat",
+          "Normal_0HP_1797rpm.mat",
+          "Normal_2HP_1750rpm.mat",
+          "OR021@6_0HP_1797rpm.mat",
+          "OR021@6_1HP_1772rpm.mat",
+          "OR021@6_2HP_1750rpm.mat",
+          "OR021@6_3HP_1730rpm.mat"
+        ],
+        "validation": [
+          "B014_0HP_1797rpm.mat",
+          "B014_1HP_1772rpm.mat",
+          "B014_2HP_1750rpm.mat",
+          "B014_3HP_1730rpm.mat",
+          "IR014_0HP_1797rpm.mat",
+          "IR014_1HP_1772rpm.mat",
+          "IR014_2HP_1750rpm.mat",
+          "IR014_3HP_1730rpm.mat",
+          "Normal_1HP_1772rpm.mat",
+          "OR014@6_0HP_1797rpm.mat",
+          "OR014@6_1HP_1772rpm.mat",
+          "OR014@6_2HP_1750rpm.mat",
+          "OR014@6_3HP_1730rpm.mat"
+        ],
+        "test": [
+          "B007_0HP_1797rpm.mat",
+          "B007_1HP_1772rpm.mat",
+          "B007_2HP_1750rpm.mat",
+          "B007_3HP_1730rpm.mat",
+          "IR007_0HP_1797rpm.mat",
+          "IR007_1HP_1772rpm.mat",
+          "IR007_2HP_1750rpm.mat",
+          "IR007_3HP_1730rpm.mat",
+          "Normal_3HP_1730rpm.mat",
+          "OR007@6_0HP_1797rpm.mat",
+          "OR007@6_1HP_1772rpm.mat",
+          "OR007@6_2HP_1750rpm.mat",
+          "OR007@6_3HP_1730rpm.mat"
+        ]
+      }
+    }
+  }
+]

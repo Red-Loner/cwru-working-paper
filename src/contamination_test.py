@@ -6,7 +6,7 @@ from torch.utils.data import DataLoader, TensorDataset
 from sklearn.metrics import accuracy_score
 from preprocess import build_datasets, recording_level_split, random_split, normalize_dataset
 from augmentation import apply_augmentation, AUGMENTATION_CONDITIONS
-from train import to_stft
+from train import set_reproducible_seed, to_stft
 from models.cnn1d import CNN1D
 from models.cnn2d import CNN2D
 from config import (
@@ -15,8 +15,8 @@ from config import (
 )
 
 
-def add_noise(x, sigma):
-    noise = np.random.randn(*x.shape).astype(np.float32) * sigma
+def add_noise(x, sigma, rng):
+    noise = rng.randn(*x.shape).astype(np.float32) * sigma
     return x + noise
 
 
@@ -67,6 +67,9 @@ def run_contamination_test(model_type="2d", split_type="recording", seed=42):
     noise_levels = [0, 0.01, 0.02, 0.05, 0.08, 0.1]
     results = {}
     for aug_type in ["none", "noise_005", "shift_20", "combined"]:
+        # Use paired model initialization and data-loader randomness so the
+        # robustness comparison isolates the augmentation condition.
+        set_reproducible_seed(seed)
         tr_x_norm, va_x_norm, te_x_norm = normalize_dataset(tr_x.copy(), va_x.copy(), te_x.copy())
 
         if aug_type != "none":
@@ -89,7 +92,11 @@ def run_contamination_test(model_type="2d", split_type="recording", seed=42):
         for sigma in noise_levels:
             te_noisy = te_x_norm.copy()
             if sigma > 0:
-                te_noisy = add_noise(te_noisy, sigma)
+                # Recreate the same test perturbation for every augmentation.
+                noise_rng = np.random.RandomState(
+                    seed + int(round(sigma * 10_000))
+                )
+                te_noisy = add_noise(te_noisy, sigma, noise_rng)
             acc = test_acc(model, te_noisy, te_y, device, model_type)
             noise_accs.append({"noise_sigma": sigma, "accuracy": round(float(acc), 4)})
         results[aug_type] = noise_accs

@@ -1,0 +1,1802 @@
+[
+  {
+    "seed": 42,
+    "split": "train",
+    "recording_id": "B007_0HP_1797rpm.mat",
+    "fault_type": "B",
+    "fault_diameter": "007",
+    "load_hp": 0,
+    "windows": 238
+  },
+  {
+    "seed": 42,
+    "split": "train",
+    "recording_id": "B007_1HP_1772rpm.mat",
+    "fault_type": "B",
+    "fault_diameter": "007",
+    "load_hp": 1,
+    "windows": 236
+  },
+  {
+    "seed": 42,
+    "split": "train",
+    "recording_id": "B007_2HP_1750rpm.mat",
+    "fault_type": "B",
+    "fault_diameter": "007",
+    "load_hp": 2,
+    "windows": 236
+  },
+  {
+    "seed": 42,
+    "split": "train",
+    "recording_id": "B014_1HP_1772rpm.mat",
+    "fault_type": "B",
+    "fault_diameter": "014",
+    "load_hp": 1,
+    "windows": 237
+  },
+  {
+    "seed": 42,
+    "split": "train",
+    "recording_id": "B021_0HP_1797rpm.mat",
+    "fault_type": "B",
+    "fault_diameter": "021",
+    "load_hp": 0,
+    "windows": 237
+  },
+  {
+    "seed": 42,
+    "split": "train",
+    "recording_id": "B021_1HP_1772rpm.mat",
+    "fault_type": "B",
+    "fault_diameter": "021",
+    "load_hp": 1,
+    "windows": 236
+  },
+  {
+    "seed": 42,
+    "split": "train",
+    "recording_id": "B021_2HP_1750rpm.mat",
+    "fault_type": "B",
+    "fault_diameter": "021",
+    "load_hp": 2,
+    "windows": 237
+  },
+  {
+    "seed": 42,
+    "split": "train",
+    "recording_id": "IR007_0HP_1797rpm.mat",
+    "fault_type": "IR",
+    "fault_diameter": "007",
+    "load_hp": 0,
+    "windows": 235
+  },
+  {
+    "seed": 42,
+    "split": "train",
+    "recording_id": "IR007_1HP_1772rpm.mat",
+    "fault_type": "IR",
+    "fault_diameter": "007",
+    "load_hp": 1,
+    "windows": 237
+  },
+  {
+    "seed": 42,
+    "split": "train",
+    "recording_id": "IR007_3HP_1730rpm.mat",
+    "fault_type": "IR",
+    "fault_diameter": "007",
+    "load_hp": 3,
+    "windows": 239
+  },
+  {
+    "seed": 42,
+    "split": "train",
+    "recording_id": "IR014_2HP_1750rpm.mat",
+    "fault_type": "IR",
+    "fault_diameter": "014",
+    "load_hp": 2,
+    "windows": 236
+  },
+  {
+    "seed": 42,
+    "split": "train",
+    "recording_id": "IR021_0HP_1797rpm.mat",
+    "fault_type": "IR",
+    "fault_diameter": "021",
+    "load_hp": 0,
+    "windows": 237
+  },
+  {
+    "seed": 42,
+    "split": "train",
+    "recording_id": "IR021_1HP_1772rpm.mat",
+    "fault_type": "IR",
+    "fault_diameter": "021",
+    "load_hp": 1,
+    "windows": 236
+  },
+  {
+    "seed": 42,
+    "split": "train",
+    "recording_id": "IR021_2HP_1750rpm.mat",
+    "fault_type": "IR",
+    "fault_diameter": "021",
+    "load_hp": 2,
+    "windows": 236
+  },
+  {
+    "seed": 42,
+    "split": "train",
+    "recording_id": "Normal_0HP_1797rpm.mat",
+    "fault_type": "Normal",
+    "fault_diameter": "None",
+    "load_hp": 0,
+    "windows": 475
+  },
+  {
+    "seed": 42,
+    "split": "train",
+    "recording_id": "Normal_2HP_1750rpm.mat",
+    "fault_type": "Normal",
+    "fault_diameter": "None",
+    "load_hp": 2,
+    "windows": 944
+  },
+  {
+    "seed": 42,
+    "split": "train",
+    "recording_id": "OR007@6_1HP_1772rpm.mat",
+    "fault_type": "OR",
+    "fault_diameter": "007",
+    "load_hp": 1,
+    "windows": 238
+  },
+  {
+    "seed": 42,
+    "split": "train",
+    "recording_id": "OR014@6_0HP_1797rpm.mat",
+    "fault_type": "OR",
+    "fault_diameter": "014",
+    "load_hp": 0,
+    "windows": 236
+  },
+  {
+    "seed": 42,
+    "split": "train",
+    "recording_id": "OR014@6_1HP_1772rpm.mat",
+    "fault_type": "OR",
+    "fault_diameter": "014",
+    "load_hp": 1,
+    "windows": 237
+  },
+  {
+    "seed": 42,
+    "split": "train",
+    "recording_id": "OR014@6_2HP_1750rpm.mat",
+    "fault_type": "OR",
+    "fault_diameter": "014",
+    "load_hp": 2,
+    "windows": 236
+  },
+  {
+    "seed": 42,
+    "split": "train",
+    "recording_id": "OR014@6_3HP_1730rpm.mat",
+    "fault_type": "OR",
+    "fault_diameter": "014",
+    "load_hp": 3,
+    "windows": 237
+  },
+  {
+    "seed": 42,
+    "split": "train",
+    "recording_id": "OR021@6_1HP_1772rpm.mat",
+    "fault_type": "OR",
+    "fault_diameter": "021",
+    "load_hp": 1,
+    "windows": 237
+  },
+  {
+    "seed": 42,
+    "split": "train",
+    "recording_id": "OR021@6_2HP_1750rpm.mat",
+    "fault_type": "OR",
+    "fault_diameter": "021",
+    "load_hp": 2,
+    "windows": 237
+  },
+  {
+    "seed": 42,
+    "split": "validation",
+    "recording_id": "B014_0HP_1797rpm.mat",
+    "fault_type": "B",
+    "fault_diameter": "014",
+    "load_hp": 0,
+    "windows": 236
+  },
+  {
+    "seed": 42,
+    "split": "validation",
+    "recording_id": "B021_3HP_1730rpm.mat",
+    "fault_type": "B",
+    "fault_diameter": "021",
+    "load_hp": 3,
+    "windows": 237
+  },
+  {
+    "seed": 42,
+    "split": "validation",
+    "recording_id": "IR014_0HP_1797rpm.mat",
+    "fault_type": "IR",
+    "fault_diameter": "014",
+    "load_hp": 0,
+    "windows": 236
+  },
+  {
+    "seed": 42,
+    "split": "validation",
+    "recording_id": "IR014_1HP_1772rpm.mat",
+    "fault_type": "IR",
+    "fault_diameter": "014",
+    "load_hp": 1,
+    "windows": 236
+  },
+  {
+    "seed": 42,
+    "split": "validation",
+    "recording_id": "Normal_1HP_1772rpm.mat",
+    "fault_type": "Normal",
+    "fault_diameter": "None",
+    "load_hp": 1,
+    "windows": 944
+  },
+  {
+    "seed": 42,
+    "split": "validation",
+    "recording_id": "OR007@6_2HP_1750rpm.mat",
+    "fault_type": "OR",
+    "fault_diameter": "007",
+    "load_hp": 2,
+    "windows": 236
+  },
+  {
+    "seed": 42,
+    "split": "validation",
+    "recording_id": "OR007@6_3HP_1730rpm.mat",
+    "fault_type": "OR",
+    "fault_diameter": "007",
+    "load_hp": 3,
+    "windows": 238
+  },
+  {
+    "seed": 42,
+    "split": "test",
+    "recording_id": "B007_3HP_1730rpm.mat",
+    "fault_type": "B",
+    "fault_diameter": "007",
+    "load_hp": 3,
+    "windows": 236
+  },
+  {
+    "seed": 42,
+    "split": "test",
+    "recording_id": "B014_2HP_1750rpm.mat",
+    "fault_type": "B",
+    "fault_diameter": "014",
+    "load_hp": 2,
+    "windows": 237
+  },
+  {
+    "seed": 42,
+    "split": "test",
+    "recording_id": "B014_3HP_1730rpm.mat",
+    "fault_type": "B",
+    "fault_diameter": "014",
+    "load_hp": 3,
+    "windows": 237
+  },
+  {
+    "seed": 42,
+    "split": "test",
+    "recording_id": "IR007_2HP_1750rpm.mat",
+    "fault_type": "IR",
+    "fault_diameter": "007",
+    "load_hp": 2,
+    "windows": 237
+  },
+  {
+    "seed": 42,
+    "split": "test",
+    "recording_id": "IR014_3HP_1730rpm.mat",
+    "fault_type": "IR",
+    "fault_diameter": "014",
+    "load_hp": 3,
+    "windows": 236
+  },
+  {
+    "seed": 42,
+    "split": "test",
+    "recording_id": "IR021_3HP_1730rpm.mat",
+    "fault_type": "IR",
+    "fault_diameter": "021",
+    "load_hp": 3,
+    "windows": 237
+  },
+  {
+    "seed": 42,
+    "split": "test",
+    "recording_id": "Normal_3HP_1730rpm.mat",
+    "fault_type": "Normal",
+    "fault_diameter": "None",
+    "load_hp": 3,
+    "windows": 947
+  },
+  {
+    "seed": 42,
+    "split": "test",
+    "recording_id": "OR007@6_0HP_1797rpm.mat",
+    "fault_type": "OR",
+    "fault_diameter": "007",
+    "load_hp": 0,
+    "windows": 237
+  },
+  {
+    "seed": 42,
+    "split": "test",
+    "recording_id": "OR021@6_0HP_1797rpm.mat",
+    "fault_type": "OR",
+    "fault_diameter": "021",
+    "load_hp": 0,
+    "windows": 238
+  },
+  {
+    "seed": 42,
+    "split": "test",
+    "recording_id": "OR021@6_3HP_1730rpm.mat",
+    "fault_type": "OR",
+    "fault_diameter": "021",
+    "load_hp": 3,
+    "windows": 237
+  },
+  {
+    "seed": 123,
+    "split": "train",
+    "recording_id": "B007_0HP_1797rpm.mat",
+    "fault_type": "B",
+    "fault_diameter": "007",
+    "load_hp": 0,
+    "windows": 238
+  },
+  {
+    "seed": 123,
+    "split": "train",
+    "recording_id": "B014_0HP_1797rpm.mat",
+    "fault_type": "B",
+    "fault_diameter": "014",
+    "load_hp": 0,
+    "windows": 236
+  },
+  {
+    "seed": 123,
+    "split": "train",
+    "recording_id": "B014_1HP_1772rpm.mat",
+    "fault_type": "B",
+    "fault_diameter": "014",
+    "load_hp": 1,
+    "windows": 237
+  },
+  {
+    "seed": 123,
+    "split": "train",
+    "recording_id": "B014_3HP_1730rpm.mat",
+    "fault_type": "B",
+    "fault_diameter": "014",
+    "load_hp": 3,
+    "windows": 237
+  },
+  {
+    "seed": 123,
+    "split": "train",
+    "recording_id": "B021_0HP_1797rpm.mat",
+    "fault_type": "B",
+    "fault_diameter": "021",
+    "load_hp": 0,
+    "windows": 237
+  },
+  {
+    "seed": 123,
+    "split": "train",
+    "recording_id": "B021_1HP_1772rpm.mat",
+    "fault_type": "B",
+    "fault_diameter": "021",
+    "load_hp": 1,
+    "windows": 236
+  },
+  {
+    "seed": 123,
+    "split": "train",
+    "recording_id": "B021_2HP_1750rpm.mat",
+    "fault_type": "B",
+    "fault_diameter": "021",
+    "load_hp": 2,
+    "windows": 237
+  },
+  {
+    "seed": 123,
+    "split": "train",
+    "recording_id": "IR007_2HP_1750rpm.mat",
+    "fault_type": "IR",
+    "fault_diameter": "007",
+    "load_hp": 2,
+    "windows": 237
+  },
+  {
+    "seed": 123,
+    "split": "train",
+    "recording_id": "IR007_3HP_1730rpm.mat",
+    "fault_type": "IR",
+    "fault_diameter": "007",
+    "load_hp": 3,
+    "windows": 239
+  },
+  {
+    "seed": 123,
+    "split": "train",
+    "recording_id": "IR014_0HP_1797rpm.mat",
+    "fault_type": "IR",
+    "fault_diameter": "014",
+    "load_hp": 0,
+    "windows": 236
+  },
+  {
+    "seed": 123,
+    "split": "train",
+    "recording_id": "IR014_1HP_1772rpm.mat",
+    "fault_type": "IR",
+    "fault_diameter": "014",
+    "load_hp": 1,
+    "windows": 236
+  },
+  {
+    "seed": 123,
+    "split": "train",
+    "recording_id": "IR014_2HP_1750rpm.mat",
+    "fault_type": "IR",
+    "fault_diameter": "014",
+    "load_hp": 2,
+    "windows": 236
+  },
+  {
+    "seed": 123,
+    "split": "train",
+    "recording_id": "IR021_0HP_1797rpm.mat",
+    "fault_type": "IR",
+    "fault_diameter": "021",
+    "load_hp": 0,
+    "windows": 237
+  },
+  {
+    "seed": 123,
+    "split": "train",
+    "recording_id": "IR021_3HP_1730rpm.mat",
+    "fault_type": "IR",
+    "fault_diameter": "021",
+    "load_hp": 3,
+    "windows": 237
+  },
+  {
+    "seed": 123,
+    "split": "train",
+    "recording_id": "Normal_0HP_1797rpm.mat",
+    "fault_type": "Normal",
+    "fault_diameter": "None",
+    "load_hp": 0,
+    "windows": 475
+  },
+  {
+    "seed": 123,
+    "split": "train",
+    "recording_id": "Normal_3HP_1730rpm.mat",
+    "fault_type": "Normal",
+    "fault_diameter": "None",
+    "load_hp": 3,
+    "windows": 947
+  },
+  {
+    "seed": 123,
+    "split": "train",
+    "recording_id": "OR007@6_0HP_1797rpm.mat",
+    "fault_type": "OR",
+    "fault_diameter": "007",
+    "load_hp": 0,
+    "windows": 237
+  },
+  {
+    "seed": 123,
+    "split": "train",
+    "recording_id": "OR007@6_1HP_1772rpm.mat",
+    "fault_type": "OR",
+    "fault_diameter": "007",
+    "load_hp": 1,
+    "windows": 238
+  },
+  {
+    "seed": 123,
+    "split": "train",
+    "recording_id": "OR007@6_3HP_1730rpm.mat",
+    "fault_type": "OR",
+    "fault_diameter": "007",
+    "load_hp": 3,
+    "windows": 238
+  },
+  {
+    "seed": 123,
+    "split": "train",
+    "recording_id": "OR014@6_2HP_1750rpm.mat",
+    "fault_type": "OR",
+    "fault_diameter": "014",
+    "load_hp": 2,
+    "windows": 236
+  },
+  {
+    "seed": 123,
+    "split": "train",
+    "recording_id": "OR021@6_1HP_1772rpm.mat",
+    "fault_type": "OR",
+    "fault_diameter": "021",
+    "load_hp": 1,
+    "windows": 237
+  },
+  {
+    "seed": 123,
+    "split": "train",
+    "recording_id": "OR021@6_2HP_1750rpm.mat",
+    "fault_type": "OR",
+    "fault_diameter": "021",
+    "load_hp": 2,
+    "windows": 237
+  },
+  {
+    "seed": 123,
+    "split": "train",
+    "recording_id": "OR021@6_3HP_1730rpm.mat",
+    "fault_type": "OR",
+    "fault_diameter": "021",
+    "load_hp": 3,
+    "windows": 237
+  },
+  {
+    "seed": 123,
+    "split": "validation",
+    "recording_id": "B007_1HP_1772rpm.mat",
+    "fault_type": "B",
+    "fault_diameter": "007",
+    "load_hp": 1,
+    "windows": 236
+  },
+  {
+    "seed": 123,
+    "split": "validation",
+    "recording_id": "B007_3HP_1730rpm.mat",
+    "fault_type": "B",
+    "fault_diameter": "007",
+    "load_hp": 3,
+    "windows": 236
+  },
+  {
+    "seed": 123,
+    "split": "validation",
+    "recording_id": "IR014_3HP_1730rpm.mat",
+    "fault_type": "IR",
+    "fault_diameter": "014",
+    "load_hp": 3,
+    "windows": 236
+  },
+  {
+    "seed": 123,
+    "split": "validation",
+    "recording_id": "IR021_2HP_1750rpm.mat",
+    "fault_type": "IR",
+    "fault_diameter": "021",
+    "load_hp": 2,
+    "windows": 236
+  },
+  {
+    "seed": 123,
+    "split": "validation",
+    "recording_id": "Normal_2HP_1750rpm.mat",
+    "fault_type": "Normal",
+    "fault_diameter": "None",
+    "load_hp": 2,
+    "windows": 944
+  },
+  {
+    "seed": 123,
+    "split": "validation",
+    "recording_id": "OR014@6_1HP_1772rpm.mat",
+    "fault_type": "OR",
+    "fault_diameter": "014",
+    "load_hp": 1,
+    "windows": 237
+  },
+  {
+    "seed": 123,
+    "split": "validation",
+    "recording_id": "OR021@6_0HP_1797rpm.mat",
+    "fault_type": "OR",
+    "fault_diameter": "021",
+    "load_hp": 0,
+    "windows": 238
+  },
+  {
+    "seed": 123,
+    "split": "test",
+    "recording_id": "B007_2HP_1750rpm.mat",
+    "fault_type": "B",
+    "fault_diameter": "007",
+    "load_hp": 2,
+    "windows": 236
+  },
+  {
+    "seed": 123,
+    "split": "test",
+    "recording_id": "B014_2HP_1750rpm.mat",
+    "fault_type": "B",
+    "fault_diameter": "014",
+    "load_hp": 2,
+    "windows": 237
+  },
+  {
+    "seed": 123,
+    "split": "test",
+    "recording_id": "B021_3HP_1730rpm.mat",
+    "fault_type": "B",
+    "fault_diameter": "021",
+    "load_hp": 3,
+    "windows": 237
+  },
+  {
+    "seed": 123,
+    "split": "test",
+    "recording_id": "IR007_0HP_1797rpm.mat",
+    "fault_type": "IR",
+    "fault_diameter": "007",
+    "load_hp": 0,
+    "windows": 235
+  },
+  {
+    "seed": 123,
+    "split": "test",
+    "recording_id": "IR007_1HP_1772rpm.mat",
+    "fault_type": "IR",
+    "fault_diameter": "007",
+    "load_hp": 1,
+    "windows": 237
+  },
+  {
+    "seed": 123,
+    "split": "test",
+    "recording_id": "IR021_1HP_1772rpm.mat",
+    "fault_type": "IR",
+    "fault_diameter": "021",
+    "load_hp": 1,
+    "windows": 236
+  },
+  {
+    "seed": 123,
+    "split": "test",
+    "recording_id": "Normal_1HP_1772rpm.mat",
+    "fault_type": "Normal",
+    "fault_diameter": "None",
+    "load_hp": 1,
+    "windows": 944
+  },
+  {
+    "seed": 123,
+    "split": "test",
+    "recording_id": "OR007@6_2HP_1750rpm.mat",
+    "fault_type": "OR",
+    "fault_diameter": "007",
+    "load_hp": 2,
+    "windows": 236
+  },
+  {
+    "seed": 123,
+    "split": "test",
+    "recording_id": "OR014@6_0HP_1797rpm.mat",
+    "fault_type": "OR",
+    "fault_diameter": "014",
+    "load_hp": 0,
+    "windows": 236
+  },
+  {
+    "seed": 123,
+    "split": "test",
+    "recording_id": "OR014@6_3HP_1730rpm.mat",
+    "fault_type": "OR",
+    "fault_diameter": "014",
+    "load_hp": 3,
+    "windows": 237
+  },
+  {
+    "seed": 456,
+    "split": "train",
+    "recording_id": "B007_0HP_1797rpm.mat",
+    "fault_type": "B",
+    "fault_diameter": "007",
+    "load_hp": 0,
+    "windows": 238
+  },
+  {
+    "seed": 456,
+    "split": "train",
+    "recording_id": "B007_1HP_1772rpm.mat",
+    "fault_type": "B",
+    "fault_diameter": "007",
+    "load_hp": 1,
+    "windows": 236
+  },
+  {
+    "seed": 456,
+    "split": "train",
+    "recording_id": "B007_2HP_1750rpm.mat",
+    "fault_type": "B",
+    "fault_diameter": "007",
+    "load_hp": 2,
+    "windows": 236
+  },
+  {
+    "seed": 456,
+    "split": "train",
+    "recording_id": "B007_3HP_1730rpm.mat",
+    "fault_type": "B",
+    "fault_diameter": "007",
+    "load_hp": 3,
+    "windows": 236
+  },
+  {
+    "seed": 456,
+    "split": "train",
+    "recording_id": "B014_2HP_1750rpm.mat",
+    "fault_type": "B",
+    "fault_diameter": "014",
+    "load_hp": 2,
+    "windows": 237
+  },
+  {
+    "seed": 456,
+    "split": "train",
+    "recording_id": "B014_3HP_1730rpm.mat",
+    "fault_type": "B",
+    "fault_diameter": "014",
+    "load_hp": 3,
+    "windows": 237
+  },
+  {
+    "seed": 456,
+    "split": "train",
+    "recording_id": "B021_0HP_1797rpm.mat",
+    "fault_type": "B",
+    "fault_diameter": "021",
+    "load_hp": 0,
+    "windows": 237
+  },
+  {
+    "seed": 456,
+    "split": "train",
+    "recording_id": "IR007_0HP_1797rpm.mat",
+    "fault_type": "IR",
+    "fault_diameter": "007",
+    "load_hp": 0,
+    "windows": 235
+  },
+  {
+    "seed": 456,
+    "split": "train",
+    "recording_id": "IR007_1HP_1772rpm.mat",
+    "fault_type": "IR",
+    "fault_diameter": "007",
+    "load_hp": 1,
+    "windows": 237
+  },
+  {
+    "seed": 456,
+    "split": "train",
+    "recording_id": "IR014_0HP_1797rpm.mat",
+    "fault_type": "IR",
+    "fault_diameter": "014",
+    "load_hp": 0,
+    "windows": 236
+  },
+  {
+    "seed": 456,
+    "split": "train",
+    "recording_id": "IR014_3HP_1730rpm.mat",
+    "fault_type": "IR",
+    "fault_diameter": "014",
+    "load_hp": 3,
+    "windows": 236
+  },
+  {
+    "seed": 456,
+    "split": "train",
+    "recording_id": "IR021_1HP_1772rpm.mat",
+    "fault_type": "IR",
+    "fault_diameter": "021",
+    "load_hp": 1,
+    "windows": 236
+  },
+  {
+    "seed": 456,
+    "split": "train",
+    "recording_id": "IR021_2HP_1750rpm.mat",
+    "fault_type": "IR",
+    "fault_diameter": "021",
+    "load_hp": 2,
+    "windows": 236
+  },
+  {
+    "seed": 456,
+    "split": "train",
+    "recording_id": "IR021_3HP_1730rpm.mat",
+    "fault_type": "IR",
+    "fault_diameter": "021",
+    "load_hp": 3,
+    "windows": 237
+  },
+  {
+    "seed": 456,
+    "split": "train",
+    "recording_id": "Normal_2HP_1750rpm.mat",
+    "fault_type": "Normal",
+    "fault_diameter": "None",
+    "load_hp": 2,
+    "windows": 944
+  },
+  {
+    "seed": 456,
+    "split": "train",
+    "recording_id": "Normal_3HP_1730rpm.mat",
+    "fault_type": "Normal",
+    "fault_diameter": "None",
+    "load_hp": 3,
+    "windows": 947
+  },
+  {
+    "seed": 456,
+    "split": "train",
+    "recording_id": "OR007@6_1HP_1772rpm.mat",
+    "fault_type": "OR",
+    "fault_diameter": "007",
+    "load_hp": 1,
+    "windows": 238
+  },
+  {
+    "seed": 456,
+    "split": "train",
+    "recording_id": "OR007@6_2HP_1750rpm.mat",
+    "fault_type": "OR",
+    "fault_diameter": "007",
+    "load_hp": 2,
+    "windows": 236
+  },
+  {
+    "seed": 456,
+    "split": "train",
+    "recording_id": "OR007@6_3HP_1730rpm.mat",
+    "fault_type": "OR",
+    "fault_diameter": "007",
+    "load_hp": 3,
+    "windows": 238
+  },
+  {
+    "seed": 456,
+    "split": "train",
+    "recording_id": "OR014@6_1HP_1772rpm.mat",
+    "fault_type": "OR",
+    "fault_diameter": "014",
+    "load_hp": 1,
+    "windows": 237
+  },
+  {
+    "seed": 456,
+    "split": "train",
+    "recording_id": "OR014@6_3HP_1730rpm.mat",
+    "fault_type": "OR",
+    "fault_diameter": "014",
+    "load_hp": 3,
+    "windows": 237
+  },
+  {
+    "seed": 456,
+    "split": "train",
+    "recording_id": "OR021@6_2HP_1750rpm.mat",
+    "fault_type": "OR",
+    "fault_diameter": "021",
+    "load_hp": 2,
+    "windows": 237
+  },
+  {
+    "seed": 456,
+    "split": "train",
+    "recording_id": "OR021@6_3HP_1730rpm.mat",
+    "fault_type": "OR",
+    "fault_diameter": "021",
+    "load_hp": 3,
+    "windows": 237
+  },
+  {
+    "seed": 456,
+    "split": "validation",
+    "recording_id": "B014_0HP_1797rpm.mat",
+    "fault_type": "B",
+    "fault_diameter": "014",
+    "load_hp": 0,
+    "windows": 236
+  },
+  {
+    "seed": 456,
+    "split": "validation",
+    "recording_id": "B021_2HP_1750rpm.mat",
+    "fault_type": "B",
+    "fault_diameter": "021",
+    "load_hp": 2,
+    "windows": 237
+  },
+  {
+    "seed": 456,
+    "split": "validation",
+    "recording_id": "IR007_2HP_1750rpm.mat",
+    "fault_type": "IR",
+    "fault_diameter": "007",
+    "load_hp": 2,
+    "windows": 237
+  },
+  {
+    "seed": 456,
+    "split": "validation",
+    "recording_id": "IR014_2HP_1750rpm.mat",
+    "fault_type": "IR",
+    "fault_diameter": "014",
+    "load_hp": 2,
+    "windows": 236
+  },
+  {
+    "seed": 456,
+    "split": "validation",
+    "recording_id": "Normal_1HP_1772rpm.mat",
+    "fault_type": "Normal",
+    "fault_diameter": "None",
+    "load_hp": 1,
+    "windows": 944
+  },
+  {
+    "seed": 456,
+    "split": "validation",
+    "recording_id": "OR014@6_0HP_1797rpm.mat",
+    "fault_type": "OR",
+    "fault_diameter": "014",
+    "load_hp": 0,
+    "windows": 236
+  },
+  {
+    "seed": 456,
+    "split": "validation",
+    "recording_id": "OR021@6_0HP_1797rpm.mat",
+    "fault_type": "OR",
+    "fault_diameter": "021",
+    "load_hp": 0,
+    "windows": 238
+  },
+  {
+    "seed": 456,
+    "split": "test",
+    "recording_id": "B014_1HP_1772rpm.mat",
+    "fault_type": "B",
+    "fault_diameter": "014",
+    "load_hp": 1,
+    "windows": 237
+  },
+  {
+    "seed": 456,
+    "split": "test",
+    "recording_id": "B021_1HP_1772rpm.mat",
+    "fault_type": "B",
+    "fault_diameter": "021",
+    "load_hp": 1,
+    "windows": 236
+  },
+  {
+    "seed": 456,
+    "split": "test",
+    "recording_id": "B021_3HP_1730rpm.mat",
+    "fault_type": "B",
+    "fault_diameter": "021",
+    "load_hp": 3,
+    "windows": 237
+  },
+  {
+    "seed": 456,
+    "split": "test",
+    "recording_id": "IR007_3HP_1730rpm.mat",
+    "fault_type": "IR",
+    "fault_diameter": "007",
+    "load_hp": 3,
+    "windows": 239
+  },
+  {
+    "seed": 456,
+    "split": "test",
+    "recording_id": "IR014_1HP_1772rpm.mat",
+    "fault_type": "IR",
+    "fault_diameter": "014",
+    "load_hp": 1,
+    "windows": 236
+  },
+  {
+    "seed": 456,
+    "split": "test",
+    "recording_id": "IR021_0HP_1797rpm.mat",
+    "fault_type": "IR",
+    "fault_diameter": "021",
+    "load_hp": 0,
+    "windows": 237
+  },
+  {
+    "seed": 456,
+    "split": "test",
+    "recording_id": "Normal_0HP_1797rpm.mat",
+    "fault_type": "Normal",
+    "fault_diameter": "None",
+    "load_hp": 0,
+    "windows": 475
+  },
+  {
+    "seed": 456,
+    "split": "test",
+    "recording_id": "OR007@6_0HP_1797rpm.mat",
+    "fault_type": "OR",
+    "fault_diameter": "007",
+    "load_hp": 0,
+    "windows": 237
+  },
+  {
+    "seed": 456,
+    "split": "test",
+    "recording_id": "OR014@6_2HP_1750rpm.mat",
+    "fault_type": "OR",
+    "fault_diameter": "014",
+    "load_hp": 2,
+    "windows": 236
+  },
+  {
+    "seed": 456,
+    "split": "test",
+    "recording_id": "OR021@6_1HP_1772rpm.mat",
+    "fault_type": "OR",
+    "fault_diameter": "021",
+    "load_hp": 1,
+    "windows": 237
+  },
+  {
+    "seed": 789,
+    "split": "train",
+    "recording_id": "B007_0HP_1797rpm.mat",
+    "fault_type": "B",
+    "fault_diameter": "007",
+    "load_hp": 0,
+    "windows": 238
+  },
+  {
+    "seed": 789,
+    "split": "train",
+    "recording_id": "B014_1HP_1772rpm.mat",
+    "fault_type": "B",
+    "fault_diameter": "014",
+    "load_hp": 1,
+    "windows": 237
+  },
+  {
+    "seed": 789,
+    "split": "train",
+    "recording_id": "B014_2HP_1750rpm.mat",
+    "fault_type": "B",
+    "fault_diameter": "014",
+    "load_hp": 2,
+    "windows": 237
+  },
+  {
+    "seed": 789,
+    "split": "train",
+    "recording_id": "B014_3HP_1730rpm.mat",
+    "fault_type": "B",
+    "fault_diameter": "014",
+    "load_hp": 3,
+    "windows": 237
+  },
+  {
+    "seed": 789,
+    "split": "train",
+    "recording_id": "B021_0HP_1797rpm.mat",
+    "fault_type": "B",
+    "fault_diameter": "021",
+    "load_hp": 0,
+    "windows": 237
+  },
+  {
+    "seed": 789,
+    "split": "train",
+    "recording_id": "B021_1HP_1772rpm.mat",
+    "fault_type": "B",
+    "fault_diameter": "021",
+    "load_hp": 1,
+    "windows": 236
+  },
+  {
+    "seed": 789,
+    "split": "train",
+    "recording_id": "B021_2HP_1750rpm.mat",
+    "fault_type": "B",
+    "fault_diameter": "021",
+    "load_hp": 2,
+    "windows": 237
+  },
+  {
+    "seed": 789,
+    "split": "train",
+    "recording_id": "IR007_0HP_1797rpm.mat",
+    "fault_type": "IR",
+    "fault_diameter": "007",
+    "load_hp": 0,
+    "windows": 235
+  },
+  {
+    "seed": 789,
+    "split": "train",
+    "recording_id": "IR007_2HP_1750rpm.mat",
+    "fault_type": "IR",
+    "fault_diameter": "007",
+    "load_hp": 2,
+    "windows": 237
+  },
+  {
+    "seed": 789,
+    "split": "train",
+    "recording_id": "IR007_3HP_1730rpm.mat",
+    "fault_type": "IR",
+    "fault_diameter": "007",
+    "load_hp": 3,
+    "windows": 239
+  },
+  {
+    "seed": 789,
+    "split": "train",
+    "recording_id": "IR014_0HP_1797rpm.mat",
+    "fault_type": "IR",
+    "fault_diameter": "014",
+    "load_hp": 0,
+    "windows": 236
+  },
+  {
+    "seed": 789,
+    "split": "train",
+    "recording_id": "IR014_1HP_1772rpm.mat",
+    "fault_type": "IR",
+    "fault_diameter": "014",
+    "load_hp": 1,
+    "windows": 236
+  },
+  {
+    "seed": 789,
+    "split": "train",
+    "recording_id": "IR014_2HP_1750rpm.mat",
+    "fault_type": "IR",
+    "fault_diameter": "014",
+    "load_hp": 2,
+    "windows": 236
+  },
+  {
+    "seed": 789,
+    "split": "train",
+    "recording_id": "IR014_3HP_1730rpm.mat",
+    "fault_type": "IR",
+    "fault_diameter": "014",
+    "load_hp": 3,
+    "windows": 236
+  },
+  {
+    "seed": 789,
+    "split": "train",
+    "recording_id": "Normal_2HP_1750rpm.mat",
+    "fault_type": "Normal",
+    "fault_diameter": "None",
+    "load_hp": 2,
+    "windows": 944
+  },
+  {
+    "seed": 789,
+    "split": "train",
+    "recording_id": "Normal_3HP_1730rpm.mat",
+    "fault_type": "Normal",
+    "fault_diameter": "None",
+    "load_hp": 3,
+    "windows": 947
+  },
+  {
+    "seed": 789,
+    "split": "train",
+    "recording_id": "OR007@6_0HP_1797rpm.mat",
+    "fault_type": "OR",
+    "fault_diameter": "007",
+    "load_hp": 0,
+    "windows": 237
+  },
+  {
+    "seed": 789,
+    "split": "train",
+    "recording_id": "OR007@6_1HP_1772rpm.mat",
+    "fault_type": "OR",
+    "fault_diameter": "007",
+    "load_hp": 1,
+    "windows": 238
+  },
+  {
+    "seed": 789,
+    "split": "train",
+    "recording_id": "OR007@6_2HP_1750rpm.mat",
+    "fault_type": "OR",
+    "fault_diameter": "007",
+    "load_hp": 2,
+    "windows": 236
+  },
+  {
+    "seed": 789,
+    "split": "train",
+    "recording_id": "OR014@6_2HP_1750rpm.mat",
+    "fault_type": "OR",
+    "fault_diameter": "014",
+    "load_hp": 2,
+    "windows": 236
+  },
+  {
+    "seed": 789,
+    "split": "train",
+    "recording_id": "OR021@6_0HP_1797rpm.mat",
+    "fault_type": "OR",
+    "fault_diameter": "021",
+    "load_hp": 0,
+    "windows": 238
+  },
+  {
+    "seed": 789,
+    "split": "train",
+    "recording_id": "OR021@6_1HP_1772rpm.mat",
+    "fault_type": "OR",
+    "fault_diameter": "021",
+    "load_hp": 1,
+    "windows": 237
+  },
+  {
+    "seed": 789,
+    "split": "train",
+    "recording_id": "OR021@6_2HP_1750rpm.mat",
+    "fault_type": "OR",
+    "fault_diameter": "021",
+    "load_hp": 2,
+    "windows": 237
+  },
+  {
+    "seed": 789,
+    "split": "validation",
+    "recording_id": "B014_0HP_1797rpm.mat",
+    "fault_type": "B",
+    "fault_diameter": "014",
+    "load_hp": 0,
+    "windows": 236
+  },
+  {
+    "seed": 789,
+    "split": "validation",
+    "recording_id": "B021_3HP_1730rpm.mat",
+    "fault_type": "B",
+    "fault_diameter": "021",
+    "load_hp": 3,
+    "windows": 237
+  },
+  {
+    "seed": 789,
+    "split": "validation",
+    "recording_id": "IR021_0HP_1797rpm.mat",
+    "fault_type": "IR",
+    "fault_diameter": "021",
+    "load_hp": 0,
+    "windows": 237
+  },
+  {
+    "seed": 789,
+    "split": "validation",
+    "recording_id": "IR021_2HP_1750rpm.mat",
+    "fault_type": "IR",
+    "fault_diameter": "021",
+    "load_hp": 2,
+    "windows": 236
+  },
+  {
+    "seed": 789,
+    "split": "validation",
+    "recording_id": "Normal_1HP_1772rpm.mat",
+    "fault_type": "Normal",
+    "fault_diameter": "None",
+    "load_hp": 1,
+    "windows": 944
+  },
+  {
+    "seed": 789,
+    "split": "validation",
+    "recording_id": "OR014@6_0HP_1797rpm.mat",
+    "fault_type": "OR",
+    "fault_diameter": "014",
+    "load_hp": 0,
+    "windows": 236
+  },
+  {
+    "seed": 789,
+    "split": "validation",
+    "recording_id": "OR014@6_3HP_1730rpm.mat",
+    "fault_type": "OR",
+    "fault_diameter": "014",
+    "load_hp": 3,
+    "windows": 237
+  },
+  {
+    "seed": 789,
+    "split": "test",
+    "recording_id": "B007_1HP_1772rpm.mat",
+    "fault_type": "B",
+    "fault_diameter": "007",
+    "load_hp": 1,
+    "windows": 236
+  },
+  {
+    "seed": 789,
+    "split": "test",
+    "recording_id": "B007_2HP_1750rpm.mat",
+    "fault_type": "B",
+    "fault_diameter": "007",
+    "load_hp": 2,
+    "windows": 236
+  },
+  {
+    "seed": 789,
+    "split": "test",
+    "recording_id": "B007_3HP_1730rpm.mat",
+    "fault_type": "B",
+    "fault_diameter": "007",
+    "load_hp": 3,
+    "windows": 236
+  },
+  {
+    "seed": 789,
+    "split": "test",
+    "recording_id": "IR007_1HP_1772rpm.mat",
+    "fault_type": "IR",
+    "fault_diameter": "007",
+    "load_hp": 1,
+    "windows": 237
+  },
+  {
+    "seed": 789,
+    "split": "test",
+    "recording_id": "IR021_1HP_1772rpm.mat",
+    "fault_type": "IR",
+    "fault_diameter": "021",
+    "load_hp": 1,
+    "windows": 236
+  },
+  {
+    "seed": 789,
+    "split": "test",
+    "recording_id": "IR021_3HP_1730rpm.mat",
+    "fault_type": "IR",
+    "fault_diameter": "021",
+    "load_hp": 3,
+    "windows": 237
+  },
+  {
+    "seed": 789,
+    "split": "test",
+    "recording_id": "Normal_0HP_1797rpm.mat",
+    "fault_type": "Normal",
+    "fault_diameter": "None",
+    "load_hp": 0,
+    "windows": 475
+  },
+  {
+    "seed": 789,
+    "split": "test",
+    "recording_id": "OR007@6_3HP_1730rpm.mat",
+    "fault_type": "OR",
+    "fault_diameter": "007",
+    "load_hp": 3,
+    "windows": 238
+  },
+  {
+    "seed": 789,
+    "split": "test",
+    "recording_id": "OR014@6_1HP_1772rpm.mat",
+    "fault_type": "OR",
+    "fault_diameter": "014",
+    "load_hp": 1,
+    "windows": 237
+  },
+  {
+    "seed": 789,
+    "split": "test",
+    "recording_id": "OR021@6_3HP_1730rpm.mat",
+    "fault_type": "OR",
+    "fault_diameter": "021",
+    "load_hp": 3,
+    "windows": 237
+  },
+  {
+    "seed": 1024,
+    "split": "train",
+    "recording_id": "B007_0HP_1797rpm.mat",
+    "fault_type": "B",
+    "fault_diameter": "007",
+    "load_hp": 0,
+    "windows": 238
+  },
+  {
+    "seed": 1024,
+    "split": "train",
+    "recording_id": "B007_2HP_1750rpm.mat",
+    "fault_type": "B",
+    "fault_diameter": "007",
+    "load_hp": 2,
+    "windows": 236
+  },
+  {
+    "seed": 1024,
+    "split": "train",
+    "recording_id": "B007_3HP_1730rpm.mat",
+    "fault_type": "B",
+    "fault_diameter": "007",
+    "load_hp": 3,
+    "windows": 236
+  },
+  {
+    "seed": 1024,
+    "split": "train",
+    "recording_id": "B014_0HP_1797rpm.mat",
+    "fault_type": "B",
+    "fault_diameter": "014",
+    "load_hp": 0,
+    "windows": 236
+  },
+  {
+    "seed": 1024,
+    "split": "train",
+    "recording_id": "B014_2HP_1750rpm.mat",
+    "fault_type": "B",
+    "fault_diameter": "014",
+    "load_hp": 2,
+    "windows": 237
+  },
+  {
+    "seed": 1024,
+    "split": "train",
+    "recording_id": "B014_3HP_1730rpm.mat",
+    "fault_type": "B",
+    "fault_diameter": "014",
+    "load_hp": 3,
+    "windows": 237
+  },
+  {
+    "seed": 1024,
+    "split": "train",
+    "recording_id": "B021_0HP_1797rpm.mat",
+    "fault_type": "B",
+    "fault_diameter": "021",
+    "load_hp": 0,
+    "windows": 237
+  },
+  {
+    "seed": 1024,
+    "split": "train",
+    "recording_id": "IR007_0HP_1797rpm.mat",
+    "fault_type": "IR",
+    "fault_diameter": "007",
+    "load_hp": 0,
+    "windows": 235
+  },
+  {
+    "seed": 1024,
+    "split": "train",
+    "recording_id": "IR007_2HP_1750rpm.mat",
+    "fault_type": "IR",
+    "fault_diameter": "007",
+    "load_hp": 2,
+    "windows": 237
+  },
+  {
+    "seed": 1024,
+    "split": "train",
+    "recording_id": "IR007_3HP_1730rpm.mat",
+    "fault_type": "IR",
+    "fault_diameter": "007",
+    "load_hp": 3,
+    "windows": 239
+  },
+  {
+    "seed": 1024,
+    "split": "train",
+    "recording_id": "IR014_0HP_1797rpm.mat",
+    "fault_type": "IR",
+    "fault_diameter": "014",
+    "load_hp": 0,
+    "windows": 236
+  },
+  {
+    "seed": 1024,
+    "split": "train",
+    "recording_id": "IR014_1HP_1772rpm.mat",
+    "fault_type": "IR",
+    "fault_diameter": "014",
+    "load_hp": 1,
+    "windows": 236
+  },
+  {
+    "seed": 1024,
+    "split": "train",
+    "recording_id": "IR014_2HP_1750rpm.mat",
+    "fault_type": "IR",
+    "fault_diameter": "014",
+    "load_hp": 2,
+    "windows": 236
+  },
+  {
+    "seed": 1024,
+    "split": "train",
+    "recording_id": "IR021_2HP_1750rpm.mat",
+    "fault_type": "IR",
+    "fault_diameter": "021",
+    "load_hp": 2,
+    "windows": 236
+  },
+  {
+    "seed": 1024,
+    "split": "train",
+    "recording_id": "Normal_2HP_1750rpm.mat",
+    "fault_type": "Normal",
+    "fault_diameter": "None",
+    "load_hp": 2,
+    "windows": 944
+  },
+  {
+    "seed": 1024,
+    "split": "train",
+    "recording_id": "Normal_3HP_1730rpm.mat",
+    "fault_type": "Normal",
+    "fault_diameter": "None",
+    "load_hp": 3,
+    "windows": 947
+  },
+  {
+    "seed": 1024,
+    "split": "train",
+    "recording_id": "OR007@6_0HP_1797rpm.mat",
+    "fault_type": "OR",
+    "fault_diameter": "007",
+    "load_hp": 0,
+    "windows": 237
+  },
+  {
+    "seed": 1024,
+    "split": "train",
+    "recording_id": "OR007@6_1HP_1772rpm.mat",
+    "fault_type": "OR",
+    "fault_diameter": "007",
+    "load_hp": 1,
+    "windows": 238
+  },
+  {
+    "seed": 1024,
+    "split": "train",
+    "recording_id": "OR007@6_2HP_1750rpm.mat",
+    "fault_type": "OR",
+    "fault_diameter": "007",
+    "load_hp": 2,
+    "windows": 236
+  },
+  {
+    "seed": 1024,
+    "split": "train",
+    "recording_id": "OR007@6_3HP_1730rpm.mat",
+    "fault_type": "OR",
+    "fault_diameter": "007",
+    "load_hp": 3,
+    "windows": 238
+  },
+  {
+    "seed": 1024,
+    "split": "train",
+    "recording_id": "OR014@6_3HP_1730rpm.mat",
+    "fault_type": "OR",
+    "fault_diameter": "014",
+    "load_hp": 3,
+    "windows": 237
+  },
+  {
+    "seed": 1024,
+    "split": "train",
+    "recording_id": "OR021@6_0HP_1797rpm.mat",
+    "fault_type": "OR",
+    "fault_diameter": "021",
+    "load_hp": 0,
+    "windows": 238
+  },
+  {
+    "seed": 1024,
+    "split": "train",
+    "recording_id": "OR021@6_1HP_1772rpm.mat",
+    "fault_type": "OR",
+    "fault_diameter": "021",
+    "load_hp": 1,
+    "windows": 237
+  },
+  {
+    "seed": 1024,
+    "split": "validation",
+    "recording_id": "B014_1HP_1772rpm.mat",
+    "fault_type": "B",
+    "fault_diameter": "014",
+    "load_hp": 1,
+    "windows": 237
+  },
+  {
+    "seed": 1024,
+    "split": "validation",
+    "recording_id": "B021_1HP_1772rpm.mat",
+    "fault_type": "B",
+    "fault_diameter": "021",
+    "load_hp": 1,
+    "windows": 236
+  },
+  {
+    "seed": 1024,
+    "split": "validation",
+    "recording_id": "IR007_1HP_1772rpm.mat",
+    "fault_type": "IR",
+    "fault_diameter": "007",
+    "load_hp": 1,
+    "windows": 237
+  },
+  {
+    "seed": 1024,
+    "split": "validation",
+    "recording_id": "IR021_3HP_1730rpm.mat",
+    "fault_type": "IR",
+    "fault_diameter": "021",
+    "load_hp": 3,
+    "windows": 237
+  },
+  {
+    "seed": 1024,
+    "split": "validation",
+    "recording_id": "Normal_0HP_1797rpm.mat",
+    "fault_type": "Normal",
+    "fault_diameter": "None",
+    "load_hp": 0,
+    "windows": 475
+  },
+  {
+    "seed": 1024,
+    "split": "validation",
+    "recording_id": "OR014@6_0HP_1797rpm.mat",
+    "fault_type": "OR",
+    "fault_diameter": "014",
+    "load_hp": 0,
+    "windows": 236
+  },
+  {
+    "seed": 1024,
+    "split": "validation",
+    "recording_id": "OR021@6_2HP_1750rpm.mat",
+    "fault_type": "OR",
+    "fault_diameter": "021",
+    "load_hp": 2,
+    "windows": 237
+  },
+  {
+    "seed": 1024,
+    "split": "test",
+    "recording_id": "B007_1HP_1772rpm.mat",
+    "fault_type": "B",
+    "fault_diameter": "007",
+    "load_hp": 1,
+    "windows": 236
+  },
+  {
+    "seed": 1024,
+    "split": "test",
+    "recording_id": "B021_2HP_1750rpm.mat",
+    "fault_type": "B",
+    "fault_diameter": "021",
+    "load_hp": 2,
+    "windows": 237
+  },
+  {
+    "seed": 1024,
+    "split": "test",
+    "recording_id": "B021_3HP_1730rpm.mat",
+    "fault_type": "B",
+    "fault_diameter": "021",
+    "load_hp": 3,
+    "windows": 237
+  },
+  {
+    "seed": 1024,
+    "split": "test",
+    "recording_id": "IR014_3HP_1730rpm.mat",
+    "fault_type": "IR",
+    "fault_diameter": "014",
+    "load_hp": 3,
+    "windows": 236
+  },
+  {
+    "seed": 1024,
+    "split": "test",
+    "recording_id": "IR021_0HP_1797rpm.mat",
+    "fault_type": "IR",
+    "fault_diameter": "021",
+    "load_hp": 0,
+    "windows": 237
+  },
+  {
+    "seed": 1024,
+    "split": "test",
+    "recording_id": "IR021_1HP_1772rpm.mat",
+    "fault_type": "IR",
+    "fault_diameter": "021",
+    "load_hp": 1,
+    "windows": 236
+  },
+  {
+    "seed": 1024,
+    "split": "test",
+    "recording_id": "Normal_1HP_1772rpm.mat",
+    "fault_type": "Normal",
+    "fault_diameter": "None",
+    "load_hp": 1,
+    "windows": 944
+  },
+  {
+    "seed": 1024,
+    "split": "test",
+    "recording_id": "OR014@6_1HP_1772rpm.mat",
+    "fault_type": "OR",
+    "fault_diameter": "014",
+    "load_hp": 1,
+    "windows": 237
+  },
+  {
+    "seed": 1024,
+    "split": "test",
+    "recording_id": "OR014@6_2HP_1750rpm.mat",
+    "fault_type": "OR",
+    "fault_diameter": "014",
+    "load_hp": 2,
+    "windows": 236
+  },
+  {
+    "seed": 1024,
+    "split": "test",
+    "recording_id": "OR021@6_3HP_1730rpm.mat",
+    "fault_type": "OR",
+    "fault_diameter": "021",
+    "load_hp": 3,
+    "windows": 237
+  }
+]

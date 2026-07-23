@@ -1,53 +1,37 @@
-# Integrity Report — Stage 4.5 Final Check
+# Integrity Report — Audited Evidence Stage
 
-Performed: 2026-07-22
+## Failure-mode audit
 
-## Seven Failure Modes Check (Lu et al., 2026)
+| Mode | Check | Status | Evidence |
+|---|---|---|---|
+| M1 — Hidden data dependence | Shared samples, recording overlap, normalization, and augmentation timing inspected | Cleared with scope caveat | Structural overlap audit; exact recording assignments; train-only normalization |
+| M2 — Unsupported numerical claims | Main, H3, grouping, seed, and epoch claims traced to generated JSON | Cleared | `release_summary.json`; generated LaTeX tables; claim–evidence table |
+| M3 — AI-invented evidence | Server outputs, hashes, logs, and repair trail retained | Cleared | 200 logs; server/local archive hash; prompt log; AI disclosure |
+| M4 — Shortcut reliance | Negative control and two model families tested | Cleared within scope | Frequency reversal collapses accuracy; separate 1D/2D results |
+| M5 — Bug-as-discovery | Protocol, metric, grouping, robustness, and convergence code re-audited | Cleared after repairs | Revision response items 1–13 |
+| M6 — Methodological forgery | Implementation checked against prose and manifests | Cleared | Same 50% overlap; stratified random split; file-disjoint recording split |
+| M7 — Framing lock-in | Causal wording, H3 null, seed limits, and grouping confound reviewed | Cleared | Protocol-gap language; sensitivity analysis; explicit limitations |
 
-| # | Mode | Verification | Status |
-|---|------|-------------|:------:|
-| M1 | Bug in self-review | Training code executed 200+ runs on real GPU; STFT device bug found and fixed; all results verified against epoch logs | CLEARED |
-| M2 | Hallucinated citations | All 9 references verified via DOI against published works; no fabricated references | CLEARED |
-| M3 | Hallucinated results | All numerical claims traceable to `results/tables/main_results.json` (40 entries × 5 seeds); per-epoch logs confirm training execution | CLEARED |
-| M4 | Reliance on shortcuts | Recording-level split confirmed in code review; data leakage audit performed (M1 autocorrelation); grouping-variable ablation reduces single-split reliance | CLEARED |
-| M5 | Bug packaged as finding | Initial 3-seed overestimation (0.965→0.901) transparently reported; no bug attributed as method advantage | CLEARED |
-| M6 | Methodological forgery | Split implementations verified in `preprocess.py` (recording_level_split, load_based_split, fault_size_based_split); normalization computed on training set only | CLEARED |
-| M7 | Premature framing lock | Two alternative grouping variables tested (load, fault_size) beyond main RQ; negative control (freq_flip) included; H3 null result reported honestly | CLEARED |
+## Evidence completeness
 
-## Evidence Traceability
+- 40 unique main configurations × 5 configured seeds.
+- Exactly 200 per-epoch CSVs, each covering epochs 1–50.
+- Forty confusion-matrix records, each with five 4×4 matrices and an aggregate.
+- Thirty grouping runs, all with exact assignments and 4×4 matrices.
+- Recording grouping reproduces the main no-augmentation recording baseline exactly for every seed.
+- Forty readable selected recordings and 200 seed/recording assignment rows.
+- Random and recording split verification both report 50% overlap.
+- Fifteen referenced result figures are present.
+- H3 includes per-model primary tests and per-model sensitivity tests without the negative control.
 
-| Paper Section | Evidence Source | Verified |
-|:---|:---|:---:|
-| §5.1 M1 autocorrelation | `results/figures/m1_adjacent_autocorrelation.png` | Yes |
-| §5.2 M5 fault-band energy | `results/tables/energy_audit.json`, `results/figures/m5_fault_band_energy.png` | Yes |
-| §5.3 M2 feature diversity | `results/figures/m2_feature_diversity.png` | Yes |
-| §7.1 Table 1 | `results/tables/main_results.json` (40 entries) | Yes |
-| §7.2 Table 2 per-class | `results/tables/per_class_analysis.json`, `results/figures/per_class_2d_recording.png` | Yes |
-| §7.3 Table 3 gap-recovery | `results/tables/gap_recovery.json` | Yes |
-| §7.4 Table 4 ablation | `results/tables/grouping_ablation.json` | Yes |
-| §8 H3 correlation | `results/tables/h4_correlation.json`, `results/figures/h4_correlation.png` | Yes |
-| §6 convergence | `results/tables/convergence_summary.json`, `results/figures/convergence_curves.png` | Yes |
-| §9.1 combined vs single | `results/tables/gap_recovery.json` (combined row) | Yes |
+## Interpretation boundaries
 
-## Leakage Audit
+1. The random-to-recording difference is an operational protocol gap, not a causal estimate of leakage alone.
+2. Fault-size grouping is a descriptive stress test because group and training coverage differ.
+3. H3 is not supported; the null does not prove physical fidelity is irrelevant.
+4. Best-validation epoch is a diagnostic, not proof of convergence.
+5. Three seeds were inadequate in this configured ordering; five are not claimed universally sufficient.
+6. The one-seed contamination curves are auxiliary only.
+7. No cross-dataset generalization claim is made.
 
-- [x] Recording-level split: all windows from same .mat file in single split
-- [x] Stratified by fault class (4 classes)
-- [x] Normalization mean/std computed on training set only
-- [x] Augmentation applied post-split, training set only
-- [x] Fault-size split: Normal recordings distributed 60/20/20 across splits
-- [x] All hyperparameters fixed prior to experimentation
-- [ ] 5 of 200 epoch logs missing from `results/logs/epoch_logs/` (195 present). Likely early convergence with non-standard exit; main_results.json has all 200 seed-level results. Non-blocking.
-
-## Reproducibility Checklist
-
-- [x] Code in GitHub repository
-- [x] Random seeds documented (42, 123, 456, 789, 1024)
-- [x] Per-epoch logs for all 200 runs in `results/logs/epoch_logs/`
-- [x] Data manifest in `data_manifest/`
-- [x] Environment: PyTorch 2.5.1+cu121, NVIDIA A10, Ubuntu 22.04
-- [x] `results/` directory mirrors server output exactly (SFTP download verified)
-
-## Overall Verdict
-
-**PASS** — All seven integrity checks cleared. All claims supported by verifiable evidence. No fabricated results, no fabricated citations, no hidden leakage.
+The final integrity report is issued only after the compiled PDF is rendered, visually inspected, and the complete release verifier passes.

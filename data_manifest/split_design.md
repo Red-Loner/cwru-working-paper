@@ -8,7 +8,7 @@ This document defines the train/validation/test split protocols for the factoria
 
 ### A1. Random Adjacent-Window Split (LEAKAGE BASELINE)
 
-Purpose: Upper bound — measures what leakage produces, not true generalization.
+Purpose: Leakage-prone reference estimate under window-level randomization.
 
 Procedure:
 1. Load all `.mat` files, extract DE 12 kHz signal.
@@ -17,19 +17,19 @@ Procedure:
 4. Randomly split windows: train 60% / val 20% / test 20%, stratified by fault class.
 5. Report: "Random split (leakage-prone)".
 
-Risk: Adjacent windows from the same recording appear in train AND test. Model learns recording identity → inflated accuracy by 10–30 percentage points.
+Risk: Adjacent windows from the same recording can appear in train and test. The model can exploit shared samples and recording-specific signatures; the observed inflation is measured rather than prespecified.
 
-Justification: This is the de facto standard in much CWRU literature. Including it as a baseline (A1) quantifies the leakage premium and provides reference for the gap-recovery ratio.
+Justification: Including this commonly encountered baseline quantifies the protocol difference and provides the denominator for the gap-recovery ratio.
 
 ### A2. Recording-Level Split (LEAKAGE-SAFE)
 
-Purpose: True generalization — evaluates whether the model learns fault features, not recording identity.
+Purpose: Recording-disjoint estimate that prevents source-recording identity from crossing partitions.
 
 Procedure:
 1. Load all `.mat` files, identify unique recordings.
-2. Group recordings by fault class and load condition.
+2. Group recordings by fault class.
 3. Assign each recording entirely to ONE split: train (60% of recordings), val (20%), test (20%), stratified by fault class.
-4. Segment windows within each split independently. Overlap = 0% (non-overlapping windows to maximize independence within a recording).
+4. Segment each recording with the same 50% overlap used by Protocol R, then assign all of that recording's windows to its preselected partition. This keeps preprocessing fixed while preventing cross-partition recording overlap.
 5. Report: "Recording-level split (leakage-safe)".
 
 Rule: NO two windows from the same original `.mat` recording appear in different splits.
@@ -43,24 +43,23 @@ Validation:
 | Parameter | Value | Justification |
 |-----------|-------|---------------|
 | Window length | 1024 samples (~85 ms @ 12 kHz) | Standard in CWRU literature; captures multiple shaft rotations |
-| Overlap (recording-level) | 0% | Maximizes window independence when windows share a recording |
-| Overlap (random split) | 50% | Typical practice in literature baselines |
+| Overlap (recording-level) | 50% | Fixed to match the random protocol; recordings remain disjoint across partitions |
+| Overlap (random split) | 50% | Creates the intended leakage-prone baseline when adjacent windows are split independently |
 | Normalization | Z-score, per-channel, using training-set statistics only | Prevents test-set information leakage |
-| Random seeds | ≥ 3 (e.g., 42, 123, 456) | Stability assessment |
+| Random seeds | 5 (42, 123, 456, 789, 1024) | Stability assessment |
 | Train/val/test ratio | 60/20/20 | Standard ML practice |
 
 ## Stratification Strategy
 
 - Primary: fault class (normal, IR, OR, ball)
-- Secondary (recording-level split only): load condition (0/1/2/3 HP) — ensure each split contains all loads to avoid confounding load effects with split effects
-- Fault diameter (0.007"/0.014"/0.021") is NOT used for stratification but is tracked for per-diameter sub-analysis
+- Load condition and fault diameter are tracked but are not additional stratification keys. Their distribution can vary across seeds and is examined separately through grouping ablations.
 
 ## Verification Checklist
 
-- [ ] All recordings identified and documented (count, class, load, duration)
-- [ ] Recording-to-split assignment recorded and saved (for reproducibility)
-- [ ] No recording appears in more than one split (recording-level)
-- [ ] Class distribution balanced across splits (±5%)
-- [ ] Normalization fitted on training set only
-- [ ] Augmentation applied to training set only (post-split)
-- [ ] Window count per class per split documented for class-imbalance disclosure
+- [x] All 40 selected recordings identified with class, load, size, SHA-256, and signal length in `dataset_file_manifest.json`
+- [x] Recording-to-split assignment saved for all five seeds in `recording_split_assignments.json`
+- [x] No recording appears in more than one split; checked programmatically in `split_verification.json`
+- [x] Every selected recording appears in exactly one split for every seed
+- [x] Normalization is fitted on training windows only
+- [x] Augmentation is applied to the training partition only, after splitting
+- [x] Recording, window, and per-class counts are documented per seed and split

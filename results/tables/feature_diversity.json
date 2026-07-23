@@ -1,0 +1,50 @@
+{
+  "none": {
+    "representation": "standardized 32x32 STFT magnitude",
+    "sample_count": 200,
+    "cosine_distance_mean": -3.933906711495183e-08,
+    "cosine_distance_std": 5.605372521699792e-08,
+    "effective_rank": 200,
+    "effective_rank_ratio": 0.5
+  },
+  "noise_005": {
+    "representation": "standardized 32x32 STFT magnitude",
+    "sample_count": 200,
+    "cosine_distance_mean": 0.007349052932113409,
+    "cosine_distance_std": 0.006353935692459345,
+    "effective_rank": 400,
+    "effective_rank_ratio": 1.0
+  },
+  "shift_20": {
+    "representation": "standardized 32x32 STFT magnitude",
+    "sample_count": 200,
+    "cosine_distance_mean": 0.06288991868495941,
+    "cosine_distance_std": 0.04030728340148926,
+    "effective_rank": 396,
+    "effective_rank_ratio": 0.99
+  },
+  "specaugment": {
+    "representation": "standardized 32x32 STFT magnitude",
+    "sample_count": 200,
+    "cosine_distance_mean": 0.03083440288901329,
+    "cosine_distance_std": 0.0340789332985878,
+    "effective_rank": 400,
+    "effective_rank_ratio": 1.0
+  },
+  "combined": {
+    "representation": "standardized 32x32 STFT magnitude",
+    "sample_count": 200,
+    "cosine_distance_mean": 0.06694884598255157,
+    "cosine_distance_std": 0.033838901668787,
+    "effective_rank": 400,
+    "effective_rank_ratio": 1.0
+  },
+  "freq_flip": {
+    "representation": "standardized 32x32 STFT magnitude",
+    "sample_count": 200,
+    "cosine_distance_mean": 0.47743716835975647,
+    "cosine_distance_std": 0.1680867224931717,
+    "effective_rank": 400,
+    "effective_rank_ratio": 1.0
+  }
+}

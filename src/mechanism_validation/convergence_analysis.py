@@ -31,24 +31,28 @@ def analyze_convergence():
         val_acc = data[:, 3]
         last10 = val_acc[-10:].mean()
         best = val_acc.max()
-        converged_epoch = np.argmax(val_acc) + 1
+        best_validation_epoch = int(epochs[np.argmax(val_acc)])
         summary[basename] = {
             "best_val_acc": round(float(best), 4),
             "last10_val_acc": round(float(last10), 4),
-            "converged_at_epoch": int(converged_epoch),
+            "best_validation_epoch": best_validation_epoch,
             "final_epoch": int(epochs[-1]),
         }
 
-    conv_epochs = [v["converged_at_epoch"] for v in summary.values()]
-    if conv_epochs:
-        print(f"Total runs: {len(conv_epochs)}")
-        print(f"Convergence epoch: mean={np.mean(conv_epochs):.1f}, "
-              f"median={np.median(conv_epochs):.1f}, max={max(conv_epochs)}")
-        late_conv = sum(1 for e in conv_epochs if e >= 45)
-        print(f"Runs converging in last 10% of epochs (>=45): {late_conv}/{len(conv_epochs)}")
+    best_epochs = [v["best_validation_epoch"] for v in summary.values()]
+    if best_epochs:
+        print(f"Total runs: {len(best_epochs)}")
+        print(f"Best-validation epoch: mean={np.mean(best_epochs):.1f}, "
+              f"median={np.median(best_epochs):.1f}, max={max(best_epochs)}")
+        late_best = sum(1 for e in best_epochs if e >= 45)
+        print(f"Runs reaching best validation in epochs 45-50: "
+              f"{late_best}/{len(best_epochs)}")
         not_conv = sum(1 for v in summary.values()
                        if v["last10_val_acc"] < v["best_val_acc"] - 0.01)
-        print(f"Runs with degrading last-10-epoch val_acc: {not_conv}/{len(conv_epochs)}")
+        print(
+            "Runs with degrading last-10-epoch val_acc: "
+            f"{not_conv}/{len(best_epochs)}"
+        )
 
     parts = ["1d_random", "1d_recording", "2d_random", "2d_recording"]
     fig, axes = plt.subplots(2, 2, figsize=(14, 10))
