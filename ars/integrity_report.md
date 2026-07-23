@@ -37,6 +37,7 @@ Performed: 2026-07-22
 - [x] Augmentation applied post-split, training set only
 - [x] Fault-size split: Normal recordings distributed 60/20/20 across splits
 - [x] All hyperparameters fixed prior to experimentation
+- [ ] 5 of 200 epoch logs missing from `results/logs/epoch_logs/` (195 present). Likely early convergence with non-standard exit; main_results.json has all 200 seed-level results. Non-blocking.
 
 ## Reproducibility Checklist
 

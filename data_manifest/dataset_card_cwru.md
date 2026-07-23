@@ -4,7 +4,7 @@
 - **Source URL**: https://engineering.case.edu/bearingdatacenter
 - **Citation**: K.A. Loparo, Case Western Reserve University, "Bearing Data Center," https://engineering.case.edu/bearingdatacenter
 - **License or terms**: Publicly available for research; attribution requested. No formal license specified — academic use is standard.
-- **Download date**: [TBD — fill in actual download date]
+- **Download date**: 2026-07-17. Data sourced from https://engineering.case.edu/bearingdatacenter. Downloaded via direct download links for 12 kHz Drive End bearing data.
 - **Signal type**: Vibration acceleration (accelerometer)
 - **Sampling rate**: 12 kHz (Drive End, DE) / 48 kHz (Fan End, FE, available but less commonly used)
 - **Machine or system**: 2 HP Reliance Electric motor driving a bearing test rig. Test bearings: SKF 6205-2RS JEM (Drive End), SKF 6203-2RS JEM (Fan End).
